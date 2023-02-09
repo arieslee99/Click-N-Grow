@@ -13,10 +13,9 @@ public class TestPlant {
 
     @BeforeEach
     public void setup() {
-        garlic = new Plant("Garlic", 3, 4);
-        tomato = new Plant("Tomato", 1, 1);
-        rice = new Plant("Rice", 2, 0);
-
+        garlic = new Plant("Garlic", 3, 4, 100);
+        tomato = new Plant("Tomato", 1, 1, 200);
+        rice = new Plant("Rice", 2, 0, 300);
     }
 
     @Test
@@ -25,6 +24,7 @@ public class TestPlant {
         assertEquals(3, garlic.getWaterCount());
         assertEquals(4, garlic.getFertilizerCount());
         assertEquals("Growing!", garlic.getLifeStatus());
+        assertEquals(100, garlic.getPrice());
     }
 
     @Test

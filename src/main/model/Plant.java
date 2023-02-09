@@ -5,13 +5,15 @@ public class Plant {
     private String lifeStatus;
     private int waterCount;
     private int fertilizerCount;
+    private int price;
 
     //EFFECTS: construct a plant
-    public Plant(String name, Integer waterCount, Integer fertilizerCount) {
+    public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price) {
         this.plantName = name;
         this.waterCount = waterCount;
         this.fertilizerCount = fertilizerCount;
         this.lifeStatus = "Growing!";
+        this.price = price;
     }
 
     //MODIFIES: this
@@ -55,6 +57,10 @@ public class Plant {
 
     public Integer getFertilizerCount() {
         return fertilizerCount;
+    }
+
+    public Integer getPrice() {
+        return price;
     }
 
 }
