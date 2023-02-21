@@ -20,18 +20,9 @@ public class GardenApp {
     }
 
     private void runGarden() {
-        System.out.println("Would you like to: ");
-        System.out.println("proceed");
-        System.out.println("quit");
+        System.out.println("Welcome to your virtual garden!");
         System.out.println();
-
-        String answer = input.nextLine();
-        if (answer.equals("proceed")) {
-            initializeGarden();
-        } else {
-            System.out.println("Come back soon!");
-        }
-
+        initializeGarden();
     }
 
     private void initializeGarden() {
@@ -58,7 +49,7 @@ public class GardenApp {
     }
 
     private void processCommand(String action) {
-        switch(action) {
+        switch(action.toUpperCase()) {
             case ("G"):
                 seeMyGarden();
                 break;
@@ -74,6 +65,8 @@ public class GardenApp {
             case("Q"):
                 System.out.print("Come back soon!");
                 break;
+            default:
+                displayMenu();
         }
     }
 
@@ -94,7 +87,7 @@ public class GardenApp {
         System.out.println("\tB -> Back to homepage");
 
         String action = input.nextLine();
-        switch(action) {
+        switch(action.toUpperCase()) {
             case("B"):
                 displayMenu();
             case("W"):
@@ -103,13 +96,15 @@ public class GardenApp {
                 feedPlants();
             case("H"):
                 harvest();
+            default:
+                seeMyGarden();
         }
     }
 
     private void waterPlants() {
         System.out.println("Which plant would you like to water?");
         for(Plant plant: garden.getGarden()) {
-            if (plant.getPlantName().equals(input.nextLine())) {
+            if (plant.getPlantName().equalsIgnoreCase(input.nextLine())) {
                 plant.waterPlant();
                 System.out.println("Your" + plant.getPlantName() + " is watered!");
                 System.out.println("It's current water count is: " + plant.getWaterCount());
@@ -121,7 +116,7 @@ public class GardenApp {
     private void feedPlants() {
         System.out.println("Which plant would you like to feed?");
         for(Plant plant: garden.getGarden()) {
-            if (plant.getPlantName().equals(input.nextLine())) {
+            if (plant.getPlantName().equalsIgnoreCase(input.nextLine())) {
                 plant.feedPlant();
                 System.out.println("Your" + plant.getPlantName() + " is fed!");
                 System.out.println("It's current feed count is: " + plant.getFertilizerCount());
@@ -146,24 +141,26 @@ public class GardenApp {
 
 
     private void visitStore() {
-        System.out.println("Welcome to the store!");
+        System.out.println("Welcome to Cleo's!");
         System.out.println("\nWhich seed catalogue would you like to browse?");
-        System.out.println("\tAll seeds");
-        System.out.println("\tVeggies");
-        System.out.println("\tFlowers");
+        System.out.println("\tA -> All seeds");
+        System.out.println("\tV -> Veggies");
+        System.out.println("\tF -> Flowers");
 
         String action = input.nextLine();
 
-        switch(action) {
-            case("All seeds"):
+        switch(action.toUpperCase()) {
+            case("A"):
                 displaySeeds(store.getStore());
                 break;
-            case("Veggies"):
+            case("V"):
                 displaySeeds(store.getVegetables());
                 break;
-            case("Flowers"):
+            case("F"):
                 displaySeeds(store.getFlowers());
                 break;
+            default:
+                visitStore();
         }
     }
 
@@ -179,7 +176,7 @@ public class GardenApp {
 
         String action = input.nextLine();
 
-        switch(action) {
+        switch(action.toUpperCase()) {
             case("Y"):
                 System.out.println("Which seed would you like to buy?");
                 buySeed(input.nextLine(), plants);
@@ -191,7 +188,7 @@ public class GardenApp {
 
     private void buySeed(String response, ArrayList<Plant> plants) {
         for(Plant plant: plants) {
-            if (plant.getPlantName().equals(response)) {
+            if (plant.getPlantName().equalsIgnoreCase(response)) {
                 if (wallet.getBalance() >= plant.getPrice()) {
                     garden.addPlant(plant);
                     wallet.decreaseBalance(plant.getPrice());
@@ -221,10 +218,12 @@ public class GardenApp {
         System.out.println("\tN -> No! Stay away from my plants!");
 
         String action = input.nextLine();
-        if (action.equals("Y")) {
+        if ("Y".equalsIgnoreCase(action)) {
             sellPlants();
-        } else {
+        } else if("N".equalsIgnoreCase(action)) {
             displayMenu();
+        } else {
+            seeMyInventory();
         }
 
     }
@@ -232,7 +231,7 @@ public class GardenApp {
     private void sellPlants() {
         System.out.println("What would you like to sell?");
         for(Plant plant: inventory.getInventory()) {
-            if (plant.getPlantName().equals(input.nextLine())) {
+            if (plant.getPlantName().equalsIgnoreCase(input.nextLine())) {
                 inventory.removePlant(plant);
                 wallet.increaseBalance(plant.getProfitValue());
                 System.out.println("You've earned: " + plant.getProfitValue());

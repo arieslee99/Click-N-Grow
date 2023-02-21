@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Plant {
     private String plantName;
     private String lifeStatus;
@@ -70,8 +72,46 @@ public class Plant {
     public Integer getProfitValue() {
         return price + PROFIT;
     }
+
     public PlantType getType() {
         return type;
+    }
+
+    //EFFECTS: overriding equals method
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        //checking to see if this. is an instance of the same class as other.
+        if (this.getClass() != other.getClass()) {
+            return false;
+        }
+
+        if (!this.plantName.equals(((Plant) other).plantName)){
+            return false;
+        }
+
+        if (!this.lifeStatus.equals(((Plant) other).lifeStatus)) {
+            return false;
+        }
+
+        if (this.fertilizerCount != ((Plant) other).fertilizerCount) {
+            return false;
+        }
+
+        if (this.waterCount != ((Plant) other).waterCount) {
+            return false;
+        }
+
+        if (this.price != ((Plant) other).price) {
+            return false;
+        }
+
+        if (!this.type.equals(((Plant) other).type)) {
+            return false;
+        }
+
+        return true;
     }
 
 }

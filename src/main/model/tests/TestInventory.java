@@ -3,6 +3,7 @@ package model.tests;
 import model.Garden;
 import model.Inventory;
 import model.Plant;
+import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +16,10 @@ public class TestInventory {
 
     private Inventory inventory;
     private Garden garden;
-    private final Plant lavender = (new Plant("Lavender", 0, 0, 500, FLOWER));
-    private final Plant rose = (new Plant("Rose", 0, 0, 600, FLOWER));
-    private final Plant sunflower = (new Plant("Sunflower", 8, 9, 300, FLOWER));
+    private final Lavender lavender = new Lavender("Lavender", 0, 0, 500, FLOWER);
+    private final Rose rose = new Rose("Rose", 0, 0, 600, FLOWER);
+    private final Sunflower sunflower
+            = new Sunflower("Sunflower", 8, 9, 300, FLOWER);
 
     @BeforeEach
     public void setup() {

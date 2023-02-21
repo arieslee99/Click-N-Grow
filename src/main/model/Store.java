@@ -1,5 +1,7 @@
 package model;
 
+import model.SeedCatagloue.*;
+
 import java.util.ArrayList;
 
 import static model.PlantType.FLOWER;
@@ -12,16 +14,16 @@ public class Store {
     public Store() {
         store = new ArrayList<>();
 
-        store.add(StorePlants.lavender);
-        store.add(StorePlants.rose);
-        store.add(StorePlants.forget_me_not);
-        store.add(StorePlants.sunflower);
-        store.add(StorePlants.cactus);
-        store.add(StorePlants.carrot);
-        store.add(StorePlants.potato);
-        store.add(StorePlants.lettuce);
-        store.add(StorePlants.eggplant);
-        store.add(StorePlants.garlic);
+        store.add(new Lavender("Lavender", 5, 6, 500, FLOWER));
+        store.add(new Rose("Rose", 6, 6, 600, FLOWER));
+        store.add(new Forget_Me_Not("Forget Me Not", 3, 6, 500, FLOWER));
+        store.add(new Sunflower("Sunflower", 8, 9, 300, FLOWER));
+        store.add(new Cactus("Cactus", 1, 2, 100, FLOWER));
+        store.add(new Carrot("Carrot", 5, 7, 200, VEGETABLE));
+        store.add(new Potato("Potato", 3, 5, 100, VEGETABLE));
+        store.add(new Lettuce("Lettuce", 8, 3, 400, VEGETABLE));
+        store.add(new Eggplant("Eggplant", 4, 5, 300, VEGETABLE));
+        store.add(new Garlic("Garlic", 2, 3, 100, VEGETABLE));
 
     }
 
