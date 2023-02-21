@@ -7,6 +7,7 @@ public class Plant {
     private int fertilizerCount;
     private int price;
     private PlantType type;
+    private Integer PROFIT= 100;
 
     //EFFECTS: construct a plant
     public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price, PlantType type) {
@@ -66,6 +67,9 @@ public class Plant {
         return price;
     }
 
+    public Integer getProfitValue() {
+        return price + PROFIT;
+    }
     public PlantType getType() {
         return type;
     }

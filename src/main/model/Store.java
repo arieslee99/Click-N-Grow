@@ -71,7 +71,7 @@ public class Store {
     }
 
     public ArrayList<Plant> getStore() {
-        return store;
+       return store;
     }
 }
 

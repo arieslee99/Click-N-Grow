@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Inventory {
     private ArrayList<Plant> inventory;
+    private Wallet wallet;
 
     //EFFECTS: construct an inventory
     public Inventory() {
         inventory = new ArrayList<>();
+        wallet = new Wallet();
     }
 
     //MODIFIES: this
@@ -24,20 +26,19 @@ public class Inventory {
     //REQUIRES: plant needs to be in inventory
     //MODIFIES: this
     //EFFECTS: remove plant from inventory and return true; else, return false
-    public Boolean removePlant(Plant plant) {
+    public void removePlant(Plant plant) {
         ArrayList<String> plantNames = new ArrayList<>();
         for(Plant p: inventory) {
             plantNames.add(p.getPlantName());
         }
 
         for (int i = 0; i < plantNames.size(); i++) {
-            if (plant.getPlantName().equals(plantNames.get(i))) {
-                inventory.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
+           if (plant.getPlantName().equals(plantNames.get(i))) {
+               inventory.remove(i);
+               
+           }
+       }
+   }
 
     //EFFECTS: search if plant exists in inventory; if it exists, return true, else false
     public boolean searchInventory(Plant plant) {

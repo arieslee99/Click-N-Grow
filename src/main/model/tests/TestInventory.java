@@ -44,8 +44,7 @@ public class TestInventory {
         inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
-        boolean success = inventory.removePlant(lavender);
-        assertTrue(success);
+        inventory.removePlant(lavender);
         assertEquals(1, inventory.getSize());
 
         ArrayList<Plant> plants = inventory.getInventory();
@@ -55,13 +54,12 @@ public class TestInventory {
 
     @Test
     public void TestRemoveMultiplePlants() {
-        inventory.addPlant(garden, lavender);
+       inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
-        boolean success = inventory.removePlant(lavender);
-        boolean success1 = inventory.removePlant(rose);
-        assertTrue(success);
-        assertTrue(success1);
+        inventory.removePlant(lavender);
+        inventory.removePlant(rose);
+
 
         assertEquals(0, inventory.getSize());
         ArrayList<Plant> plants = inventory.getInventory();

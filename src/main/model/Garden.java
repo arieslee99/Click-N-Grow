@@ -62,6 +62,12 @@ public class Garden {
         return gardenName;
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets garden name
+    public void setGardenName(String name) {
+        gardenName = name;
+    }
+
 
     //EFFECTS: return true if plant exits in the garden; else, false
     public Boolean getPlant(Plant plant) {
@@ -73,6 +79,7 @@ public class Garden {
         return false;
     }
 
+    //EFFECTS: return number of dead plants
     public Integer getNumOfDeadPlants() {
         int count = 0;
         for(Plant plant: garden) {
@@ -81,6 +88,10 @@ public class Garden {
             }
         }
         return count;
+    }
+
+    public ArrayList<Plant> getGarden() {
+        return garden;
     }
 
 
