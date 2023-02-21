@@ -1,5 +1,6 @@
-package model;
+package model.tests;
 
+import model.Wallet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -6,14 +6,16 @@ public class Plant {
     private int waterCount;
     private int fertilizerCount;
     private int price;
+    private PlantType type;
 
     //EFFECTS: construct a plant
-    public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price) {
+    public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price, PlantType type) {
         this.plantName = name;
         this.waterCount = waterCount;
         this.fertilizerCount = fertilizerCount;
-        this.lifeStatus = "Growing!";
+        this.lifeStatus = getLifeStatus();
         this.price = price;
+        this.type = type;
     }
 
     //MODIFIES: this
@@ -48,6 +50,7 @@ public class Plant {
     }
 
     public String getLifeStatus() {
+        updateLifeStatus();
         return lifeStatus;
     }
 
@@ -61,6 +64,10 @@ public class Plant {
 
     public Integer getPrice() {
         return price;
+    }
+
+    public PlantType getType() {
+        return type;
     }
 
 }

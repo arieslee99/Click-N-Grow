@@ -38,7 +38,7 @@ public class Garden {
 
     }
 
-    //REQUIRES: garden has at least one plant in it
+    //REQUIRES: garden has at least one dead plant in it
     //MODIFIES: this
     //EFFECTS: removes all the "Dead!" plants from garden
     public void removeDeadPlants() {
@@ -61,5 +61,27 @@ public class Garden {
     public String getGardenName() {
         return gardenName;
     }
+
+
+    //EFFECTS: return true if plant exits in the garden; else, false
+    public Boolean getPlant(Plant plant) {
+        for(Plant p: garden) {
+            if(p.getPlantName().equals(plant.getPlantName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Integer getNumOfDeadPlants() {
+        int count = 0;
+        for(Plant plant: garden) {
+            if (plant.getLifeStatus().equals("Dead!")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 
 }
