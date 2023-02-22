@@ -24,28 +24,31 @@ public class Inventory {
     //REQUIRES: plant needs to be in inventory
     //MODIFIES: this
     //EFFECTS: remove plant from inventory and return true; else, return false
-    public void removePlant(Plant plant) {
-        ArrayList<String> plantNames = new ArrayList<>();
-        for(Plant p: inventory) {
-            plantNames.add(p.getPlantName());
-        }
+    public boolean removePlant(String plantName) {
 
-        for (int i = 0; i < plantNames.size(); i++) {
-           if (plant.getPlantName().equals(plantNames.get(i))) {
-               inventory.remove(i);
-               
-           }
-       }
+        return inventory.removeIf(p -> (p.getPlantName().equalsIgnoreCase(plantName)));
+
+//        ArrayList<String> plantNames = new ArrayList<>();
+//        for(Plant p: inventory) {
+//            plantNames.add(p.getPlantName());
+//        }
+//
+//        for (int i = 0; i < plantNames.size(); i++) {
+//           if (plant.getPlantName().equals(plantNames.get(i))) {
+//               inventory.remove(i);
+//
+//           }
+//       }
    }
 
-    //EFFECTS: search if plant exists in inventory; if it exists, return true, else false
-    public boolean searchInventory(Plant plant) {
+    //EFFECTS: search if plant exists in inventory; if it exists, return it; else, return null
+    public Plant searchInventory(String plantName) {
         for (Plant p : inventory) {
-            if (p.getPlantName().equals(plant.getPlantName())) {
-                return true;
+            if (p.getPlantName().equalsIgnoreCase(plantName)) {
+                return p;
             }
         }
-        return false;
+        return null;
     }
 
     //getter

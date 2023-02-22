@@ -274,18 +274,19 @@ public class GardenApp {
 
     private void sellPlants() {
         System.out.println("What would you like to sell?");
-        for(Plant plant: inventory.getInventory()) {
-            if (plant.getPlantName().equalsIgnoreCase(input.nextLine())) {
-                inventory.removePlant(plant);
-                wallet.increaseBalance(plant.getProfitValue());
-                System.out.println("You've earned: " + plant.getProfitValue());
-                System.out.println();
-                displayMenu();
-            }
+        String response = input.nextLine();
+        Plant removedPlant = inventory.searchInventory(response);
+
+        if (inventory.removePlant(response)) {
+            wallet.increaseBalance(removedPlant.getProfitValue());
+            System.out.println("You've earned: " + removedPlant.getProfitValue());
+            System.out.println("Total balance: " + wallet.getBalance());
+        } else {
+            System.out.println("You don't have that to sell!");
         }
-        System.out.println("You don't have that to sell!");
         System.out.println();
         displayMenu();
+
     }
 
     private void checkBalance() {

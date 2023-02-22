@@ -33,8 +33,7 @@ public class TestInventory {
     @Test
     public void TestAddPlant() {
         inventory.addPlant(garden, lavender);
-        boolean status = inventory.searchInventory(lavender);
-        assertTrue(status);
+        assertEquals(lavender, inventory.searchInventory("lavender"));
         assertEquals(1, garden.getSize());
         assertFalse(garden.getPlant(lavender));
         assertTrue(garden.getPlant(rose));
@@ -46,8 +45,9 @@ public class TestInventory {
         inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
-        inventory.removePlant(lavender);
+        boolean success = inventory.removePlant("lavender");
         assertEquals(1, inventory.getSize());
+        assertTrue(success);
 
         ArrayList<Plant> plants = inventory.getInventory();
         assertTrue(plants.contains(rose));
@@ -59,11 +59,14 @@ public class TestInventory {
        inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
-        inventory.removePlant(lavender);
-        inventory.removePlant(rose);
+        boolean success1 = inventory.removePlant("lavender");
+        boolean success2 = inventory.removePlant("rose");
 
+        assertTrue(success1);
+        assertTrue(success2);
 
         assertEquals(0, inventory.getSize());
+
         ArrayList<Plant> plants = inventory.getInventory();
         assertFalse(plants.contains(rose));
         assertFalse(plants.contains(lavender));
@@ -73,10 +76,9 @@ public class TestInventory {
     public void TestSearchInventory() {
         inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
-        boolean success = inventory.searchInventory(lavender);
-        boolean success1 = inventory.searchInventory(rose);
-        assertTrue(success);
-        assertTrue(success1);
+        assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertEquals(rose, inventory.searchInventory("rose"));
+        assertNull(inventory.searchInventory("corn"));
 
         ArrayList<Plant> plants = inventory.getInventory();
         assertTrue(plants.contains(rose));
