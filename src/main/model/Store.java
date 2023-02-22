@@ -28,13 +28,13 @@ public class Store {
     }
 
     //EFFECTS: returns a message in string indicating whether plant is present in store
-    public String searchForPlant(Plant plant) {
+    public boolean searchForPlant(String plantName) {
         for (Plant p : store) {
-            if (plant.getPlantName().equals(p.getPlantName())) {
-                return "In stock :)";
+            if (p.getPlantName().equalsIgnoreCase(plantName)) {
+                return true;
             }
         }
-        return "Not in stock :(";
+        return false;
     }
 
 

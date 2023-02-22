@@ -2,14 +2,13 @@ package model;
 
 import java.util.Objects;
 
-public class Plant {
-    private String plantName;
+public abstract class Plant {
+    private final String plantName;
     private String lifeStatus;
     private int waterCount;
     private int fertilizerCount;
-    private int price;
-    private PlantType type;
-    private Integer PROFIT= 100;
+    private final int price;
+    private final PlantType type;
 
     //EFFECTS: construct a plant
     public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price, PlantType type) {
@@ -69,9 +68,9 @@ public class Plant {
         return price;
     }
 
-    public Integer getProfitValue() {
-        return price + PROFIT;
-    }
+    //MODIFIES: this
+    //EFFECTS: returns amount earned based on plant sold
+    public abstract Integer getProfitValue();
 
     public PlantType getType() {
         return type;
@@ -107,11 +106,7 @@ public class Plant {
             return false;
         }
 
-        if (!this.type.equals(((Plant) other).type)) {
-            return false;
-        }
-
-        return true;
+        return this.type.equals(((Plant) other).type);
     }
 
 }

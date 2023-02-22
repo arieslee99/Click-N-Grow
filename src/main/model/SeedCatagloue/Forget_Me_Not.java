@@ -7,4 +7,10 @@ public class Forget_Me_Not extends Plant {
     public Forget_Me_Not(String name, Integer waterCount, Integer fertilizerCount, Integer price, PlantType type) {
         super(name, waterCount, fertilizerCount, price, type);
     }
+
+    @Override
+    public Integer getProfitValue() {
+        Integer PROFIT = 250;
+        return getPrice() + PROFIT;
+    }
 }

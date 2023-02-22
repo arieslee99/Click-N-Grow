@@ -4,13 +4,11 @@ import java.util.ArrayList;
 
 public class Garden {
     private ArrayList<Plant> garden;
-    private Integer size;
     private String gardenName;
 
     //EFFECTS: construct a garden
     public Garden(String name) {
         garden = new ArrayList<>();
-        size = 0;
         gardenName = name;
     }
 
@@ -22,21 +20,12 @@ public class Garden {
 
     //REQUIRES: garden must have at least one plant in it
     //MODIFIES: this
-    //EFFECTS: removes a plant from garden
-    public void removePlant(Plant plant) {
-        ArrayList<String> plantNames = new ArrayList<>();
-        for (Plant p : garden) {
-            plantNames.add(p.getPlantName());
-        }
+    //EFFECTS: removes a plant from garden and returns true if successful; else, false
+    public boolean removePlant(String plantName) {
 
-        for (int i = 0; i < plantNames.size(); i++) {
-            if (plant.getPlantName().equals(plantNames.get(i))) {
-                garden.remove(i);
-                break;
-            }
-        }
-
+        return garden.removeIf(plant -> (plant.getPlantName().equalsIgnoreCase(plantName)));
     }
+
 
     //REQUIRES: garden has at least one dead plant in it
     //MODIFIES: this

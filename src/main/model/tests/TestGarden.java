@@ -1,14 +1,13 @@
 package model.tests;
 
 import model.Garden;
-import model.Plant;
 import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static model.PlantType.FLOWER;
 import static model.PlantType.VEGETABLE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGarden {
 
@@ -47,8 +46,11 @@ public class TestGarden {
     public void TestRemoveOnePlant() {
         garden.addPlant(lavender);
         garden.addPlant(cactus);
-        garden.removePlant(cactus);
+        boolean success = garden.removePlant("Cactus");
+        assertTrue(success);
         assertEquals(1, garden.getSize());
+        assertTrue(garden.getPlant(lavender));
+        assertFalse(garden.getPlant(cactus));
 
     }
 
@@ -58,16 +60,25 @@ public class TestGarden {
         garden.addPlant(potato);
         garden.addPlant(lettuce);
         assertEquals(3, garden.getSize());
-        garden.removePlant(potato);
-        garden.removePlant(lettuce);
+        boolean success1 = garden.removePlant("Potato");
+        boolean success2 = garden.removePlant("Lettuce");
+        assertTrue(success1);
+        assertTrue(success2);
+
         assertEquals(1, garden.getSize());
+
+        assertTrue(garden.getPlant(cactus));
+        assertFalse(garden.getPlant(potato));
+        assertFalse(garden.getPlant(lettuce));
+
+
     }
 
     @Test
     public void TestRemoveDeadPlants() {
-        garden.addPlant(new Plant("Eggplant", -1, 0, 300, VEGETABLE));
+        garden.addPlant(new Eggplant("Eggplant", -1, 0, 300, VEGETABLE));
         garden.addPlant(forgetMeNot);
-        garden.addPlant(new Plant("Cactus", -1, -3, 100, FLOWER));
+        garden.addPlant(new Cactus("Cactus", -1, -3, 100, FLOWER));
         garden.addPlant(potato);
         assertEquals(4, garden.getSize());
         garden.removeDeadPlants();
@@ -77,9 +88,9 @@ public class TestGarden {
 
     @Test
     public void TestGetDeadPlantsNumber() {
-        garden.addPlant(new Plant("Rose", -1,-1,600, FLOWER));
-        garden.addPlant(new Plant("Garlic", -5,-6,100, VEGETABLE));
-        garden.addPlant(new Plant("Rose", 0,0,100, FLOWER));
+        garden.addPlant(new Rose("Rose", -1,-1,600, FLOWER));
+        garden.addPlant(new Garlic("Garlic", -5,-6,100, VEGETABLE));
+        garden.addPlant(new Rose("Rose", 0,0,100, FLOWER));
 
         assertEquals(3, garden.getSize());
         assertEquals(2, garden.getNumOfDeadPlants());

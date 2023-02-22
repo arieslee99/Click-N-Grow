@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestStore {
 
     private Store store;
-    private final Plant corn = new Plant("Corn", 6,7,500, VEGETABLE);
+    private final Corn corn = new Corn("Corn", 6,7,500, VEGETABLE);
     private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
     private final Forget_Me_Not forget_me_not =
             new Forget_Me_Not ("Forget Me Not", 3, 6, 500, FLOWER);
@@ -37,14 +37,14 @@ public class TestStore {
 
     @Test
     public void TestSearchForPlantAndInStock() {
-        String inStock = store.searchForPlant(lavender);
-        assertEquals("In stock :)", inStock);
+        boolean inStock = store.searchForPlant("Lavender");
+        assertTrue(inStock);
     }
 
     @Test
     public void TestSearchForPlantAndNotInStock() {
-        String inStock = store.searchForPlant(corn);
-        assertEquals("Not in stock :(", inStock);
+        boolean inStock = store.searchForPlant("Corn");
+        assertFalse(inStock);
     }
 
     @Test

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 public class Inventory {
     private ArrayList<Plant> inventory;
-    private Wallet wallet;
 
     //EFFECTS: construct an inventory
     public Inventory() {
         inventory = new ArrayList<>();
-        wallet = new Wallet();
     }
 
     //MODIFIES: this
@@ -18,7 +16,7 @@ public class Inventory {
         if (g.getPlant(p)) {
             if (p.getLifeStatus().equals("Ripe!")) {
                 inventory.add(p);
-                g.removePlant(p);
+                g.removePlant(p.getPlantName());
             }
         }
     }

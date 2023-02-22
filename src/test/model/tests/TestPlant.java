@@ -2,6 +2,7 @@ package model.tests;
 
 import model.Plant;
 import model.PlantType;
+import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestPlant {
 
     private Plant garlic;
-    private Plant tomato;
+    private Plant carrot;
     private Plant potato;
 
     @BeforeEach
     public void setup() {
-        garlic = new Plant("Garlic", 3, 4, 100, PlantType.VEGETABLE);
-        tomato = new Plant("Tomato", 1, 1, 200, PlantType.VEGETABLE);
-        potato = new Plant("Potato", 2, 0, 300, PlantType.VEGETABLE );
+        garlic = new Garlic("Garlic", 3, 4, 100, PlantType.VEGETABLE);
+        carrot = new Carrot("Tomato", 1, 1, 200, PlantType.VEGETABLE);
+        potato = new Potato("Potato", 2, 0, 300, PlantType.VEGETABLE );
     }
 
     @Test
@@ -61,21 +62,21 @@ public class TestPlant {
 
     @Test
     public void testFeedPlantMultipleTimesAndDie() {
-        tomato.feedPlant();
-        tomato.feedPlant();
-        assertEquals(-1, tomato.getFertilizerCount());
-        tomato.updateLifeStatus();
-        assertEquals("Dead!", tomato.getLifeStatus());
+        carrot.feedPlant();
+        carrot.feedPlant();
+        assertEquals(-1, carrot.getFertilizerCount());
+        carrot.updateLifeStatus();
+        assertEquals("Dead!", carrot.getLifeStatus());
     }
 
     @Test
     public void testUpdateLifeStatusIsRipe() {
-        tomato.feedPlant();
-        tomato.waterPlant();
-        assertEquals(0, tomato.getWaterCount());
-        assertEquals(0, tomato.getFertilizerCount());
-        tomato.updateLifeStatus();
-        assertEquals("Ripe!", tomato.getLifeStatus());
+        carrot.feedPlant();
+        carrot.waterPlant();
+        assertEquals(0, carrot.getWaterCount());
+        assertEquals(0, carrot.getFertilizerCount());
+        carrot.updateLifeStatus();
+        assertEquals("Ripe!", carrot.getLifeStatus());
 
     }
 
@@ -89,10 +90,10 @@ public class TestPlant {
 
     @Test
     public void testUpdateLifeStatusIsGrowing() {
-        tomato.feedPlant();
-        assertEquals(0, tomato.getFertilizerCount());
-        tomato.updateLifeStatus();
-        assertEquals("Growing!", tomato.getLifeStatus());
+        carrot.feedPlant();
+        assertEquals(0, carrot.getFertilizerCount());
+        carrot.updateLifeStatus();
+        assertEquals("Growing!", carrot.getLifeStatus());
     }
 
 }

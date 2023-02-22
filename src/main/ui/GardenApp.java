@@ -1,7 +1,9 @@
 package ui;
 
 import model.*;
+import org.junit.platform.commons.util.StringUtils;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,12 +37,14 @@ public class GardenApp {
     }
 
     private void displayMenu() {
+        System.out.println();
         System.out.println("What would you like to do today?");
         System.out.println("\nSelect from:");
         System.out.println("\tG -> Go to garden");
         System.out.println("\tS -> Go to store");
         System.out.println("\tI -> See my inventory");
         System.out.println("\tW -> Check my wallet");
+        System.out.println("\tP -> How To Play");
         System.out.println("\tQ -> Quit");
 
         String action = input.nextLine();
@@ -62,11 +66,14 @@ public class GardenApp {
             case("W"):
                 checkBalance();
                 break;
+            case("P"):
+                getInstructions();
             case("Q"):
                 System.out.print("Come back soon!");
                 break;
             default:
                 displayMenu();
+                break;
         }
     }
 
@@ -76,7 +83,7 @@ public class GardenApp {
         }
 
         for(Plant plant: garden.getGarden()) {
-            System.out.println(plant.getPlantName() + ", WaterCount: " + plant.getWaterCount() +
+            System.out.println("\n" + plant.getPlantName() + ", WaterCount: " + plant.getWaterCount() +
             ", FeedCount: " + plant.getFertilizerCount() + ", Status: " + plant.getLifeStatus());
         }
 
@@ -84,6 +91,7 @@ public class GardenApp {
         System.out.println("\tW -> Water plants");
         System.out.println("\tF -> Feed plants");
         System.out.println("\tH -> Harvest plants");
+        System.out.println("\tU -> Uproot plants");
         System.out.println("\tB -> Back to homepage");
 
         String action = input.nextLine();
@@ -96,6 +104,8 @@ public class GardenApp {
                 feedPlants();
             case("H"):
                 harvest();
+            case("U"):
+                uproot();
             default:
                 seeMyGarden();
         }
@@ -106,10 +116,12 @@ public class GardenApp {
         for(Plant plant: garden.getGarden()) {
             if (plant.getPlantName().equalsIgnoreCase(input.nextLine())) {
                 plant.waterPlant();
-                System.out.println("Your" + plant.getPlantName() + " is watered!");
+                System.out.println("Your " + plant.getPlantName() + " is watered!");
                 System.out.println("It's current water count is: " + plant.getWaterCount());
+                seeMyGarden();
             }
         }
+        System.out.println("You don't have this plant to water!");
         seeMyGarden();
     }
 
@@ -138,10 +150,35 @@ public class GardenApp {
         displayMenu();
     }
 
+    private void uproot() {
+        System.out.println("Which plant would you like to remove?");
+        String removePlant = input.nextLine();
+        System.out.println("\nAre you sure you want to permanently remove " + removePlant + "?");
+        System.out.println("\tY -> Get rid of it!");
+        System.out.println("\tN -> My mistake! I want to keep it!");
+
+        String response = input.nextLine();
+
+        if ("Y".equalsIgnoreCase(response)) {
+            if (garden.removePlant(removePlant)) {
+                System.out.println("Your garden size: " + garden.getSize());
+                System.out.println();
+                seeMyGarden();
+            } else {
+                System.out.println("You don't have this plant in your garden!");
+                seeMyGarden();
+            }
+
+        } else {
+            seeMyGarden();
+        }
+    }
+
+
 
 
     private void visitStore() {
-        System.out.println("Welcome to Cleo's!");
+        System.out.println("Welcome to the store!");
         System.out.println("\nWhich seed catalogue would you like to browse?");
         System.out.println("\tA -> All seeds");
         System.out.println("\tV -> Veggies");
@@ -179,7 +216,13 @@ public class GardenApp {
         switch(action.toUpperCase()) {
             case("Y"):
                 System.out.println("Which seed would you like to buy?");
-                buySeed(input.nextLine(), plants);
+                String response = input.nextLine();
+                if (store.searchForPlant(response)) {
+                    buySeed(response, plants);
+                    break;
+                }
+                System.out.println("Not in stock :(");
+                visitStore();
                 break;
             case("N"):
                 displayMenu();
@@ -201,6 +244,7 @@ public class GardenApp {
                 }
             }
         }
+
     }
 
     private void seeMyInventory(){
@@ -235,15 +279,28 @@ public class GardenApp {
                 inventory.removePlant(plant);
                 wallet.increaseBalance(plant.getProfitValue());
                 System.out.println("You've earned: " + plant.getProfitValue());
+                System.out.println();
                 displayMenu();
             }
         }
         System.out.println("You don't have that to sell!");
+        System.out.println();
         displayMenu();
     }
 
     private void checkBalance() {
         System.out.println("Your balance is: " + wallet.getBalance());
+        System.out.println();
+        displayMenu();
+    }
+
+    private void getInstructions() {
+        System.out.println("\n~ GAME PLAY ~");
+        System.out.println("\tBuy seeds from the store and grow them!");
+        System.out.println("\tEach plant has its own water and fertilizer count. " +
+                "Once both counts are 0, the plant is ready for harvest!");
+        System.out.println("\tHarvest your plants and sell them to buy more plants!");
+        System.out.println("\tOverwatering and overfeeding will kill your plants!");
         System.out.println();
         displayMenu();
     }
