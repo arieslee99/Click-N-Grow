@@ -96,4 +96,10 @@ public class TestPlant {
         assertEquals("Growing!", carrot.getLifeStatus());
     }
 
+    @Test
+    public void testGetPlantProfit() {
+        assertEquals(350, carrot.getProfitValue());
+        assertEquals(200, garlic.getProfitValue());
+    }
+
 }

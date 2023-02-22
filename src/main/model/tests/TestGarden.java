@@ -6,6 +6,8 @@ import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static model.PlantType.FLOWER;
 import static model.PlantType.VEGETABLE;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,13 +32,19 @@ public class TestGarden {
     }
 
     @Test
-    public void TestConstructor() {
+    public void testConstructor() {
         assertEquals("David's Garden", garden.getGardenName());
         assertEquals(0, garden.getSize());
     }
 
     @Test
-    public void TestAddPlantMultipleTimes() {
+    public void testSetGardenName() {
+        garden.setGardenName("Aries' Garden");
+        assertEquals("Aries' Garden", garden.getGardenName());
+    }
+
+    @Test
+    public void testAddPlantMultipleTimes() {
         garden.addPlant(eggplant);
         assertEquals(1, garden.getSize());
         garden.addPlant(potato);
@@ -44,7 +52,7 @@ public class TestGarden {
     }
 
     @Test
-    public void TestRemoveOnePlant() {
+    public void testRemoveOnePlant() {
         garden.addPlant(lavender);
         garden.addPlant(cactus);
         boolean success = garden.removePlant("Cactus");
@@ -56,7 +64,7 @@ public class TestGarden {
     }
 
     @Test
-    public void TestRemoveMultiplePlants() {
+    public void testRemoveMultiplePlants() {
         garden.addPlant(cactus);
         garden.addPlant(potato);
         garden.addPlant(lettuce);
@@ -76,7 +84,7 @@ public class TestGarden {
     }
 
     @Test
-    public void TestRemoveDeadPlants() {
+    public void testRemoveDeadPlants() {
         garden.addPlant(new Eggplant("Eggplant", -1, 0, 300, VEGETABLE));
         garden.addPlant(forgetMeNot);
         garden.addPlant(new Cactus("Cactus", -1, -3, 100, FLOWER));
@@ -88,7 +96,7 @@ public class TestGarden {
     }
 
     @Test
-    public void TestGetDeadPlantsNumber() {
+    public void testGetDeadPlantsNumber() {
         garden.addPlant(new Rose("Rose", -1,-1,600, FLOWER));
         garden.addPlant(new Garlic("Garlic", -5,-6,100, VEGETABLE));
         garden.addPlant(new Rose("Rose", 0,0,100, FLOWER));
@@ -98,13 +106,34 @@ public class TestGarden {
     }
 
     @Test
-    public void TestGetPlant() {
+    public void testGetPlant() {
         garden.addPlant(lavender);
         garden.addPlant(lettuce);
         Plant plant1 = garden.getPlant("lettuce");
         Plant plant2 = garden.getPlant("lavender");
         assertEquals(lettuce, plant1);
         assertEquals(lavender, plant2);
+    }
+
+    @Test
+    public void testGetNullPlant() {
+        garden.addPlant(lavender);
+        garden.addPlant(lettuce);
+        assertNull(garden.getPlant("corn"));
+        assertNull(garden.getPlant("tomato"));
+    }
+
+    @Test
+    public void testGetGarden() {
+        ArrayList<Plant> emptyPlants = garden.getGarden();
+        assertEquals(0, emptyPlants.size());
+
+        garden.addPlant(lavender);
+        garden.addPlant(lettuce);
+        ArrayList<Plant> plants = garden.getGarden();
+        assertEquals(lavender, plants.get(0));
+        assertEquals(lettuce, plants.get(1));
+
     }
 
 

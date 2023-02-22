@@ -31,9 +31,11 @@ public class TestInventory {
     }
 
     @Test
-    public void TestAddPlant() {
+    public void testAddPlant() {
         inventory.addPlant(garden, lavender);
         assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertNull(inventory.searchInventory("rose"));
+        assertEquals(1, inventory.getSize());
         assertEquals(1, garden.getSize());
         assertFalse(garden.searchForPlant("lavender"));
         assertTrue(garden.searchForPlant("rose"));
@@ -41,7 +43,34 @@ public class TestInventory {
     }
 
     @Test
-    public void TestRemoveOnePlant() {
+    public void testAddMultiplePlants() {
+        inventory.addPlant(garden, lavender);
+        inventory.addPlant(garden, rose);
+        assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertEquals(rose, inventory.searchInventory("rose"));
+        assertEquals(2, inventory.getSize());
+        assertEquals(0, garden.getSize());
+        assertFalse(garden.searchForPlant("lavender"));
+        assertFalse(garden.searchForPlant("rose"));
+
+    }
+
+    @Test
+    public void testAddPlantButFailed() {
+        garden.addPlant(sunflower);
+        inventory.addPlant(garden, lavender);
+        inventory.addPlant(garden, sunflower);
+        assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertNull(inventory.searchInventory("sunflower"));
+        assertEquals(1, inventory.getSize());
+        assertFalse(garden.searchForPlant("lavender"));
+        assertTrue(garden.searchForPlant("sunflower"));
+        assertEquals(2, garden.getSize());
+
+    }
+
+    @Test
+    public void testRemoveOnePlant() {
         inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
@@ -55,7 +84,7 @@ public class TestInventory {
     }
 
     @Test
-    public void TestRemoveMultiplePlants() {
+    public void testRemoveMultiplePlants() {
        inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
@@ -73,7 +102,7 @@ public class TestInventory {
     }
 
     @Test
-    public void TestSearchInventory() {
+    public void testSearchInventory() {
         inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(lavender, inventory.searchInventory("lavender"));
