@@ -1,6 +1,7 @@
 package model.tests;
 
 import model.Garden;
+import model.Plant;
 import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,8 +50,8 @@ public class TestGarden {
         boolean success = garden.removePlant("Cactus");
         assertTrue(success);
         assertEquals(1, garden.getSize());
-        assertTrue(garden.getPlant(lavender));
-        assertFalse(garden.getPlant(cactus));
+        assertTrue(garden.searchForPlant("lavender"));
+        assertFalse(garden.searchForPlant("cactus"));
 
     }
 
@@ -67,9 +68,9 @@ public class TestGarden {
 
         assertEquals(1, garden.getSize());
 
-        assertTrue(garden.getPlant(cactus));
-        assertFalse(garden.getPlant(potato));
-        assertFalse(garden.getPlant(lettuce));
+        assertTrue(garden.searchForPlant("cactus"));
+        assertFalse(garden.searchForPlant("potato"));
+        assertFalse(garden.searchForPlant("lettuce"));
 
 
     }
@@ -94,8 +95,16 @@ public class TestGarden {
 
         assertEquals(3, garden.getSize());
         assertEquals(2, garden.getNumOfDeadPlants());
+    }
 
-
+    @Test
+    public void TestGetPlant() {
+        garden.addPlant(lavender);
+        garden.addPlant(lettuce);
+        Plant plant1 = garden.getPlant("lettuce");
+        Plant plant2 = garden.getPlant("lavender");
+        assertEquals(lettuce, plant1);
+        assertEquals(lavender, plant2);
     }
 
 

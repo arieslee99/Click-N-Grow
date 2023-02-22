@@ -58,10 +58,20 @@ public class Garden {
     }
 
 
+    //EFFECTS: return plant if it exits in garden; else, return null
+    public Plant getPlant(String plantName) {
+        for(Plant plant: garden) {
+            if (plant.getPlantName().equalsIgnoreCase(plantName)) {
+                return plant;
+            }
+        }
+        return null;
+    }
+
     //EFFECTS: return true if plant exits in the garden; else, false
-    public Boolean getPlant(Plant plant) {
+    public Boolean searchForPlant(String plantName) {
         for(Plant p: garden) {
-            if(p.getPlantName().equals(plant.getPlantName())) {
+            if (p.getPlantName().equalsIgnoreCase(plantName)) {
                 return true;
             }
         }

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Inventory {
-    private ArrayList<Plant> inventory;
+    private final ArrayList<Plant> inventory;
 
     //EFFECTS: construct an inventory
     public Inventory() {
@@ -13,7 +13,7 @@ public class Inventory {
     //MODIFIES: this
     //EFFECTS: add ripe plant to inventory, and remove it from garden
     public void addPlant(Garden g, Plant p) {
-        if (g.getPlant(p)) {
+        if (g.searchForPlant(p.getPlantName())) {
             if (p.getLifeStatus().equals("Ripe!")) {
                 inventory.add(p);
                 g.removePlant(p.getPlantName());
@@ -28,17 +28,6 @@ public class Inventory {
 
         return inventory.removeIf(p -> (p.getPlantName().equalsIgnoreCase(plantName)));
 
-//        ArrayList<String> plantNames = new ArrayList<>();
-//        for(Plant p: inventory) {
-//            plantNames.add(p.getPlantName());
-//        }
-//
-//        for (int i = 0; i < plantNames.size(); i++) {
-//           if (plant.getPlantName().equals(plantNames.get(i))) {
-//               inventory.remove(i);
-//
-//           }
-//       }
    }
 
     //EFFECTS: search if plant exists in inventory; if it exists, return it; else, return null

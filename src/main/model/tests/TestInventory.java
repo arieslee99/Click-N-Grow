@@ -35,8 +35,8 @@ public class TestInventory {
         inventory.addPlant(garden, lavender);
         assertEquals(lavender, inventory.searchInventory("lavender"));
         assertEquals(1, garden.getSize());
-        assertFalse(garden.getPlant(lavender));
-        assertTrue(garden.getPlant(rose));
+        assertFalse(garden.searchForPlant("lavender"));
+        assertTrue(garden.searchForPlant("rose"));
 
     }
 
