@@ -3,7 +3,7 @@ package model.tests;
 import model.Garden;
 import model.Inventory;
 import model.Plant;
-import model.SeedCatagloue.*;
+import model.seeds.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,7 +96,7 @@ public class TestInventory {
 
     @Test
     public void testRemoveMultiplePlants() {
-       inventory.addPlant(garden, lavender);
+        inventory.addPlant(garden, lavender);
         inventory.addPlant(garden, rose);
         assertEquals(2, inventory.getSize());
         boolean success1 = inventory.removePlant("lavender");

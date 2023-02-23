@@ -11,7 +11,7 @@ public abstract class Plant {
     private final PlantType type;
 
     //EFFECTS: construct a plant
-    public Plant(String name, Integer waterCount, Integer fertilizerCount, Integer price, PlantType type) {
+    public Plant(String name, int waterCount, int fertilizerCount, int price, PlantType type) {
         this.plantName = name;
         this.waterCount = waterCount;
         this.fertilizerCount = fertilizerCount;
@@ -19,6 +19,10 @@ public abstract class Plant {
         this.price = price;
         this.type = type;
     }
+
+    //https://dzone.com/articles/java-cloning-even-copy-constructors-are-not-suffic
+    //EFFECTS: clones a plant
+    public abstract Plant cloneObject();
 
     //MODIFIES: this
     //EFFECTS: remove one water unit from plant's water count (wc)
@@ -76,6 +80,8 @@ public abstract class Plant {
         return type;
     }
 
+    //http://users.csc.calpoly.edu/~gfisher/classes/102/info/howToOverrideEquals.html?fbclid=
+    // IwAR2uufMEMjdT4EYTem617yQkvLy1lopcsAaqVa-mZJWZ7G1JOv4ybn50ZV0
     //EFFECTS: overriding equals method
     public boolean equals(Object other) {
         if (other == null) {
@@ -85,31 +91,23 @@ public abstract class Plant {
         if (this.getClass() != other.getClass()) {
             return false;
         }
-
-        if (!this.plantName.equals(((Plant) other).plantName)){
+        if (!this.plantName.equals(((Plant) other).plantName)) {
             return false;
         }
-
         if (!this.lifeStatus.equals(((Plant) other).lifeStatus)) {
             return false;
         }
-
         if (this.fertilizerCount != ((Plant) other).fertilizerCount) {
             return false;
         }
-
         if (this.waterCount != ((Plant) other).waterCount) {
             return false;
         }
-
         if (this.price != ((Plant) other).price) {
             return false;
         }
-
         return this.type.equals(((Plant) other).type);
     }
-
-
 }
 
 

@@ -25,10 +25,8 @@ public class Inventory {
     //MODIFIES: this
     //EFFECTS: remove plant from inventory and return true; else, return false
     public boolean removePlant(String plantName) {
-
         return inventory.removeIf(p -> (p.getPlantName().equalsIgnoreCase(plantName)));
-
-   }
+    }
 
     //EFFECTS: search if plant exists in inventory; if it exists, return it; else, return null
     public Plant searchInventory(String plantName) {

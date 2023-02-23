@@ -1,6 +1,6 @@
 package model;
 
-import model.SeedCatagloue.*;
+import model.seeds.*;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class Store {
     public ArrayList<Plant> getVegetables() {
         ArrayList<Plant> veggies = new ArrayList<>();
 
-        for(Plant plant: store) {
+        for (Plant plant: store) {
             if (plant.getType() == VEGETABLE) {
                 veggies.add(plant);
             }
@@ -64,7 +64,7 @@ public class Store {
     //EFFECTS: returns a list of only flowers
     public ArrayList<Plant> getFlowers() {
         ArrayList<Plant> flowers = new ArrayList<>();
-        for(Plant plant: store) {
+        for (Plant plant: store) {
             if (plant.getType() == (FLOWER)) {
                 flowers.add(plant);
             }
@@ -73,7 +73,7 @@ public class Store {
     }
 
     public ArrayList<Plant> getStore() {
-       return store;
+        return store;
     }
 }
 

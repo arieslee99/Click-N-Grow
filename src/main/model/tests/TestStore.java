@@ -1,7 +1,7 @@
 package model.tests;
 
 import model.Plant;
-import model.SeedCatagloue.*;
+import model.seeds.*;
 import model.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,8 @@ public class TestStore {
     private Store store;
     private final Corn corn = new Corn("Corn", 6,7,500, VEGETABLE);
     private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
-    private final Forget_Me_Not forget_me_not =
-            new Forget_Me_Not ("Forget Me Not", 3, 6, 500, FLOWER);
+    private final Forget_Me_Not forgetMeNot =
+            new Forget_Me_Not("Forget Me Not", 3, 6, 500, FLOWER);
     private final Sunflower sunflower =
             new Sunflower("Sunflower", 8, 9, 300, FLOWER);
     private final Rose rose = new Rose("Rose", 6, 6, 600, FLOWER);
@@ -36,13 +36,13 @@ public class TestStore {
     }
 
     @Test
-    public void TestSearchForPlantAndInStock() {
+    public void testSearchForPlantAndInStock() {
         boolean inStock = store.searchForPlant("Lavender");
         assertTrue(inStock);
     }
 
     @Test
-    public void TestSearchForPlantAndNotInStock() {
+    public void testSearchForPlantAndNotInStock() {
         boolean inStock = store.searchForPlant("Corn");
         assertFalse(inStock);
     }
@@ -65,13 +65,13 @@ public class TestStore {
     }
 
     @Test
-    public void TestGetStore() {
+    public void testGetStore() {
         ArrayList<Plant> plants = store.getStore();
         assertEquals(10, plants.size());
     }
 
     @Test
-    public void TestGetVeggies() {
+    public void testGetVeggies() {
         ArrayList<Plant> veggies = store.getVegetables();
         assertEquals(5, veggies.size());
 
@@ -80,17 +80,17 @@ public class TestStore {
         assertTrue(veggies.contains(lettuce));
         assertTrue(veggies.contains(eggplant));
         assertTrue(veggies.contains(garlic));
-        assertFalse(veggies.contains(forget_me_not));
+        assertFalse(veggies.contains(forgetMeNot));
         assertFalse(veggies.contains(cactus));
     }
 
     @Test
-    public void TestGetFlowers() {
+    public void testGetFlowers() {
         ArrayList<Plant> flowers = store.getFlowers();
         assertEquals(5, flowers.size());
 
         assertEquals(lavender, flowers.get(0));
-        assertTrue(flowers.contains(forget_me_not));
+        assertTrue(flowers.contains(forgetMeNot));
         assertTrue(flowers.contains(cactus));
         assertTrue(flowers.contains(rose));
         assertTrue(flowers.contains(sunflower));

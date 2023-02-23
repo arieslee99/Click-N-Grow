@@ -2,7 +2,7 @@ package model.tests;
 
 import model.Garden;
 import model.Plant;
-import model.SeedCatagloue.*;
+import model.seeds.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
