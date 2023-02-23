@@ -1,11 +1,12 @@
 package model.tests;
 
 import model.Plant;
-import model.PlantType;
 import model.SeedCatagloue.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static model.PlantType.FLOWER;
+import static model.PlantType.VEGETABLE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestPlant {
@@ -13,12 +14,14 @@ public class TestPlant {
     private Plant garlic;
     private Plant carrot;
     private Plant potato;
+    private Plant cactus;
 
     @BeforeEach
     public void setup() {
-        garlic = new Garlic("Garlic", 3, 4, 100, PlantType.VEGETABLE);
-        carrot = new Carrot("Tomato", 1, 1, 200, PlantType.VEGETABLE);
-        potato = new Potato("Potato", 2, 0, 300, PlantType.VEGETABLE );
+        garlic = new Garlic("Garlic", 3, 4, 100, VEGETABLE);
+        carrot = new Carrot("Tomato", 1, 1, 200, VEGETABLE);
+        potato = new Potato("Potato", 2, 0, 300, VEGETABLE );
+        cactus = new Cactus("Cactus", 1, 2, 100, FLOWER);
     }
 
     @Test
@@ -100,6 +103,12 @@ public class TestPlant {
     public void testGetPlantProfit() {
         assertEquals(350, carrot.getProfitValue());
         assertEquals(200, garlic.getProfitValue());
+    }
+
+    @Test
+    public void testGetPlantType() {
+        assertEquals(VEGETABLE, carrot.getType());
+        assertEquals(FLOWER, cactus.getType());
     }
 
 }

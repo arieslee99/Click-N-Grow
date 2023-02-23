@@ -69,10 +69,9 @@ public class GardenApp {
                 getInstructions();
             case ("Q"):
                 System.out.print("Come back soon!");
-                break;
+                System.exit(0);
             default:
                 displayMenu();
-                break;
         }
     }
 
@@ -270,10 +269,9 @@ public class GardenApp {
                 }
             }
         }
-
     }
 
-    private Plant duplicatePlant(Plant plant) {
+    private Plant duplicatePlant(Plant plant){
         String plantName = plant.getPlantName();
 
         switch (plantName) {

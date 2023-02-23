@@ -1,12 +1,12 @@
-# The Pod
+# Garden Simulation
 
 ## Project Scope
 
 **What will this application do?**
-- This application serves as a collaborative opportunity between two users. The premise is simple:
-  to grow and maintain plants within a garden. Users will be able to execute functions, such as watering
-  plants and adding fertilizer to plants. Such functions are intended to provide a simplistic rendition 
-  of real-life gardening. Aside from performing these actions to maintain a garden, the success of this 
+- This application is a virtual garden simulation that aims to provide a simplistic rendition of real-life gardening 
+  and/or farming. Users are able to start their own garden, and plant seeds. To maintain plants, users can water and 
+  fertilize then (according to each plant's specifications). Ripe plants can be harvested, and sold to earn more money
+  to purchase more plants for the garden. Aside from performing these actions to maintain a garden, the success of this 
   game relies on two users taking turns executing these actions. For example, user A waters and adds
   fertilizer to the garden. In order to perform same actions again, only user B has the ability to do so,
   vice versa. While this may be seen as a limitation, the goal is to encourage users to collaborate on a 
@@ -22,14 +22,14 @@
 
 **Why does this project of interest to you?**
 
-- This project is of particular interest to me because I have personally experienced the challenges of being away
-  from a loved one for an extended period of time. The physical distance had raised struggles of spending quality time
-  with one another. Designing this application was, therefore, inspired to provide a potential solution to not just
-  myself, but to anyone in a similar context. 
+- This project is of particular interest to me because I am personally enjoy playing role-playing games (RPGs).
+  Inspired by the PC game "Stardew Valley", I am interested to create my own interpretation of it. The collaborative 
+  feature of this game is also inspired by my personal preference for collaborative games over single-player games. 
+  Designing and implementing this application is, therefore, an attempt to create the "perfect" game for myself.
 
 ## User Stories
-
-- As a user, I want to be able to start a garden and add it to my list of gardens.
-- As a user, I want to be able to select a garden and plant a new seed in it.
-- As a user, I want to be able to select a plant in a garden and remove it.
-- As a user, I want to be able to mark a plant in a garden as "watered" or "fertilized". 
+- As a user, I want to be able to start a garden, and plant a new seed in it.
+- As a user, I want to be able to purchase a seed from a store, and add it to my garden.
+- As a user, I want to be able to select a plant in the garden and remove it.
+- As a user, I want to be able to select a ripe plant in my inventory and sell it. 
+- As a user, I want to be able to keep track of how much a plant is watered or fertilized. 

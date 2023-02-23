@@ -20,6 +20,7 @@ public class TestInventory {
     private final Rose rose = new Rose("Rose", 0, 0, 600, FLOWER);
     private final Sunflower sunflower
             = new Sunflower("Sunflower", 8, 9, 300, FLOWER);
+    private final Cactus cactus = new Cactus("Cactus", 9, 0, 100, FLOWER);
 
     @BeforeEach
     public void setup() {
@@ -67,6 +68,16 @@ public class TestInventory {
         assertTrue(garden.searchForPlant("sunflower"));
         assertEquals(2, garden.getSize());
 
+    }
+
+    @Test
+    public void testAddRipePlantButFailed() {
+        inventory.addPlant(garden, lavender);
+        inventory.addPlant(garden, cactus);
+        assertEquals(1, inventory.getSize());
+        assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertNull(inventory.searchInventory("cactus"));
+        assertEquals(1, garden.getSize());
     }
 
     @Test

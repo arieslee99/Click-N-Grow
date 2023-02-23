@@ -13,4 +13,5 @@ public class Garlic extends Plant {
         Integer PROFIT = 100;
         return getPrice() + PROFIT;
     }
+
 }
