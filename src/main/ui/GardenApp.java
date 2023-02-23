@@ -46,7 +46,6 @@ public class GardenApp {
         System.out.println("\tQ -> Quit");
 
         String action = input.nextLine();
-
         processDisplayCommand(action);
     }
 
@@ -307,7 +306,6 @@ public class GardenApp {
         }
         System.out.println();
         displayMenu();
-
     }
 
     private void checkBalance() {
