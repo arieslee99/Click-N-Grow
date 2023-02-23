@@ -3,9 +3,7 @@ package model;
 import model.seeds.*;
 
 import java.util.ArrayList;
-
-import static model.PlantType.FLOWER;
-import static model.PlantType.VEGETABLE;
+import static model.PlantType.*;
 
 public class Store {
     private final ArrayList<Plant> store;
