@@ -20,8 +20,8 @@ public class TestGarden {
     private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
     private final Cactus cactus = new Cactus("Cactus", -1, -2, 100, FLOWER);
     private final Lettuce lettuce = new Lettuce("Lettuce", 8, 3, 400, VEGETABLE);
-    private final Forget_Me_Not forgetMeNot
-            = new Forget_Me_Not("Forget Me Not", 3, -9, 500, FLOWER);
+    private final ForgetMeNot forgetMeNot
+            = new ForgetMeNot("Forget Me Not", 3, -9, 500, FLOWER);
 
 
 

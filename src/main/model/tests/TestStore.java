@@ -17,8 +17,8 @@ public class TestStore {
     private Store store;
     private final Corn corn = new Corn("Corn", 6,7,500, VEGETABLE);
     private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
-    private final Forget_Me_Not forgetMeNot =
-            new Forget_Me_Not("Forget Me Not", 3, 6, 500, FLOWER);
+    private final ForgetMeNot forgetMeNot =
+            new ForgetMeNot("Forget Me Not", 3, 6, 500, FLOWER);
     private final Sunflower sunflower =
             new Sunflower("Sunflower", 8, 9, 300, FLOWER);
     private final Rose rose = new Rose("Rose", 6, 6, 600, FLOWER);

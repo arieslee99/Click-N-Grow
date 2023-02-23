@@ -16,7 +16,7 @@ public class Store {
 
         store.add(new Lavender("Lavender", 5, 6, 500, FLOWER));
         store.add(new Rose("Rose", 6, 6, 600, FLOWER));
-        store.add(new Forget_Me_Not("Forget Me Not", 3, 6, 500, FLOWER));
+        store.add(new ForgetMeNot("Forget Me Not", 3, 6, 500, FLOWER));
         store.add(new Sunflower("Sunflower", 8, 9, 300, FLOWER));
         store.add(new Cactus("Cactus", 1, 2, 100, FLOWER));
         store.add(new Carrot("Carrot", 5, 7, 200, VEGETABLE));
