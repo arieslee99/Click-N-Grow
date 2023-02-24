@@ -1,10 +1,7 @@
 package ui;
-
 import model.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class GardenApp {
 
@@ -25,8 +22,8 @@ public class GardenApp {
         initializeGarden();
     }
 
+    //EFFECTS: initializes garden by asking for name
     private void initializeGarden() {
-
         System.out.println("What is your garden's name?");
         String name = input.nextLine();
         garden.setGardenName(name);
@@ -34,6 +31,7 @@ public class GardenApp {
         displayMenu();
     }
 
+    //EFFECTS: displays game options
     private void displayMenu() {
         System.out.println();
         System.out.println("What would you like to do today?");
@@ -49,6 +47,7 @@ public class GardenApp {
         processDisplayCommand(action);
     }
 
+    //EFFECTS: processes user's command to navigate through entire game
     private void processDisplayCommand(String action) {
         switch (action.toUpperCase()) {
             case ("G"):
@@ -73,13 +72,17 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: shows user's garden
     private void seeMyGarden() {
         if (garden.getSize() == 0) {
             System.out.println("Your garden is empty, yet your soil is fertile.");
         } else {
+            int position = 0;
+            System.out.println("** Your Garden **");
             for (Plant plant : garden.getGarden()) {
-                System.out.println(plant.getPlantName() + ", WaterCount: " + plant.getWaterCount()
+                System.out.println(position + ". " + plant.getPlantName() + ", WaterCount: " + plant.getWaterCount()
                         + ", FeedCount: " + plant.getFertilizerCount() + ", Status: " + plant.getLifeStatus());
+                position++;
             }
         }
 
@@ -91,10 +94,10 @@ public class GardenApp {
         System.out.println("\tS -> Go to store");
         System.out.println("\tB -> Back to homepage");
 
-        String action = input.nextLine();
-        processGardenCommand(action);
+        processGardenCommand(input.nextLine());
     }
 
+    //EFFECTS: processes user's command to navigate through garden
     private void processGardenCommand(String action) {
         switch (action.toUpperCase()) {
             case ("B"):
@@ -117,84 +120,119 @@ public class GardenApp {
                 break;
             default:
                 seeMyGarden();
-                break;
         }
     }
 
+    //EFFECTS: asks which plant user wants to water
     private void waterPlants() {
-        System.out.println("Which plant would you like to water?");
-        String response = input.nextLine();
+        System.out.println("Which plant would you like to water? (Enter plant's numeric position on garden list)");
+        int response = input.nextInt();
+        input.nextLine();
         String feedOrWater = "water";
         waterAndFeed(response, feedOrWater);
     }
 
+    //EFFECTS: asks which plant user wants to feed
     private void feedPlants() {
-        System.out.println("Which plant would you like to feed?");
-        String response = input.nextLine();
+        System.out.println("Which plant would you like to feed? (Enter plant's numeric position on garden list)");
+        int response = input.nextInt();
+        input.nextLine();
         String feedOrWater = "feed";
         waterAndFeed(response, feedOrWater);
     }
 
-    private void waterAndFeed(String response, String feedOrWater) {
-        if (garden.searchForPlant(response)) {
+    //EFFECTS: waters or feeds plant
+    private void waterAndFeed(int response, String feedOrWater) {
+        if (response < garden.getSize()) {
             Plant plant = garden.getPlant(response);
 
             if (feedOrWater.equals("water")) {
                 plant.waterPlant();
                 System.out.println("Your " + plant.getPlantName() + " is watered!");
                 System.out.println("It's current water count is: " + plant.getWaterCount());
+                System.out.println();
             } else {
                 plant.feedPlant();
                 System.out.println("Your " + plant.getPlantName() + " is fed!");
                 System.out.println("It's current feed count is: " + plant.getFertilizerCount());
+                System.out.println();
             }
-            seeMyGarden();
+        } else {
+            System.out.println("You don't have this plant to water!");
+            System.out.println();
         }
-        System.out.println("You don't have this plant to water!");
         seeMyGarden();
     }
 
+    //EFFECTS: adds ripe plants to inventory, removes the same plants from garden
     private void harvest() {
-        for (Plant plant : garden.getGarden()) {
-            if (plant.getLifeStatus().equals("Ripe!")) {
-                inventory.addPlant(garden, plant);
-                System.out.println("You just harvested a " + plant.getPlantName() + "!");
-                System.out.println("Your inventory count: " + inventory.getSize());
-                System.out.println("Your garden size: " + garden.getSize());
-                displayMenu();
-            }
+        if (garden.getSize() != 0) {
+            System.out.println("You just harvested " + inventory.addPlant(garden) + " plant(s)!");
+            System.out.println("Your inventory count: " + inventory.getSize());
+            System.out.println("Your garden size: " + garden.getSize());
+            displayMenu();
+        } else {
+            System.out.println("Your garden has nothing to harvest :(");
+            displayMenu();
         }
-        System.out.println("Your garden has nothing to harvest :(");
-        displayMenu();
     }
 
+    //EFFECTS: asks user which plant(s) they want to remove from garden
     private void uproot() {
         if (garden.getSize() == 0) {
             seeMyGarden();
         }
-        System.out.println("Which plant would you like to remove?");
-        String removePlant = input.nextLine();
-        System.out.println("\nAre you sure you want to permanently remove " + removePlant + "?");
-        System.out.println("\tY -> Get rid of it!");
-        System.out.println("\tN -> My mistake! I want to keep it!");
+        System.out.println("\n Which plant would you like to remove?");
+        System.out.println("\t A -> Take them all away!");
+        System.out.println("\t D -> Just the dead ones");
+        System.out.println("\t O -> Just one plant");
 
-        String response = input.nextLine();
+        switch (input.nextLine().toUpperCase()) {
+            case("A"):
+                garden.emptyGarden();
+                System.out.println("You just cleaned house!");
+                seeMyGarden();
+                break;
+            case("D"):
+                garden.removeDeadPlants();
+                System.out.println("All cleaned up!");
+                seeMyGarden();
+                break;
+            case("O"):
+                uprootJustOne();
+        }
+    }
 
-        if ("Y".equalsIgnoreCase(response)) {
-            if (garden.removePlant(removePlant)) {
+    //EFFECTS: removes just one plant that the user specifies
+    private void uprootJustOne() {
+        System.out.println("Which plant would you like to remove? (Enter plant's numeric position on garden list)");
+        int position = input.nextInt();
+        input.nextLine();
+
+        if (position < 0) {
+            System.out.println("Please enter a non-negative integer");
+            uprootJustOne();
+        } else if (position < garden.getSize()) {
+            Plant plant = garden.getPlant(position);
+            System.out.println("\nAre you sure you want to permanently remove " + plant.getPlantName() + "?");
+            System.out.println("\tY -> Get rid of it!");
+            System.out.println("\tN -> My mistake! I want to keep it!");
+            String response = input.nextLine();
+
+            if ("Y".equalsIgnoreCase(response)) {
+                garden.removePlant(position);
                 System.out.println("Your garden size: " + garden.getSize());
-                System.out.println();
                 seeMyGarden();
             } else {
-                System.out.println("You don't have this plant in your garden!");
                 seeMyGarden();
             }
         } else {
+            System.out.println("You don't have this plant in your garden!");
             seeMyGarden();
         }
     }
 
-
+    //EFFECTS: shows user store display menu
     private void visitStore() {
         System.out.println("Welcome to the store!");
         System.out.println("\nWhich seed catalogue would you like to browse?");
@@ -223,12 +261,13 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: shows user what seeds are available for purchase
     private void displaySeeds(ArrayList<Plant> plants) {
         for (Plant plant : plants) {
             System.out.println(plant.getPlantName() + ", WaterCount: " + plant.getWaterCount()
                     + ", FeedCount: " + plant.getFertilizerCount() + ", Price: " + plant.getPrice());
         }
-        System.out.println("\nWould you like to buy something?");
+        System.out.println("\nWould you like to buy something? Your current balance is: " + wallet.getBalance());
         System.out.println("\tY -> Yes!");
         System.out.println("\tN -> Get me out of here!");
 
@@ -250,6 +289,7 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: adds plant to user's garden, deducts plant's amount from wallet
     private void buySeed(String response, ArrayList<Plant> plants) {
         for (Plant plant : plants) {
             if (plant.getPlantName().equalsIgnoreCase(response)) {
@@ -270,14 +310,19 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: shows user's collection of ripe plants that are ready for sale
     private void seeMyInventory() {
         if (inventory.getSize() == 0) {
             System.out.println("It's empty! Go sow some seeds!");
             displayMenu();
         }
+
+        int position = 0;
         for (Plant plant : inventory.getInventory()) {
-            System.out.println(plant.getPlantName() + " value: " + plant.getProfitValue());
+            System.out.println(position + ". " + plant.getPlantName() + " value: " + plant.getProfitValue());
+            position++;
         }
+
         System.out.println("\nWould you like to sell?");
         System.out.println("\tY -> Yes! Lets make some money!");
         System.out.println("\tN -> No! Stay away from my plants!");
@@ -291,15 +336,21 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: sells user's plant, and increases their wallet balance based on plant's price
     private void sellPlants() {
-        System.out.println("What would you like to sell?");
-        String response = input.nextLine();
-        Plant removedPlant = inventory.searchInventory(response);
+        System.out.println("Which plant would you like to sell? (Enter plant's numeric position on garden list)");
+        int position = input.nextInt();
+        input.nextLine();
 
-        if (inventory.removePlant(response)) {
-            wallet.increaseBalance(removedPlant.getProfitValue());
-            System.out.println("You just sold a " + response + "!");
-            System.out.println("You've earned: " + removedPlant.getProfitValue());
+        if (position < 0) {
+            System.out.println("Please enter a non-negative integer");
+            sellPlants();
+        } else if (position < inventory.getSize()) {
+            Plant plant = inventory.getPlant(position);
+            inventory.removePlant(position);
+            wallet.increaseBalance(plant.getProfitValue());
+            System.out.println("You just sold a " + plant.getPlantName() + "!");
+            System.out.println("You've earned: " + plant.getProfitValue());
             System.out.println("Total balance: " + wallet.getBalance());
         } else {
             System.out.println("You don't have that to sell!");
@@ -308,12 +359,14 @@ public class GardenApp {
         displayMenu();
     }
 
+    //EFFECTS: shows user's current wallet balance
     private void checkBalance() {
         System.out.println("Your balance is: " + wallet.getBalance());
         System.out.println();
         displayMenu();
     }
 
+    //EFFECTS: shows user instructions on how to play game
     private void getInstructions() {
         System.out.println("\n~ GAME PLAY ~");
         System.out.println("\tBuy seeds from the store and grow them!");

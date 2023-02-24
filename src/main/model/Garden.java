@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Garden {
-    private ArrayList<Plant> garden;
+    private final ArrayList<Plant> garden;
     private String gardenName;
 
     //EFFECTS: construct a garden
@@ -21,9 +21,20 @@ public class Garden {
     //REQUIRES: garden must have at least one plant in it
     //MODIFIES: this
     //EFFECTS: removes a plant from garden and returns true if successful; else, false
-    public boolean removePlant(String plantName) {
+//    public boolean removePlant(String plantName) {
+//        return garden.removeIf(plant -> (plant.getPlantName().equalsIgnoreCase(plantName)));
+//    }
 
-        return garden.removeIf(plant -> (plant.getPlantName().equalsIgnoreCase(plantName)));
+    //REQUIRES: position < size of garden
+    //EFFECTS: removes plant in that position of the list
+    public void removePlant(int position) {
+        garden.remove(position);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: removes all plants in garden
+    public void emptyGarden() {
+        garden.clear();
     }
 
 
@@ -31,15 +42,7 @@ public class Garden {
     //MODIFIES: this
     //EFFECTS: removes all the "Dead!" plants from garden
     public void removeDeadPlants() {
-        ArrayList<Plant> noDeadPlants = new ArrayList<>();
-        for (Plant p : garden) {
-            p.updateLifeStatus();
-            if (!p.getLifeStatus().equals("Dead!")) {
-                noDeadPlants.add(p);
-            }
-        }
-        garden = noDeadPlants;
-
+        garden.removeIf(plant -> plant.getLifeStatus().equals("Dead!"));
     }
 
     //getters
@@ -58,14 +61,10 @@ public class Garden {
     }
 
 
-    //EFFECTS: return plant if it exits in garden; else, return null
-    public Plant getPlant(String plantName) {
-        for (Plant plant: garden) {
-            if (plant.getPlantName().equalsIgnoreCase(plantName)) {
-                return plant;
-            }
-        }
-        return null;
+    //REQUIRES: position < garden size
+    //EFFECTS: returns plant at the specified position in garden list
+    public Plant getPlant(int position) {
+        return garden.get(position);
     }
 
     //EFFECTS: return true if plant exits in the garden; else, false

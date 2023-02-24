@@ -24,8 +24,6 @@ public class TestGarden {
             = new ForgetMeNot("Forget Me Not", 3, -9, 500, FLOWER);
 
 
-
-
     @BeforeEach
     public void setup() {
         garden = new Garden("David's Garden");
@@ -55,32 +53,21 @@ public class TestGarden {
     public void testRemoveOnePlant() {
         garden.addPlant(lavender);
         garden.addPlant(cactus);
-        boolean success = garden.removePlant("Cactus");
-        assertTrue(success);
+        assertEquals(2, garden.getSize());
+        garden.removePlant(0);
         assertEquals(1, garden.getSize());
-        assertTrue(garden.searchForPlant("lavender"));
-        assertFalse(garden.searchForPlant("cactus"));
-
+        assertEquals(cactus, garden.getPlant(0));
     }
 
     @Test
     public void testRemoveMultiplePlants() {
+        garden.addPlant(lavender);
         garden.addPlant(cactus);
-        garden.addPlant(potato);
-        garden.addPlant(lettuce);
-        assertEquals(3, garden.getSize());
-        boolean success1 = garden.removePlant("Potato");
-        boolean success2 = garden.removePlant("Lettuce");
-        assertTrue(success1);
-        assertTrue(success2);
-
+        assertEquals(2, garden.getSize());
+        garden.removePlant(0);
         assertEquals(1, garden.getSize());
-
-        assertTrue(garden.searchForPlant("cactus"));
-        assertFalse(garden.searchForPlant("potato"));
-        assertFalse(garden.searchForPlant("lettuce"));
-
-
+        garden.removePlant(0);
+        assertEquals(0, garden.getSize());
     }
 
     @Test
@@ -109,18 +96,9 @@ public class TestGarden {
     public void testGetPlant() {
         garden.addPlant(lavender);
         garden.addPlant(lettuce);
-        Plant plant1 = garden.getPlant("lettuce");
-        Plant plant2 = garden.getPlant("lavender");
-        assertEquals(lettuce, plant1);
-        assertEquals(lavender, plant2);
-    }
-
-    @Test
-    public void testGetNullPlant() {
-        garden.addPlant(lavender);
-        garden.addPlant(lettuce);
-        assertNull(garden.getPlant("corn"));
-        assertNull(garden.getPlant("tomato"));
+        assertEquals(2, garden.getSize());
+        assertEquals(lavender, garden.getPlant(0));
+        assertEquals(lettuce, garden.getPlant(1));
     }
 
     @Test
@@ -133,8 +111,14 @@ public class TestGarden {
         ArrayList<Plant> plants = garden.getGarden();
         assertEquals(lavender, plants.get(0));
         assertEquals(lettuce, plants.get(1));
-
     }
 
-
+    @Test
+    public void testEmptyGarden() {
+        garden.addPlant(lavender);
+        garden.addPlant(lettuce);
+        assertEquals(2, garden.getSize());
+        garden.emptyGarden();
+        assertEquals(0, garden.getSize());
+    }
 }
