@@ -2,6 +2,7 @@ package ui;
 
 import model.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GardenApp {
@@ -41,7 +42,7 @@ public class GardenApp {
         System.out.println("\tS -> Go to store");
         System.out.println("\tI -> See my inventory");
         System.out.println("\tW -> Check my wallet");
-        System.out.println("\tP -> How To Play");
+        System.out.println("\tP -> How to play");
         System.out.println("\tQ -> Quit");
 
         String action = input.nextLine();
@@ -124,27 +125,37 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: checks input to see if it's an integer; returns integer
+    private Integer getInt() {
+        while (true) {
+            try {
+                int response = input.nextInt();
+                input.nextLine();
+                return response;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer");
+                input.nextLine();
+            }
+        }
+    }
+
     //EFFECTS: asks which plant user wants to water
     private void waterPlants() {
         System.out.println("Which plant would you like to water? (Enter plant's numeric position on garden list)");
-        int response = input.nextInt();
-        input.nextLine();
         String feedOrWater = "water";
-        waterAndFeed(response, feedOrWater);
+        waterAndFeed(getInt(), feedOrWater);
     }
 
     //EFFECTS: asks which plant user wants to feed
     private void feedPlants() {
         System.out.println("Which plant would you like to feed? (Enter plant's numeric position on garden list)");
-        int response = input.nextInt();
-        input.nextLine();
         String feedOrWater = "feed";
-        waterAndFeed(response, feedOrWater);
+        waterAndFeed(getInt(), feedOrWater);
     }
 
     //EFFECTS: waters or feeds plant
     private void waterAndFeed(int response, String feedOrWater) {
-        if (response < garden.getSize()) {
+        if (0 <= response && response < garden.getSize()) {
             Plant plant = garden.getPlant(response);
 
             if (feedOrWater.equals("water")) {
@@ -187,28 +198,41 @@ public class GardenApp {
         System.out.println("\t A -> Take them all away!");
         System.out.println("\t D -> Just the dead ones");
         System.out.println("\t O -> Just one plant");
+        System.out.println("\t B -> I changed my mind... get me outta here!");
 
-        switch (input.nextLine().toUpperCase()) {
-            case("A"):
+        String response = input.nextLine();
+        processUprootCommand(response);
+    }
+
+    //EFFECTS: processes command from uproot display menu
+    private void processUprootCommand(String response) {
+        switch (response.toUpperCase()) {
+            case ("A"):
                 garden.emptyGarden();
                 System.out.println("You just cleaned house!");
                 seeMyGarden();
                 break;
-            case("D"):
+            case ("D"):
                 garden.removeDeadPlants();
                 System.out.println("All cleaned up!");
                 seeMyGarden();
                 break;
-            case("O"):
+            case ("O"):
                 uprootJustOne();
+                break;
+            case ("B"):
+                seeMyGarden();
+                break;
+            default:
+                System.out.println("Please enter one of the presented letters");
+                uproot();
         }
     }
 
     //EFFECTS: removes just one plant that the user specifies
     private void uprootJustOne() {
         System.out.println("Which plant would you like to remove? (Enter plant's numeric position on garden list)");
-        int position = input.nextInt();
-        input.nextLine();
+        int position = getInt();
 
         if (position < 0) {
             System.out.println("Please enter a non-negative integer");
@@ -340,8 +364,9 @@ public class GardenApp {
     //EFFECTS: sells user's plant, and increases their wallet balance based on plant's price
     private void sellPlants() {
         System.out.println("Which plant would you like to sell? (Enter plant's numeric position on garden list)");
-        int position = input.nextInt();
-        input.nextLine();
+        //int position = input.nextInt();
+       // input.nextLine();
+        int position = getInt();
 
         if (position < 0) {
             System.out.println("Please enter a non-negative integer");
@@ -371,7 +396,7 @@ public class GardenApp {
     private void getInstructions() {
         System.out.println("\n~ GAME PLAY ~");
         System.out.println("\tBuy seeds from the store and grow them!");
-        System.out.println("\tEach plant has its own water and fertilizer count."
+        System.out.println("\tEach plant has its own water and fertilizer count. "
                 + "Once both counts are 0, the plant is ready for harvest!");
         System.out.println("\tHarvest your plants and sell them to buy more plants!");
         System.out.println("\tOverwatering and overfeeding will kill your plants!");
