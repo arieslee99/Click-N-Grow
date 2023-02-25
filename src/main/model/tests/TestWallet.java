@@ -42,7 +42,7 @@ public class TestWallet {
         wallet.decreaseBalance(100);
         assertEquals(200, wallet.getBalance());
         wallet.decreaseBalance(200);
-        assertEquals(0, wallet.getBalance());
+        assertEquals(100, wallet.getBalance());
 
     }
 
@@ -51,4 +51,19 @@ public class TestWallet {
         wallet.decreaseBalance(500);
         assertEquals(300, wallet.getBalance());
     }
+
+    @Test
+    public void testGetBalanceHigherThanStarting() {
+        wallet.increaseBalance(100);
+        int newBalance = wallet.getBalance();
+        assertEquals(400, newBalance);
+    }
+
+    @Test
+    public void testGetBalanceLowerThanStarting() {
+        wallet.decreaseBalance(300);
+        int newBalance = wallet.getBalance();
+        assertEquals(100, newBalance);
+    }
+
 }

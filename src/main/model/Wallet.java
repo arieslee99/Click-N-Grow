@@ -3,10 +3,11 @@ package model;
 public class Wallet {
 
     private int balance;
+    private static final int SEED_MONEY = 100;
 
     //EFFECTS: constructs a wallet with a starting balance of 100
     public Wallet() {
-        this.balance = 100;
+        this.balance = SEED_MONEY;
     }
 
     //REQUIRES: balance needs to be greater than price
@@ -34,8 +35,8 @@ public class Wallet {
     //getters
     //EFFECTS: return current balance; if it is under 100 then set it back to 100
     public Integer getBalance() {
-        if (balance < 100) {
-            setBalance(100);
+        if (balance < SEED_MONEY) {
+            setBalance(SEED_MONEY);
         }
         return balance;
     }

@@ -394,12 +394,13 @@ public class GardenApp {
 
     //EFFECTS: shows user instructions on how to play game
     private void getInstructions() {
-        System.out.println("\n~ GAME PLAY ~");
-        System.out.println("\tBuy seeds from the store and grow them!");
-        System.out.println("\tEach plant has its own water and fertilizer count. "
+        System.out.println("~ GAME PLAY ~");
+        System.out.println("o Buy seeds from the store and grow them!");
+        System.out.println("o Each plant has its own water and fertilizer count. "
                 + "Once both counts are 0, the plant is ready for harvest!");
-        System.out.println("\tHarvest your plants and sell them to buy more plants!");
-        System.out.println("\tOverwatering and overfeeding will kill your plants!");
+        System.out.println("o Harvest your plants and sell them to buy more plants!");
+        System.out.println("o Check your inventory to for your ripe plants!");
+        System.out.println("o Overwatering and overfeeding will kill your plants!");
         System.out.println();
         displayMenu();
     }
