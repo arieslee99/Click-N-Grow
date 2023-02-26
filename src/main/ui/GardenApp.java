@@ -364,8 +364,6 @@ public class GardenApp {
     //EFFECTS: sells user's plant, and increases their wallet balance based on plant's price
     private void sellPlants() {
         System.out.println("Which plant would you like to sell? (Enter plant's numeric position on garden list)");
-        //int position = input.nextInt();
-       // input.nextLine();
         int position = getInt();
 
         if (position < 0) {

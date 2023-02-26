@@ -16,6 +16,7 @@ public class Corn extends Plant {
         return null;
     }
 
+    //MODIFIES: this
     //EFFECTS: returns value of corn after its sold; adds profit margin to its price
     @Override
     public Integer getProfitValue() {

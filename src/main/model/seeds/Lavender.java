@@ -18,6 +18,7 @@ public class Lavender extends Plant {
                 this.getType());
     }
 
+    //MODIFIES: this
     //EFFECTS: returns value of lavender after its sold; adds profit margin to its price
     @Override
     public Integer getProfitValue() {

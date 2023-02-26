@@ -17,6 +17,7 @@ public class ForgetMeNot extends Plant {
                 this.getType());
     }
 
+    //MODIFIES: this
     //EFFECTS: returns value of forget-me-not after its sold; adds profit margin to its price
     @Override
     public Integer getProfitValue() {

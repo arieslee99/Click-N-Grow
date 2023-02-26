@@ -16,6 +16,7 @@ public class Carrot extends Plant {
                 this.getType());
     }
 
+    //MODIFIES: this
     //EFFECTS: returns value of carrot after its sold; adds profit margin to its price
     @Override
     public Integer getProfitValue() {

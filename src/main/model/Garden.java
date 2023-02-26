@@ -18,13 +18,6 @@ public class Garden {
         garden.add(p);
     }
 
-    //REQUIRES: garden must have at least one plant in it
-    //MODIFIES: this
-    //EFFECTS: removes a plant from garden and returns true if successful; else, false
-//    public boolean removePlant(String plantName) {
-//        return garden.removeIf(plant -> (plant.getPlantName().equalsIgnoreCase(plantName)));
-//    }
-
     //REQUIRES: position < size of garden
     //EFFECTS: removes plant in that position of the list
     public void removePlant(int position) {
@@ -91,6 +84,4 @@ public class Garden {
     public ArrayList<Plant> getGarden() {
         return garden;
     }
-
-
 }
