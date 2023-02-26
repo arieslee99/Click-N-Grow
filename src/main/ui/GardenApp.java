@@ -45,12 +45,12 @@ public class GardenApp {
         System.out.println("\tP -> How to play");
         System.out.println("\tQ -> Quit");
 
-        String action = input.nextLine();
-        processDisplayCommand(action);
+        processDisplayCommand();
     }
 
     //EFFECTS: processes user's command to navigate through entire game
-    private void processDisplayCommand(String action) {
+    private void processDisplayCommand() {
+        String action = input.nextLine();
         switch (action.toUpperCase()) {
             case ("G"):
                 seeMyGarden();
@@ -70,7 +70,8 @@ public class GardenApp {
                 System.out.print("Come back soon!");
                 System.exit(0);
             default:
-                displayMenu();
+                System.out.println("Please enter one of the presented letters");
+                processDisplayCommand();
         }
     }
 
@@ -87,7 +88,11 @@ public class GardenApp {
                 position++;
             }
         }
+        gardenMenu();
+    }
 
+    //EFFECTS: shows user the display menu for their garden
+    private void gardenMenu() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\tW -> Water plants");
         System.out.println("\tF -> Feed plants");
@@ -96,12 +101,12 @@ public class GardenApp {
         System.out.println("\tS -> Go to store");
         System.out.println("\tB -> Back to homepage");
 
-        processGardenCommand(input.nextLine());
+        processGardenCommand();
     }
 
     //EFFECTS: processes user's command to navigate through garden
-    private void processGardenCommand(String action) {
-        switch (action.toUpperCase()) {
+    private void processGardenCommand() {
+        switch (input.nextLine().toUpperCase()) {
             case ("B"):
                 displayMenu();
                 break;
@@ -121,7 +126,8 @@ public class GardenApp {
                 visitStore();
                 break;
             default:
-                seeMyGarden();
+                System.out.println("Please enter one of the presented letters");
+                processGardenCommand();
         }
     }
 
@@ -161,12 +167,12 @@ public class GardenApp {
             if (feedOrWater.equals("water")) {
                 plant.waterPlant();
                 System.out.println("Your " + plant.getPlantName() + " is watered!");
-                System.out.println("It's current water count is: " + plant.getWaterCount());
+                System.out.println("Its current water count is: " + plant.getWaterCount());
                 System.out.println();
             } else {
                 plant.feedPlant();
                 System.out.println("Your " + plant.getPlantName() + " is fed!");
-                System.out.println("It's current feed count is: " + plant.getFertilizerCount());
+                System.out.println("Its current feed count is: " + plant.getFertilizerCount());
                 System.out.println();
             }
         } else {
@@ -200,12 +206,13 @@ public class GardenApp {
         System.out.println("\t O -> Just one plant");
         System.out.println("\t B -> I changed my mind... get me outta here!");
 
-        String response = input.nextLine();
-        processUprootCommand(response);
+        processUprootCommand();
     }
 
     //EFFECTS: processes command from uproot display menu
-    private void processUprootCommand(String response) {
+    private void processUprootCommand() {
+        String response = input.nextLine();
+
         switch (response.toUpperCase()) {
             case ("A"):
                 garden.emptyGarden();
@@ -225,7 +232,7 @@ public class GardenApp {
                 break;
             default:
                 System.out.println("Please enter one of the presented letters");
-                uproot();
+                processUprootCommand();
         }
     }
 
@@ -266,6 +273,11 @@ public class GardenApp {
         System.out.println("\tF -> Flowers");
         System.out.println("\tB -> Back to homepage");
 
+        storeMenu();
+    }
+
+    //EFFECTS: shows the display menu for the store
+    private void storeMenu() {
         String action = input.nextLine();
 
         switch (action.toUpperCase()) {
@@ -282,7 +294,8 @@ public class GardenApp {
                 displayMenu();
                 break;
             default:
-                visitStore();
+                System.out.println("Please enter one of the presented letters");
+                storeMenu();
         }
     }
 
