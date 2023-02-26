@@ -14,16 +14,19 @@ public class GardenApp {
     private final Scanner input = new Scanner(System.in);
 
 
+    //EFFECTS: runs the virtual garden application
     public GardenApp() {
         runGarden();
     }
 
+    //EFFECTS: greets user
     private void runGarden() {
         System.out.println("Welcome to your virtual garden!");
         System.out.println();
         initializeGarden();
     }
 
+    //MODIFIES: this
     //EFFECTS: initializes garden by asking for name
     private void initializeGarden() {
         System.out.println("What is your garden's name?");
@@ -104,6 +107,7 @@ public class GardenApp {
         processGardenCommand();
     }
 
+    //MODIFIES: this
     //EFFECTS: processes user's command to navigate through garden
     private void processGardenCommand() {
         switch (input.nextLine().toUpperCase()) {
@@ -131,6 +135,7 @@ public class GardenApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: checks input to see if it's an integer; returns integer
     private Integer getInt() {
         while (true) {
@@ -159,6 +164,7 @@ public class GardenApp {
         waterAndFeed(getInt(), feedOrWater);
     }
 
+    //MODIFIES: this
     //EFFECTS: waters or feeds plant
     private void waterAndFeed(int response, String feedOrWater) {
         if (0 <= response && response < garden.getSize()) {
@@ -182,6 +188,7 @@ public class GardenApp {
         seeMyGarden();
     }
 
+    //MODIFIES: this
     //EFFECTS: adds ripe plants to inventory, removes the same plants from garden
     private void harvest() {
         if (garden.getSize() != 0) {
@@ -209,6 +216,7 @@ public class GardenApp {
         processUprootCommand();
     }
 
+    //MODIFIES: this
     //EFFECTS: processes command from uproot display menu
     private void processUprootCommand() {
         String response = input.nextLine();
@@ -236,6 +244,7 @@ public class GardenApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: removes just one plant that the user specifies
     private void uprootJustOne() {
         System.out.println("Which plant would you like to remove? (Enter plant's numeric position on garden list)");
@@ -276,6 +285,7 @@ public class GardenApp {
         storeMenu();
     }
 
+    //MODIFIES: this
     //EFFECTS: shows the display menu for the store
     private void storeMenu() {
         String action = input.nextLine();
@@ -312,6 +322,7 @@ public class GardenApp {
         processSellingSeedsCommand(plants);
     }
 
+    //MODIFIES: this
     //EFFECTS: processing user's decision to buy or not buy seeds
     private void processSellingSeedsCommand(ArrayList<Plant> plants) {
         switch (input.nextLine().toUpperCase()) {
@@ -333,6 +344,7 @@ public class GardenApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: adds plant to user's garden, deducts plant's amount from wallet
     private void buySeed(String response, ArrayList<Plant> plants) {
         for (Plant plant : plants) {
@@ -373,6 +385,7 @@ public class GardenApp {
         processInventoryCommand();
     }
 
+    //MODIFIES: this
     //EFFECTS: processes user's decision to sell or not sell their plants
     private void processInventoryCommand() {
         String action = input.nextLine();
@@ -386,6 +399,7 @@ public class GardenApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: sells user's plant, and increases their wallet balance based on plant's price
     private void sellPlants() {
         System.out.println("Which plant would you like to sell? (Enter plant's numeric position on garden list)");
