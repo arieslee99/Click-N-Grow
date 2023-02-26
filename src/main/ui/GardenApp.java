@@ -309,9 +309,14 @@ public class GardenApp {
         System.out.println("\tY -> Yes!");
         System.out.println("\tN -> Get me out of here!");
 
+        processSellingSeedsCommand(plants);
+    }
+
+    //EFFECTS: processing user's decision to buy or not buy seeds
+    private void processSellingSeedsCommand(ArrayList<Plant> plants) {
         switch (input.nextLine().toUpperCase()) {
             case ("Y"):
-                System.out.println("Which seed would you like to buy?");
+                System.out.println("Which seed would you like to buy? (Enter plant's name)");
                 String response = input.nextLine();
                 if (store.searchForPlant(response)) {
                     buySeed(response, plants);
@@ -323,7 +328,8 @@ public class GardenApp {
             case ("N"):
                 displayMenu();
             default:
-                displaySeeds(plants);
+                System.out.println("Please enter one of the presented letters");
+                processSellingSeedsCommand(plants);
         }
     }
 
@@ -364,13 +370,19 @@ public class GardenApp {
         System.out.println("\nWould you like to sell?");
         System.out.println("\tY -> Yes! Lets make some money!");
         System.out.println("\tN -> No! Stay away from my plants!");
+        processInventoryCommand();
+    }
+
+    //EFFECTS: processes user's decision to sell or not sell their plants
+    private void processInventoryCommand() {
         String action = input.nextLine();
         if ("Y".equalsIgnoreCase(action)) {
             sellPlants();
         } else if ("N".equalsIgnoreCase(action)) {
             displayMenu();
         } else {
-            seeMyInventory();
+            System.out.println("Please enter one of the presented letters");
+            processInventoryCommand();
         }
     }
 
