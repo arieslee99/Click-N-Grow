@@ -48,6 +48,7 @@ public class JsonWriterTest {
 
     @Test
     public void testWriterWriteBaseCaseSavedItems() {
+
         try {
             SavedItems savedItems = new SavedItems(garden, inventory, wallet);
             JsonWriter writer = new JsonWriter("./data/testWriterWriteBaseCaseSavedItems.json");
