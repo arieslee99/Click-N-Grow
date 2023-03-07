@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+//Represents a list of plants that are growing
 public class Garden {
-    private final ArrayList<Plant> garden;
     private String gardenName;
+    private ArrayList<Plant> garden;
 
     //EFFECTS: construct a garden
     public Garden(String name) {
@@ -70,6 +74,26 @@ public class Garden {
         return false;
     }
 
+    //EFFECTS: translates list of plants in garden into json array
+    public JSONArray translateToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Plant plant: garden) {
+            jsonArray.put(plant.translateToJson());
+        }
+        return jsonArray;
+    }
+
+    //EFFECTS: translates the garden name to a json object
+    public JSONObject translateToJson() {
+        JSONObject  jsonObject = new JSONObject();
+        jsonObject.put("name", gardenName);
+        jsonObject.put("plants", translateToJsonArray());
+
+        return jsonObject;
+    }
+
+
     //EFFECTS: return number of dead plants
     public Integer getNumOfDeadPlants() {
         int count = 0;
@@ -84,4 +108,5 @@ public class Garden {
     public ArrayList<Plant> getGarden() {
         return garden;
     }
+
 }

@@ -128,4 +128,12 @@ public class TestInventory {
         assertEquals(lavender, inventory.getPlant(0));
         assertEquals(rose, inventory.getPlant(1));
     }
+
+    @Test
+    public void testJustAddPlant() {
+        assertEquals(0, inventory.getSize());
+        inventory.justAddPlant(lavender);
+        assertEquals(1, inventory.getSize());
+        assertEquals(lavender, inventory.getPlant(0));
+    }
 }

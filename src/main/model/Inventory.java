@@ -1,15 +1,20 @@
 package model;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
+//Represents list of riped (harvested) plants
 public class Inventory {
-    private final ArrayList<Plant> inventory;
+    private ArrayList<Plant> inventory;
 
     //EFFECTS: construct an inventory
     public Inventory() {
         inventory = new ArrayList<>();
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds plant to inventory; removes plant from garden
     public Integer addPlant(Garden g) {
         int ripeCount = 0;
         for (Plant plant: g.getGarden()) {
@@ -21,6 +26,12 @@ public class Inventory {
         g.getGarden().removeIf(plant -> plant.getLifeStatus().equals("Ripe!"));
 
         return ripeCount;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: just adds the plant to inventory without removing anything from garden
+    public void justAddPlant(Plant plant) {
+        inventory.add(plant);
     }
 
     //REQUIRES: position < inventory size
@@ -45,6 +56,16 @@ public class Inventory {
         return null;
     }
 
+    //EFFECTS: translates list of plants into inventory into json array
+    public JSONArray translateToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Plant plant: inventory) {
+            jsonArray.put(plant.translateToJson());
+        }
+        return jsonArray;
+    }
+
     //getter
     public ArrayList<Plant> getInventory() {
         return inventory;
@@ -53,4 +74,5 @@ public class Inventory {
     public Integer getSize() {
         return inventory.size();
     }
+
 }

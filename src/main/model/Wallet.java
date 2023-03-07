@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+
+//Stores and updates user's money balance
 public class Wallet {
 
     private int balance;
@@ -39,5 +42,12 @@ public class Wallet {
             setBalance(SEED_MONEY);
         }
         return balance;
+    }
+
+    //EFFECTS: translates balance into a json object
+    public JSONObject translateMoneyToJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("balance", balance);
+        return jsonObject;
     }
 }

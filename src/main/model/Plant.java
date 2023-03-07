@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public abstract class Plant {
@@ -48,6 +50,14 @@ public abstract class Plant {
         } else {
             lifeStatus = "Growing!";
         }
+    }
+
+    //setters
+
+    //MODIFIES: this
+    //EFFECTS: sets life status to status
+    public void setLifeStatus(String status) {
+        lifeStatus = status;
     }
 
     //getters
@@ -107,6 +117,19 @@ public abstract class Plant {
             return false;
         }
         return this.type.equals(((Plant) other).type);
+    }
+
+    //EFFECTS: translates plant into json object
+    public JSONObject translateToJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", plantName);
+        jsonObject.put("water count", waterCount);
+        jsonObject.put("fertilizer count", fertilizerCount);
+        jsonObject.put("price", price);
+        jsonObject.put("life status", lifeStatus);
+        jsonObject.put("plant type", type.toString());
+
+        return jsonObject;
     }
 }
 
