@@ -2,7 +2,10 @@ package model.tests;
 
 import model.Garden;
 import model.Plant;
+import model.PlantType;
 import model.seeds.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -121,4 +124,53 @@ public class TestGarden {
         garden.emptyGarden();
         assertEquals(0, garden.getSize());
     }
+
+    @Test
+    public void testSearchForPlant() {
+        boolean fail1 = garden.searchForPlant("lavender");
+        boolean fail2 = garden.searchForPlant("Lavender");
+        assertFalse(fail1);
+        assertFalse(fail2);
+
+        garden.addPlant(lettuce);
+        boolean success1 = garden.searchForPlant("Lettuce");
+        boolean success2 = garden.searchForPlant("lettuce");
+        assertTrue(success1);
+        assertTrue(success2);
+
+        boolean fail3 = garden.searchForPlant("cactus");
+        assertFalse(fail3);
+
+
+
+
+    }
+
+    @Test
+    public void testTranslateToJson() {
+        garden.addPlant(lavender);
+        JSONObject jsonObject = garden.translateToJson();
+        String jsonGardenName = jsonObject.getString("name");
+        JSONArray jsonPlants = jsonObject.getJSONArray("plants");
+        JSONObject plant = (JSONObject) jsonPlants.get(0);
+
+        assertEquals("David's Garden", jsonGardenName);
+        assertEquals("Lavender", plant.getString("name"));
+        assertEquals(5, plant.getInt("water count"));
+        assertEquals(6, plant.getInt("fertilizer count"));
+        assertEquals(500, plant.getInt("price"));
+        PlantType actualPlantType = translatePlantTypeStringToPlantType(plant.getString("plant type"));
+
+        assertEquals(FLOWER, actualPlantType);
+    }
+
+    //EFFECTS: changes name of plant type to corresponding plant type
+    private PlantType translatePlantTypeStringToPlantType(String name) {
+        if (name.equals("Vegetable")) {
+            return VEGETABLE;
+        } else {
+            return FLOWER;
+        }
+    }
+
 }

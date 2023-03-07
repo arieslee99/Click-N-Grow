@@ -3,13 +3,17 @@ package model.tests;
 import model.Garden;
 import model.Inventory;
 import model.Plant;
+import model.PlantType;
 import model.seeds.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static model.PlantType.FLOWER;
+import static model.PlantType.VEGETABLE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestInventory {
@@ -135,5 +139,31 @@ public class TestInventory {
         inventory.justAddPlant(lavender);
         assertEquals(1, inventory.getSize());
         assertEquals(lavender, inventory.getPlant(0));
+    }
+
+    @Test
+    public void testTranslateToJsonArray() {
+        inventory.addPlant(garden);
+        assertEquals(2, inventory.getSize());
+        JSONArray jsonArray = inventory.translateToJsonArray();
+        JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+        assertEquals("Lavender", jsonObject1.getString("name"));
+        assertEquals(0, jsonObject1.getInt("water count"));
+        assertEquals(0, jsonObject1.getInt("fertilizer count"));
+        assertEquals(500, jsonObject1.getInt("price"));
+        String plantTypeName = jsonObject1.getString("plant type");
+        PlantType actualPlantType = translatePlantTypeStringToPlantType(plantTypeName);
+
+        assertEquals(FLOWER, actualPlantType);
+
+    }
+
+    //EFFECTS: changes name of plant type to corresponding plant type
+    private PlantType translatePlantTypeStringToPlantType(String name) {
+        if (name.equals("Vegetable")) {
+            return VEGETABLE;
+        } else {
+            return FLOWER;
+        }
     }
 }

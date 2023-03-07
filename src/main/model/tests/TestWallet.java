@@ -1,6 +1,7 @@
 package model.tests;
 
 import model.Wallet;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,6 +65,13 @@ public class TestWallet {
         wallet.decreaseBalance(300);
         int newBalance = wallet.getBalance();
         assertEquals(100, newBalance);
+    }
+
+    @Test
+    public void testTranslateMoneyToJson() {
+        JSONObject jsonWallet = wallet.translateMoneyToJson();
+        int balance = jsonWallet.getInt("balance");
+        assertEquals(300, balance);
     }
 
 }
