@@ -36,6 +36,7 @@ public class Wallet {
     }
 
     //getters
+
     //EFFECTS: return current balance; if it is under 100 then set it back to 100
     public Integer getBalance() {
         if (balance < SEED_MONEY) {

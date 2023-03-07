@@ -5,6 +5,7 @@ import model.seeds.*;
 import java.util.ArrayList;
 import static model.PlantType.*;
 
+//A list of plants available for purchase
 public class Store {
     private final ArrayList<Plant> store;
 

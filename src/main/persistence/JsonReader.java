@@ -79,10 +79,11 @@ public class JsonReader {
     //MODIFIES: wallet
     //EFFECTS: setting the actual wallet to have the json object's balance
     public Wallet parseWallet(JSONObject jsonObject) {
-        int balance = jsonObject.getInt("wallet");
-        Wallet wallet = new Wallet();
-        wallet.setBalance(balance);
-        return wallet;
+        JSONObject wallet = jsonObject.getJSONObject("wallet");
+        int balance = wallet.getInt("balance");
+        Wallet actualWallet = new Wallet();
+        actualWallet.setBalance(balance);
+        return actualWallet;
     }
 
     //EFFECTS: retrieving plant data from json representation and constructing

@@ -1,6 +1,5 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SavedItems {
@@ -23,6 +22,21 @@ public class SavedItems {
         jsonObject.put("inventory", inventory.translateToJsonArray());
         jsonObject.put("wallet", wallet.translateMoneyToJson());
         return jsonObject;
+    }
+
+    //EFFECTS: retrieves garden
+    public Garden getGarden() {
+        return garden;
+    }
+
+    //EFFECTS: retrieves inventory
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    //EFFECTS: retrieves wallet
+    public Wallet getWallet() {
+        return wallet;
     }
 
 }

@@ -2,8 +2,7 @@ package model;
 
 import org.json.JSONObject;
 
-import java.util.Objects;
-
+//Represents a plant, including all its attributes
 public abstract class Plant {
     private final String plantName;
     private String lifeStatus;

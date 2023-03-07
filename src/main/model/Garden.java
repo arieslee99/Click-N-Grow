@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//Represents a list of plants that are growing
+//Represents a list of plants that are in garden
 public class Garden {
     private String gardenName;
     private ArrayList<Plant> garden;
