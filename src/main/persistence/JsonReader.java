@@ -100,12 +100,11 @@ public class JsonReader {
             actualPlantType = VEGETABLE;
             return constructActualVeggiePlant(plantName, waterCount, fertilizerCount,
                     price, lifeStatus, actualPlantType);
-        } else if (plantType.equalsIgnoreCase("Flower")) {
+        } else {
             actualPlantType = FLOWER;
             return constructActualFlowerPlant(plantName, waterCount, fertilizerCount,
                     price, lifeStatus, actualPlantType);
         }
-        return null;
     }
 
     //EFFECT: construct actual vegetable plant from json representation
@@ -128,12 +127,10 @@ public class JsonReader {
                 Lettuce lettuce = new Lettuce(plantName, waterCount, fertilizerCount, price, actualPlantType);
                 lettuce.setLifeStatus(lifeStatus);
                 return lettuce;
-            case ("potato"):
+            default:
                 Potato potato = new Potato(plantName, waterCount, fertilizerCount, price, actualPlantType);
                 potato.setLifeStatus(lifeStatus);
                 return potato;
-            default:
-                return null;
         }
     }
 
@@ -158,12 +155,10 @@ public class JsonReader {
                 Rose rose = new Rose(plantName, waterCount, fertilizerCount, price, actualPlantType);
                 rose.setLifeStatus(lifeStatus);
                 return rose;
-            case ("sunflower"):
+            default:
                 Sunflower sunflower = new Sunflower(plantName, waterCount, fertilizerCount, price, actualPlantType);
                 sunflower.setLifeStatus(lifeStatus);
                 return sunflower;
-            default:
-                return null;
         }
     }
 

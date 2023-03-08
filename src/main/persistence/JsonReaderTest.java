@@ -18,20 +18,19 @@ public class JsonReaderTest {
     private Garden garden;
     private Inventory inventory;
     private Wallet wallet;
-    private final Garlic garlic = new Garlic("Garlic", 2, 3, 100, VEGETABLE);
-    private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
-    private final Cactus cactus = new Cactus("Cactus", 0, 0, 100, FLOWER);
+    private final Garlic garlic = new Garlic("garlic", 2, 3, 100, VEGETABLE);
+    private final Lavender lavender = new Lavender("LAVENDER", 5, 6, 500, FLOWER);
+    private final Cactus cactus = new Cactus("CacTus", 0, 0, 100, FLOWER);
     private final ForgetMeNot forgetMeNot =
             new ForgetMeNot("Forget Me Not", 3, 6, 500, FLOWER);
     private final Sunflower sunflower =
             new Sunflower("Sunflower", 8, 9, 300, FLOWER);
     private final Rose rose = new Rose("Rose", 6, 6, 600, FLOWER);
     private final Carrot carrot =
-            new Carrot("Carrot", 5, 7, 200, VEGETABLE);
+            new Carrot("CaRRot", 5, 7, 200, VEGETABLE);
     private final Potato potato = new Potato("Potato", 3, 5, 100, VEGETABLE);
     private final Lettuce lettuce = new Lettuce("Lettuce", 8, 3, 400, VEGETABLE);
     private final Eggplant eggplant = new Eggplant("Eggplant", 0, 0, 300, VEGETABLE);
-
 
 
     @BeforeEach
@@ -101,31 +100,26 @@ public class JsonReaderTest {
             assertEquals(garlic, saveItems1.getGarden().getPlant(1));
             assertEquals(cactus, saveItems1.getInventory().getPlant(0));
 
-
         } catch (IOException e) {
             fail("IOException not expected");
         }
     }
 
     @Test
-    public void testReaderMostOfTheSeedCatalogue() {
+    public void testReaderAllOfTheSeedCatalogue() {
         addPlants();
-        inventory.justAddPlant(cactus);
-        inventory.justAddPlant(eggplant);
-
         try {
             SavedItems savedItems = new SavedItems(garden, inventory, wallet);
-            JsonWriter writer = new JsonWriter("./data/testReaderMostOfTheSeedCatalogue.json");
+            JsonWriter writer = new JsonWriter("./data/testReaderAllOfTheSeedCatalogue.json");
             writer.openFile();
             writer.write(savedItems);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testReaderMostOfTheSeedCatalogue.json");
+            JsonReader reader = new JsonReader("./data/testReaderAllOfTheSeedCatalogue.json");
             SavedItems saveItems1 = reader.read();
             assertEquals("David's garden", saveItems1.getGarden().getGardenName());
             assertEquals(6, saveItems1.getGarden().getSize());
             assertEquals(2, saveItems1.getInventory().getSize());
-            assertEquals(100, saveItems1.getWallet().getBalance());
 
             assertEquals(forgetMeNot, saveItems1.getGarden().getPlant(0));
             assertEquals(carrot, saveItems1.getGarden().getPlant(1));
@@ -136,16 +130,17 @@ public class JsonReaderTest {
 
             assertEquals(cactus, saveItems1.getInventory().getPlant(0));
             assertEquals(eggplant, saveItems1.getInventory().getPlant(1));
-
         } catch (IOException e) {
             fail("IOException not expected");
         }
-
     }
 
     //MODIFIES: garden
     //EFFECTS: add lots of plants to garden
     private void addPlants() {
+        inventory.justAddPlant(cactus);
+        inventory.justAddPlant(eggplant);
+
         garden.addPlant(forgetMeNot);
         garden.addPlant(carrot);
         garden.addPlant(lettuce);

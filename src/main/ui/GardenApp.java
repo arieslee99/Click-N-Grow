@@ -1,21 +1,36 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+//Represents the garden application
 public class GardenApp {
 
     private final Store store = new Store();
-    private final Inventory inventory = new Inventory();
-    private final Garden garden = new Garden(null);
-    private final Wallet wallet = new Wallet();
+    private Inventory inventory = new Inventory();
+    private Garden garden = new Garden(null);
+    private Wallet wallet = new Wallet();
     private final Scanner input = new Scanner(System.in);
 
+    private static final String JSON_STORE = "./data/savedItems.json";
+    private SavedItems savedItems;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    //EFFECTS: runs the virtual garden application
-    public GardenApp() {
+
+    //EFFECTS: constructs savedItems and runs the virtual garden application
+    public GardenApp() throws FileNotFoundException {
+        savedItems = new SavedItems(garden, inventory, wallet);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runGarden();
     }
 
@@ -23,15 +38,61 @@ public class GardenApp {
     private void runGarden() {
         System.out.println("Welcome to your virtual garden!");
         System.out.println();
-        initializeGarden();
+        loginPage();
+    }
+
+    private void loginPage() {
+        System.out.println("\n How would you like to login?");
+        System.out.println("\t L -> Login (load saved game)");
+        System.out.println("\t C -> Create new account");
+        System.out.println("\t Q -> Quit");
+        processLoginCommand();
+    }
+
+    //EFFECTS: asks user if they want to create a new game or load saved progress
+    private void processLoginCommand() {
+        String response = input.nextLine();
+        if (response.equalsIgnoreCase("L")) {
+            loadProgress();
+        } else if (response.equalsIgnoreCase("C")) {
+            initializeGarden();
+        } else if (response.equalsIgnoreCase("Q")){
+            System.out.println("Come back soon!");
+            input.close();
+        } else {
+            System.out.println("Please enter one of presented letters");
+            loginPage();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads previously saved progress (garden, inventory, wallet) from file
+    private void loadProgress() {
+        try {
+            savedItems = jsonReader.read();
+
+            garden = savedItems.getGarden();
+            inventory = savedItems.getInventory();
+            wallet = savedItems.getWallet();
+
+            System.out.println("Loaded " + JSON_STORE);
+            displayMenu();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     //MODIFIES: this
     //EFFECTS: initializes garden by asking for name
     private void initializeGarden() {
+        inventory = new Inventory();
+        wallet = new Wallet();
+
         System.out.println("What is your garden's name?");
         String name = input.nextLine();
-        garden.setGardenName(name);
+        garden = new Garden(name);
+        //garden.setGardenName(name);
+
         System.out.println("Welcome to " + name + "'s" + " garden!");
         displayMenu();
     }
@@ -70,11 +131,44 @@ public class GardenApp {
             case ("P"):
                 getInstructions();
             case ("Q"):
-                System.out.print("Come back soon!");
-                System.exit(0);
+                quitApp();
             default:
                 System.out.println("Please enter one of the presented letters");
                 processDisplayCommand();
+        }
+    }
+
+    //EFFECTS: asks user if they would like to save progress before quitting
+    private void quitApp() {
+        System.out.println("\nWould you like to save your progress");
+        System.out.println("\t Y -> Yes!");
+        System.out.println("\t N -> No!");
+
+        String response = input.nextLine();
+
+        if (response.equalsIgnoreCase("Y")) {
+            saveProgress();
+        } else if (response.equalsIgnoreCase("N")) {
+            System.out.println("Come back soon!");
+            input.close();
+        } else {
+            System.out.println("Please enter one of the given letters");
+            quitApp();
+        }
+    }
+
+    //JsonSerializationDemo
+    //EFFECTS: saves user's garden, inventory and wallet to file
+    private void saveProgress() {
+        try {
+            jsonWriter.openFile();
+            jsonWriter.write(savedItems);
+            jsonWriter.close();
+            System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
+            System.out.println("Come back soon!");
+            input.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
