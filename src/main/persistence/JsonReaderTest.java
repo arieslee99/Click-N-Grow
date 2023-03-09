@@ -55,19 +55,17 @@ public class JsonReaderTest {
     public void testReaderBaseCaseFile() {
         try {
             SavedItems savedItems = new SavedItems(garden, inventory, wallet);
-            JsonWriter writer = new JsonWriter("./data/testReaderWriteBaseCaseSavedItems.json");
+            JsonWriter writer = new JsonWriter("./data/testReaderBaseCaseSavedItems.json");
             writer.openFile();
             writer.write(savedItems);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testReaderWriteBaseCaseSavedItems.json");
-
-            SavedItems saveItems1 = reader.read();
-            assertEquals("David's garden", saveItems1.getGarden().getGardenName());
-            assertEquals(0, saveItems1.getGarden().getSize());
-            assertEquals(0, saveItems1.getInventory().getSize());
-            assertEquals(100, saveItems1.getWallet().getBalance());
-
+            JsonReader reader = new JsonReader("./data/testReaderBaseCaseSavedItems.json");
+            savedItems = reader.read();
+            assertEquals("David's garden", savedItems.getGarden().getGardenName());
+            assertEquals(0, savedItems.getGarden().getSize());
+            assertEquals(0, savedItems.getInventory().getSize());
+            assertEquals(100, savedItems.getWallet().getBalance());
 
         } catch (IOException e) {
             fail("IOException not expected");
@@ -133,6 +131,7 @@ public class JsonReaderTest {
             fail("IOException not expected");
         }
     }
+
 
     @Test
     public void testConstructActualVeggiePlant() {

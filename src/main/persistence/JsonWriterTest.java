@@ -56,7 +56,7 @@ public class JsonWriterTest {
             writer.write(savedItems);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterWriteEmptySavedItems.json");
+            JsonReader reader = new JsonReader("./data/testWriterWriteBaseCaseSavedItems.json");
             savedItems = reader.read();
             assertEquals("david", savedItems.getGarden().getGardenName());
             assertEquals(0, savedItems.getGarden().getSize());

@@ -19,8 +19,8 @@ public class JsonReader {
     private String jsonFile;
 
     //EFFECTS: constructs a reader
-    public JsonReader(String json) {
-        jsonFile = json;
+    public JsonReader(String jsonFile) {
+        this.jsonFile = jsonFile;
     }
 
     //EFFECTS: reads savedItems from json
