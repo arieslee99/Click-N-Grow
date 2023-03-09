@@ -15,9 +15,9 @@ import java.util.Scanner;
 public class GardenApp {
 
     private final Store store = new Store();
-    private Inventory inventory = new Inventory();
-    private Garden garden = new Garden(null);
-    private Wallet wallet = new Wallet();
+    private Inventory inventory;
+    private Garden garden;
+    private Wallet wallet;
     private final Scanner input = new Scanner(System.in);
 
     private static final String JSON_STORE = "./data/savedItems.json";
@@ -28,7 +28,7 @@ public class GardenApp {
 
     //EFFECTS: constructs savedItems and runs the virtual garden application
     public GardenApp() throws FileNotFoundException {
-        savedItems = new SavedItems(garden, inventory, wallet);
+
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runGarden();
@@ -56,7 +56,7 @@ public class GardenApp {
             loadProgress();
         } else if (response.equalsIgnoreCase("C")) {
             initializeGarden();
-        } else if (response.equalsIgnoreCase("Q")){
+        } else if (response.equalsIgnoreCase("Q")) {
             System.out.println("Come back soon!");
             input.close();
         } else {
@@ -70,12 +70,11 @@ public class GardenApp {
     private void loadProgress() {
         try {
             savedItems = jsonReader.read();
-
             garden = savedItems.getGarden();
             inventory = savedItems.getInventory();
             wallet = savedItems.getWallet();
 
-            System.out.println("Loaded " + JSON_STORE);
+            System.out.println(garden.getGardenName() + "'s garden is loaded!");
             displayMenu();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
@@ -150,7 +149,7 @@ public class GardenApp {
             saveProgress();
         } else if (response.equalsIgnoreCase("N")) {
             System.out.println("Come back soon!");
-            input.close();
+            System.exit(0);
         } else {
             System.out.println("Please enter one of the given letters");
             quitApp();
@@ -161,12 +160,13 @@ public class GardenApp {
     //EFFECTS: saves user's garden, inventory and wallet to file
     private void saveProgress() {
         try {
+            savedItems = new SavedItems(garden, inventory, wallet);
             jsonWriter.openFile();
             jsonWriter.write(savedItems);
             jsonWriter.close();
             System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
             System.out.println("Come back soon!");
-            input.close();
+            System.exit(0);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
