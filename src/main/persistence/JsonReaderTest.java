@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static model.PlantType.FLOWER;
 import static model.PlantType.VEGETABLE;
@@ -18,16 +17,16 @@ public class JsonReaderTest {
     private Garden garden;
     private Inventory inventory;
     private Wallet wallet;
-    private final Garlic garlic = new Garlic("garlic", 2, 3, 100, VEGETABLE);
-    private final Lavender lavender = new Lavender("LAVENDER", 5, 6, 500, FLOWER);
-    private final Cactus cactus = new Cactus("CacTus", 0, 0, 100, FLOWER);
+    private final Garlic garlic = new Garlic("Garlic", 2, 3, 100, VEGETABLE);
+    private final Lavender lavender = new Lavender("Lavender", 5, 6, 500, FLOWER);
+    private final Cactus cactus = new Cactus("Cactus", 0, 0, 100, FLOWER);
     private final ForgetMeNot forgetMeNot =
             new ForgetMeNot("Forget Me Not", 3, 6, 500, FLOWER);
     private final Sunflower sunflower =
             new Sunflower("Sunflower", 8, 9, 300, FLOWER);
     private final Rose rose = new Rose("Rose", 6, 6, 600, FLOWER);
     private final Carrot carrot =
-            new Carrot("CaRRot", 5, 7, 200, VEGETABLE);
+            new Carrot("Carrot", 5, 7, 200, VEGETABLE);
     private final Potato potato = new Potato("Potato", 3, 5, 100, VEGETABLE);
     private final Lettuce lettuce = new Lettuce("Lettuce", 8, 3, 400, VEGETABLE);
     private final Eggplant eggplant = new Eggplant("Eggplant", 0, 0, 300, VEGETABLE);
@@ -134,6 +133,53 @@ public class JsonReaderTest {
             fail("IOException not expected");
         }
     }
+
+    @Test
+    public void testConstructActualVeggiePlant() {
+        JsonReader reader = new JsonReader(".data/testConstructActualVeggiePlant");
+        Plant plant = reader.makeVeggie("Carrot", 5, 7,
+                200, "Growing!", VEGETABLE);
+        assertEquals("Carrot", plant.getPlantName());
+        Plant plant1 = reader.makeVeggie("Garlic", 2, 3, 100,
+                "Growing!", VEGETABLE);
+        assertEquals("Garlic", plant1.getPlantName());
+        Plant plant2 = reader.makeVeggie("Eggplant", 0, 0,
+                300, "Growing!", VEGETABLE);
+        assertEquals("Eggplant", plant2.getPlantName());
+        Plant plant3 = reader.makeVeggie("Potato", 3, 5, 100,
+                "Growing!", VEGETABLE);
+        assertEquals("Potato", plant3.getPlantName());
+        Plant plant4 = reader.makeVeggie("Lettuce", 8, 3, 400,
+                "Growing!", VEGETABLE);
+        assertEquals("Lettuce", plant4.getPlantName());
+        Plant plant11 = reader.makeVeggie("Corn", 1, 1,
+                100, "Growing!", VEGETABLE);
+        assertNull(plant11);
+    }
+
+    @Test
+    public void testActualFlowerPlant() {
+        JsonReader reader = new JsonReader(".data/testConstructActualFlowerPlant");
+        Plant plant5 = reader.makeFlower("Cactus", 0, 0, 100,
+                "Growing!", FLOWER);
+        assertEquals("Cactus", plant5.getPlantName());
+        Plant plant6 = reader.makeFlower("Forget Me Not", 3, 6,
+                500, "Growing!",FLOWER);
+        assertEquals("Forget Me Not", plant6.getPlantName());
+        Plant plant7 = reader.makeFlower("Lavender", 5, 6, 500,
+                "Growing!", FLOWER);
+        assertEquals("Lavender", plant7.getPlantName());
+        Plant plant8 = reader.makeFlower("Rose", 6, 6, 600,
+                "Growing!", FLOWER);
+        assertEquals("Rose", plant8.getPlantName());
+        Plant plant9 = reader.makeFlower("Sunflower", 8, 9, 300,
+                "Growing!", FLOWER);
+        assertEquals("Sunflower", plant9.getPlantName());
+        Plant plant10 = reader.makeFlower("Eucalyptus", 3, 2,
+                400, "Growing!", FLOWER);
+        assertNull(plant10);
+    }
+
 
     //MODIFIES: garden
     //EFFECTS: add lots of plants to garden

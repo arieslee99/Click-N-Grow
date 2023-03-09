@@ -90,7 +90,6 @@ public class GardenApp {
         System.out.println("What is your garden's name?");
         String name = input.nextLine();
         garden = new Garden(name);
-        //garden.setGardenName(name);
 
         System.out.println("Welcome to " + name + "'s" + " garden!");
         displayMenu();

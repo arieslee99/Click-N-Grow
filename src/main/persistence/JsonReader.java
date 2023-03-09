@@ -96,70 +96,70 @@ public class JsonReader {
         String plantType = jsonPlant.getString("plant type");
 
         PlantType actualPlantType;
+        Plant actualPlant;
         if (plantType.equalsIgnoreCase("Vegetable")) {
             actualPlantType = VEGETABLE;
-            return constructActualVeggiePlant(plantName, waterCount, fertilizerCount,
-                    price, lifeStatus, actualPlantType);
+            actualPlant = makeVeggie(plantName, waterCount,
+                    fertilizerCount, price, lifeStatus, actualPlantType);
         } else {
             actualPlantType = FLOWER;
-            return constructActualFlowerPlant(plantName, waterCount, fertilizerCount,
-                    price, lifeStatus, actualPlantType);
+            actualPlant = makeFlower(plantName, waterCount,
+                    fertilizerCount, price, lifeStatus, actualPlantType);
         }
+        return actualPlant;
     }
 
     //EFFECT: construct actual vegetable plant from json representation
-    private Plant constructActualVeggiePlant(String plantName, int waterCount, int fertilizerCount,
-                                       int price, String lifeStatus, PlantType actualPlantType) {
-        switch (plantName.toLowerCase()) {
-            case ("carrot"):
-                Carrot carrot = new Carrot(plantName, waterCount, fertilizerCount, price, actualPlantType);
+    protected Plant makeVeggie(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
+        switch (plantName) {
+            case ("Carrot"):
+                Carrot carrot = new Carrot(plantName, wc, fc, price, actualPT);
                 carrot.setLifeStatus(lifeStatus);
                 return carrot;
-            case ("eggplant"):
-                Eggplant eggplant = new Eggplant(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Eggplant"):
+                Eggplant eggplant = new Eggplant(plantName, wc, fc, price, actualPT);
                 eggplant.setLifeStatus(lifeStatus);
                 return eggplant;
-            case ("garlic"):
-                Garlic garlic = new Garlic(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Garlic"):
+                Garlic garlic = new Garlic(plantName, wc, fc, price, actualPT);
                 garlic.setLifeStatus(lifeStatus);
                 return garlic;
-            case ("lettuce"):
-                Lettuce lettuce = new Lettuce(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Lettuce"):
+                Lettuce lettuce = new Lettuce(plantName, wc, fc, price, actualPT);
                 lettuce.setLifeStatus(lifeStatus);
                 return lettuce;
-            default:
-                Potato potato = new Potato(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Potato"):
+                Potato potato = new Potato(plantName, wc, fc, price, actualPT);
                 potato.setLifeStatus(lifeStatus);
                 return potato;
         }
+        return null;
     }
 
     //EFFECTS: construct actual fruit plant from json representation
-    private Plant constructActualFlowerPlant(String plantName, int waterCount, int fertilizerCount,
-                                             int price, String lifeStatus, PlantType actualPlantType) {
-        switch (plantName.toLowerCase()) {
-            case ("cactus"):
-                Cactus cactus = new Cactus(plantName, waterCount, fertilizerCount, price, actualPlantType);
+    protected Plant makeFlower(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
+        switch (plantName) {
+            case ("Cactus"):
+                Cactus cactus = new Cactus(plantName, wc, fc, price, actualPT);
                 cactus.setLifeStatus(lifeStatus);
                 return cactus;
-            case ("forget me not"):
-                ForgetMeNot forgetMeNot =
-                        new ForgetMeNot(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Forget Me Not"):
+                ForgetMeNot forgetMeNot = new ForgetMeNot(plantName, wc, fc, price, actualPT);
                 forgetMeNot.setLifeStatus(lifeStatus);
                 return forgetMeNot;
-            case ("lavender"):
-                Lavender lavender = new Lavender(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Lavender"):
+                Lavender lavender = new Lavender(plantName, wc, fc, price, actualPT);
                 lavender.setLifeStatus(lifeStatus);
                 return lavender;
-            case ("rose"):
-                Rose rose = new Rose(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Rose"):
+                Rose rose = new Rose(plantName, wc, fc, price, actualPT);
                 rose.setLifeStatus(lifeStatus);
                 return rose;
-            default:
-                Sunflower sunflower = new Sunflower(plantName, waterCount, fertilizerCount, price, actualPlantType);
+            case ("Sunflower"):
+                Sunflower sunflower = new Sunflower(plantName, wc, fc, price, actualPT);
                 sunflower.setLifeStatus(lifeStatus);
                 return sunflower;
         }
+        return null;
     }
-
 }
