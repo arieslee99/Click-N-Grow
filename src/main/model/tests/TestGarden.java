@@ -149,10 +149,12 @@ public class TestGarden {
     @Test
     public void testTranslateToJson() {
         garden.addPlant(lavender);
+        garden.addPlant(eggplant);
         JSONObject jsonObject = garden.translateToJson();
         String jsonGardenName = jsonObject.getString("name");
         JSONArray jsonPlants = jsonObject.getJSONArray("plants");
         JSONObject plant = (JSONObject) jsonPlants.get(0);
+        JSONObject plant1 = (JSONObject) jsonPlants.get(1);
 
         assertEquals("David's Garden", jsonGardenName);
         assertEquals("Lavender", plant.getString("name"));
@@ -160,13 +162,19 @@ public class TestGarden {
         assertEquals(6, plant.getInt("fertilizer count"));
         assertEquals(500, plant.getInt("price"));
         PlantType actualPlantType = translatePlantTypeStringToPlantType(plant.getString("plant type"));
-
         assertEquals(FLOWER, actualPlantType);
+
+        assertEquals("Eggplant", plant1.getString("name"));
+        assertEquals(4, plant1.getInt("water count"));
+        assertEquals(5, plant1.getInt("fertilizer count"));
+        assertEquals(300, plant1.getInt("price"));
+        PlantType actualPlantType1 = translatePlantTypeStringToPlantType(plant1.getString("plant type"));
+        assertEquals(VEGETABLE, actualPlantType1);
     }
 
     //EFFECTS: changes name of plant type to corresponding plant type
     private PlantType translatePlantTypeStringToPlantType(String name) {
-        if (name.equals("Vegetable")) {
+        if (name.equalsIgnoreCase("Vegetable")) {
             return VEGETABLE;
         } else {
             return FLOWER;

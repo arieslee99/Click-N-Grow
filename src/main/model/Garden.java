@@ -93,7 +93,6 @@ public class Garden {
         return jsonObject;
     }
 
-
     //EFFECTS: return number of dead plants
     public Integer getNumOfDeadPlants() {
         int count = 0;

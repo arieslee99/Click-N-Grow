@@ -25,7 +25,7 @@ public class TestInventory {
     private final Rose rose = new Rose("Rose", 0, 0, 600, FLOWER);
     private final Sunflower sunflower
             = new Sunflower("Sunflower", 8, 9, 300, FLOWER);
-    private final Cactus cactus = new Cactus("Cactus", 9, 0, 100, FLOWER);
+    private final Eggplant eggplant = new Eggplant("Eggplant", 0, 0, 300, VEGETABLE);
 
     @BeforeEach
     public void setup() {
@@ -35,7 +35,7 @@ public class TestInventory {
         garden.addPlant(lavender);
         garden.addPlant(rose);
 
-        garden2.addPlant(lavender);
+        garden2.addPlant(eggplant);
 
     }
 
@@ -43,7 +43,7 @@ public class TestInventory {
     public void testAddPlant() {
         int ripeCount = inventory.addPlant(garden2);
         assertEquals(1, ripeCount);
-        assertEquals(lavender, inventory.searchInventory("lavender"));
+        assertEquals(eggplant, inventory.searchInventory("Eggplant"));
         assertNull(inventory.searchInventory("rose"));
         assertEquals(1, inventory.getSize());
         assertEquals(0, garden2.getSize());
@@ -144,7 +144,8 @@ public class TestInventory {
     @Test
     public void testTranslateToJsonArray() {
         inventory.addPlant(garden);
-        assertEquals(2, inventory.getSize());
+        inventory.addPlant(garden2);
+        assertEquals(3, inventory.getSize());
         JSONArray jsonArray = inventory.translateToJsonArray();
         JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
         assertEquals("Lavender", jsonObject1.getString("name"));
@@ -153,14 +154,19 @@ public class TestInventory {
         assertEquals(500, jsonObject1.getInt("price"));
         String plantTypeName = jsonObject1.getString("plant type");
         PlantType actualPlantType = translatePlantTypeStringToPlantType(plantTypeName);
-
         assertEquals(FLOWER, actualPlantType);
+
+        JSONObject jsonObject2 = (JSONObject) jsonArray.get(2);
+        assertEquals("Eggplant", jsonObject2.getString("name"));
+        String plantTypeName2 = jsonObject2.getString("plant type");
+        PlantType actualPlantType2 = translatePlantTypeStringToPlantType(plantTypeName2);
+        assertEquals(VEGETABLE, actualPlantType2);
 
     }
 
     //EFFECTS: changes name of plant type to corresponding plant type
     private PlantType translatePlantTypeStringToPlantType(String name) {
-        if (name.equals("Vegetable")) {
+        if (name.equalsIgnoreCase("Vegetable")) {
             return VEGETABLE;
         } else {
             return FLOWER;
