@@ -30,7 +30,6 @@ public class JsonReader {
         return returnAsSavedItem(jsonObject);
     }
 
-    //JsonSerializationDemo
     //EFFECTS: reads json and returns of string of it
     public String readFile(String jsonFile) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();

@@ -21,7 +21,6 @@ public abstract class Plant {
         this.type = type;
     }
 
-    //https://dzone.com/articles/java-cloning-even-copy-constructors-are-not-suffic
     //EFFECTS: clones a plant
     public abstract Plant cloneObject();
 

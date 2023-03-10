@@ -32,4 +32,9 @@
 - As a user, I want to be able to purchase a seed from a store, and add it to my garden.
 - As a user, I want to be able to select a plant in the garden and remove it.
 - As a user, I want to be able to select a ripe plant in my inventory and sell it. 
-- As a user, I want to be able to keep track of how much a plant is watered or fertilized. 
+- As a user, I want to be able to keep track of how much a plant is watered or fertilized.
+
+## References
+- Implementation of JsonReader and JsonWriter is based on JsonSerializationDemo
+  - methods were adjusted based on my own project's parameters, specifications, etc. 
+- Override of equals method in Plant based on https://dzone.com/articles/java-cloning-even-copy-constructors-are-not-suffic
