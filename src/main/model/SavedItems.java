@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONObject;
 
+//Data that will be saved and loaded every time app is running
 public class SavedItems {
 
     private Garden garden;

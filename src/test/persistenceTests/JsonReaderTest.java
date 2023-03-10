@@ -1,10 +1,12 @@
-package persistence;
+package persistenceTests;
 
 import model.*;
 import model.SavedItems;
 import model.seeds.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.io.IOException;
 

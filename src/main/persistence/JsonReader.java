@@ -110,7 +110,7 @@ public class JsonReader {
     }
 
     //EFFECT: construct actual vegetable plant from json representation
-    protected Plant makeVeggie(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
+    public Plant makeVeggie(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
         switch (plantName) {
             case ("Carrot"):
                 Carrot carrot = new Carrot(plantName, wc, fc, price, actualPT);
@@ -137,7 +137,7 @@ public class JsonReader {
     }
 
     //EFFECTS: construct actual fruit plant from json representation
-    protected Plant makeFlower(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
+    public Plant makeFlower(String plantName, int wc, int fc, int price, String lifeStatus, PlantType actualPT) {
         switch (plantName) {
             case ("Cactus"):
                 Cactus cactus = new Cactus(plantName, wc, fc, price, actualPT);
