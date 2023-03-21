@@ -1,12 +1,13 @@
 package ui;
 
 
-import java.io.File;
+import java.awt.*;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args) {
+        new WindowPane();
+
         try {
             new GardenApp();
         } catch (FileNotFoundException e) {

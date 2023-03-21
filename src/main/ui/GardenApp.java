@@ -4,7 +4,6 @@ import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class GardenApp {
     private Wallet wallet;
     private final Scanner input = new Scanner(System.in);
 
-    private static final String JSON_STORE = "./data/savedItems.json";
+    private static final String JSON_STORE = "./data/account.json";
     private SavedItems savedItems;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -28,7 +27,6 @@ public class GardenApp {
 
     //EFFECTS: constructs savedItems and runs the virtual garden application
     public GardenApp() throws FileNotFoundException {
-
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runGarden();
@@ -65,6 +63,7 @@ public class GardenApp {
         }
     }
 
+
     //MODIFIES: this
     //EFFECTS: loads previously saved progress (garden, inventory, wallet) from file
     private void loadProgress() {
@@ -86,7 +85,6 @@ public class GardenApp {
     private void initializeGarden() {
         inventory = new Inventory();
         wallet = new Wallet();
-
         System.out.println("What is your garden's name?");
         String name = input.nextLine();
         garden = new Garden(name);
@@ -155,7 +153,6 @@ public class GardenApp {
         }
     }
 
-    //JsonSerializationDemo
     //EFFECTS: saves user's garden, inventory and wallet to file
     private void saveProgress() {
         try {
@@ -163,11 +160,12 @@ public class GardenApp {
             jsonWriter.openFile();
             jsonWriter.write(savedItems);
             jsonWriter.close();
+
             System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
             System.out.println("Come back soon!");
             System.exit(0);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            System.out.println("Unable to write to file: ");
         }
     }
 
