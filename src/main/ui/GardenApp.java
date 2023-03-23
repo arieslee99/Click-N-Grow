@@ -26,14 +26,13 @@ public class GardenApp {
 
 
     //EFFECTS: constructs savedItems and runs the virtual garden application
-    public GardenApp() throws FileNotFoundException {
+    public GardenApp() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        runGarden();
     }
 
     //EFFECTS: greets user
-    private void runGarden() {
+    public void runGarden() {
         System.out.println("Welcome to your virtual garden!");
         System.out.println();
         loginPage();
@@ -51,7 +50,7 @@ public class GardenApp {
     private void processLoginCommand() {
         String response = input.nextLine();
         if (response.equalsIgnoreCase("L")) {
-            loadProgress();
+            confirmLoadedProgress();
         } else if (response.equalsIgnoreCase("C")) {
             initializeGarden();
         } else if (response.equalsIgnoreCase("Q")) {
@@ -63,34 +62,42 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: loads previously saved progress and gives user printed confirmation
+    private void confirmLoadedProgress() {
+        loadProgress();
+        System.out.println(garden.getGardenName() + "'s garden is loaded!");
+        displayMenu();
+    }
 
     //MODIFIES: this
     //EFFECTS: loads previously saved progress (garden, inventory, wallet) from file
-    private void loadProgress() {
+    public void loadProgress() {
         try {
             savedItems = jsonReader.read();
             garden = savedItems.getGarden();
             inventory = savedItems.getInventory();
             wallet = savedItems.getWallet();
 
-            System.out.println(garden.getGardenName() + "'s garden is loaded!");
-            displayMenu();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
-    //MODIFIES: this
     //EFFECTS: initializes garden by asking for name
     private void initializeGarden() {
-        inventory = new Inventory();
-        wallet = new Wallet();
         System.out.println("What is your garden's name?");
         String name = input.nextLine();
-        garden = new Garden(name);
-
+        instantiateGarden(name);
         System.out.println("Welcome to " + name + "'s" + " garden!");
         displayMenu();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: instantiates a new garden, inventory and wallet
+    public void instantiateGarden(String gardenName) {
+        inventory = new Inventory();
+        wallet = new Wallet();
+        garden = new Garden(gardenName);
     }
 
     //EFFECTS: displays game options
@@ -143,7 +150,7 @@ public class GardenApp {
         String response = input.nextLine();
 
         if (response.equalsIgnoreCase("Y")) {
-            saveProgress();
+            saveProgressConfirmation();
         } else if (response.equalsIgnoreCase("N")) {
             System.out.println("Come back soon!");
             System.exit(0);
@@ -153,24 +160,30 @@ public class GardenApp {
         }
     }
 
+    private void saveProgressConfirmation() {
+        saveProgress();
+        System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
+        System.out.println("Come back soon!");
+        System.exit(0);
+    }
     //EFFECTS: saves user's garden, inventory and wallet to file
-    private void saveProgress() {
+    public void saveProgress() {
         try {
             savedItems = new SavedItems(garden, inventory, wallet);
             jsonWriter.openFile();
             jsonWriter.write(savedItems);
             jsonWriter.close();
 
-            System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
-            System.out.println("Come back soon!");
-            System.exit(0);
+//            System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
+//            System.out.println("Come back soon!");
+//            System.exit(0);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: ");
         }
     }
 
     //EFFECTS: shows user's garden
-    private void seeMyGarden() {
+    protected void seeMyGarden() {
         if (garden.getSize() == 0) {
             System.out.println("Your garden is empty, yet your soil is fertile.");
         } else {
@@ -242,14 +255,14 @@ public class GardenApp {
     }
 
     //EFFECTS: asks which plant user wants to water
-    private void waterPlants() {
+    protected void waterPlants() {
         System.out.println("Which plant would you like to water? (Enter plant's numeric position on garden list)");
         String feedOrWater = "water";
         waterAndFeed(getInt(), feedOrWater);
     }
 
     //EFFECTS: asks which plant user wants to feed
-    private void feedPlants() {
+    protected void feedPlants() {
         System.out.println("Which plant would you like to feed? (Enter plant's numeric position on garden list)");
         String feedOrWater = "feed";
         waterAndFeed(getInt(), feedOrWater);
@@ -257,7 +270,7 @@ public class GardenApp {
 
     //MODIFIES: this
     //EFFECTS: waters or feeds plant
-    private void waterAndFeed(int response, String feedOrWater) {
+    protected void waterAndFeed(int response, String feedOrWater) {
         if (0 <= response && response < garden.getSize()) {
             Plant plant = garden.getPlant(response);
 
@@ -281,7 +294,7 @@ public class GardenApp {
 
     //MODIFIES: this
     //EFFECTS: adds ripe plants to inventory, removes the same plants from garden
-    private void harvest() {
+    protected void harvest() {
         if (garden.getSize() != 0) {
             System.out.println("You just harvested " + inventory.addPlant(garden) + " plant(s)!");
             System.out.println("Your inventory count: " + inventory.getSize());
@@ -294,7 +307,7 @@ public class GardenApp {
     }
 
     //EFFECTS: asks user which plant(s) they want to remove from garden
-    private void uproot() {
+    protected void uproot() {
         if (garden.getSize() == 0) {
             seeMyGarden();
         }
@@ -337,7 +350,7 @@ public class GardenApp {
 
     //MODIFIES: this
     //EFFECTS: removes just one plant that the user specifies
-    private void uprootJustOne() {
+    protected void uprootJustOne() {
         System.out.println("Which plant would you like to remove? (Enter plant's numeric position on garden list)");
         int position = getInt();
 
@@ -365,7 +378,7 @@ public class GardenApp {
     }
 
     //EFFECTS: shows user store display menu
-    private void visitStore() {
+    protected void visitStore() {
         System.out.println("Welcome to the store!");
         System.out.println("\nWhich seed catalogue would you like to browse?");
         System.out.println("\tA -> All seeds");
@@ -458,7 +471,7 @@ public class GardenApp {
     }
 
     //EFFECTS: shows user's collection of ripe plants that are ready for sale
-    private void seeMyInventory() {
+    protected void seeMyInventory() {
         if (inventory.getSize() == 0) {
             System.out.println("It's empty! Go sow some seeds!");
             displayMenu();
@@ -531,5 +544,22 @@ public class GardenApp {
         System.out.println("o Overwatering and overfeeding will kill your plants!");
         System.out.println();
         displayMenu();
+    }
+
+    //getters
+    public String getGardenName() {
+        return garden.getGardenName();
+    }
+
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
     }
 }

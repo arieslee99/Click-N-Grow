@@ -1,5 +1,7 @@
-package ui;
+package ui.GUI;
 
+
+import ui.GardenApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +17,27 @@ public class LoginPage implements ActionListener {
     private JFrame jframe = new JFrame();
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
+    private GardenApp gardenApp;
+
 
     //EFFECTS: constructs a login page
     public LoginPage() {
+        makeWindow();
+    }
+
+    //EFFECTS: sets up the window of the current screen
+    public void makeWindow() {
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
         addTitleCard();
         addLoginButton();
         addCreateAccountButton();
+
         jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     //EFFECTS: adds image of the name of the application
@@ -43,37 +54,45 @@ public class LoginPage implements ActionListener {
 
     //EFFECTS: adds the login button (for users to load their previous game)
     private void addLoginButton() {
-        JButton loginButton =
-                new JButton(new ImageIcon(String.valueOf(new File("src/main/ui/Images/LoginButton.png"))));
-        constraints.anchor = CENTER;
-        constraints.gridwidth = REMAINDER;
-        panel.add(loginButton, constraints);
-        constraints.weighty = 2;
-        jframe.add(panel);
+        JButton loginButton = makeButton("src/main/ui/Images/LoginButton.png");
         loginButton.setActionCommand("Login");
-        loginButton.addActionListener(this);
-
     }
 
     //EFFECTS: adds create account button to let users start a new game
     private void addCreateAccountButton() {
-        JButton createAccountButton =
-                new JButton(new ImageIcon(String.valueOf(new File("src/main/ui/Images/NewGarden.png"))));
-        panel.add(createAccountButton, constraints);
-        jframe.add(panel);
+        JButton createAccountButton = makeButton("src/main/ui/Images/NewGarden.png");
         createAccountButton.setActionCommand("New garden");
-        createAccountButton.addActionListener(this);
+    }
+
+    //EFFECTS: makes a button and places it on the frame
+    private JButton makeButton(String fileName) {
+        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
+        button.setBackground(BACKGROUND);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+        button.addActionListener(this);
+        panel.add(button, constraints);
+        constraints.weighty = 1;
+        jframe.add(panel);
+        return button;
     }
 
     //EFFECTS: processes command after button is pressed
     // "Login" will bring user to their home page immediately, else, user will go to create account page
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Login")) {
-            new HomePage(null);
+            loadAccount();
+            new HomePage(gardenApp);
         } else {
             new CreateAccountPage();
         }
         jframe.setVisible(false);
+    }
+
+    //EFFECTS: loads previously saved garden, wallet and inventory
+    public void loadAccount() {
+        gardenApp = new GardenApp();
+        gardenApp.loadProgress();
     }
 
 
