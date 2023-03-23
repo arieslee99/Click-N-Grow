@@ -43,7 +43,7 @@ public class HomePage implements ActionListener {
     }
 
     private void addHomeImage() {
-        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/Home.png")));
+        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/HomeImage.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
         constraints.weighty = 1;
         constraints.weightx = 1;
@@ -60,17 +60,17 @@ public class HomePage implements ActionListener {
     }
 
     private void addMyGardenButton() {
-        JButton gardenButton = makeButton("src/main/ui/Images/my garden.png");
+        JButton gardenButton = makeButton("src/main/ui/Images/MyGardenButton.png");
         gardenButton.setActionCommand("My garden");
     }
 
     private void addStoreButton() {
-        JButton storeButton = makeButton("src/main/ui/Images/store.png");
+        JButton storeButton = makeButton("src/main/ui/Images/StoreButton.png");
         storeButton.setActionCommand("Store");
     }
 
     private void addQuitButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/quit.png");
+        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
         quitButton.setActionCommand("Quit");
     }
 
@@ -94,7 +94,7 @@ public class HomePage implements ActionListener {
             new MyGardenPage(gardenApp);
         }
         if (e.getActionCommand().equals("Store")) {
-            new StoreUI();
+            new StorePage(gardenApp);
         }
         if (e.getActionCommand().equals("Quit")) {
             new SaveProgressPage(gardenApp);

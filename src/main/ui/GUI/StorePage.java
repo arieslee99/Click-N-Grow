@@ -9,26 +9,24 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import static java.awt.GridBagConstraints.REMAINDER;
-import static javax.swing.SwingConstants.CENTER;
 
-public class SaveProgressPage implements ActionListener {
+public class StorePage implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
     private JPanel panel;
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
 
-    public SaveProgressPage(GardenApp gardenApp) {
-        this.gardenApp = gardenApp;
+    public StorePage(GardenApp gardenApp) {
         makeWindow();
+        this.gardenApp = gardenApp;
     }
 
     public void makeWindow() {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
-        addSaveButton();
-        addQuitButton();
+        addStoreImage();
         addBackButton();
 
         jframe.setVisible(true);
@@ -37,14 +35,14 @@ public class SaveProgressPage implements ActionListener {
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void addSaveButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/SaveButton.png");
-        quitButton.setActionCommand("Save");
-    }
-
-    private void addQuitButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
-        quitButton.setActionCommand("Quit");
+    public void addStoreImage() {
+        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/StoreImage.png")));
+        JLabel label = new JLabel(icon, JLabel.CENTER);
+        constraints.weighty = 1;
+        constraints.weightx = 1;
+        constraints.gridwidth = REMAINDER;
+        panel.add(label, constraints);
+        jframe.add(panel);
     }
 
     private void addBackButton() {
@@ -59,27 +57,16 @@ public class SaveProgressPage implements ActionListener {
         button.setOpaque(true);
         button.setBorderPainted(false);
         button.addActionListener(this);
-        constraints.weightx = 1;
-        constraints.weighty = 1;
-        constraints.gridwidth = REMAINDER;
         panel.add(button, constraints);
         constraints.weighty = 1;
         jframe.add(panel);
         return button;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Back")) {
             new HomePage(gardenApp);
-        }
-
-        if (e.getActionCommand().equals("Save")) {
-            gardenApp.saveProgress();
-        } else if (e.getActionCommand().equals("Quit")) {
-            jframe.setVisible(false);
-            System.exit(0);
         }
     }
 }

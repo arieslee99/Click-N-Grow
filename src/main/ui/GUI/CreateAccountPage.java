@@ -43,7 +43,7 @@ public class CreateAccountPage implements ActionListener {
 
     //EFFECTS: adds image of fences to frame
     private void addFenceImg() {
-        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/Fences.png")));
+        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/FencesImage.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
         constraints.weighty = 1;
         constraints.weightx = 1;
