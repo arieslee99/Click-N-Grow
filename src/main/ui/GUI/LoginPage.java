@@ -69,7 +69,6 @@ public class LoginPage implements ActionListener {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        button.setBorderPainted(false);
         button.addActionListener(this);
         panel.add(button, constraints);
         constraints.weighty = 1;

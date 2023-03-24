@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import static java.awt.GridBagConstraints.REMAINDER;
+import static java.awt.GridBagConstraints.*;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
-public class StorePage implements ActionListener {
+public class StorePage extends JFrame implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
     private JPanel panel;
@@ -26,13 +28,21 @@ public class StorePage implements ActionListener {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
+
         addStoreImage();
         addBackButton();
+        addCactusButton();
+
+        addScrollBar();
 
         jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void addEmptySpace() {
+        jframe.add(Box.createVerticalGlue());
     }
 
     public void addStoreImage() {
@@ -43,11 +53,19 @@ public class StorePage implements ActionListener {
         constraints.gridwidth = REMAINDER;
         panel.add(label, constraints);
         jframe.add(panel);
+        addEmptySpace();
     }
 
     private void addBackButton() {
         JButton quitButton = makeButton("src/main/ui/Images/BackButton.png");
         quitButton.setActionCommand("Back");
+        quitButton.setBorderPainted(false);
+    }
+
+    private void addCactusButton() {
+        JButton cactusButton = makeButton("src/main/ui/Images/cactus1.png");
+        cactusButton.setBorderPainted(false);
+        cactusButton.setActionCommand("Cactus");
     }
 
     //EFFECTS: makes a button and places it on the frame
@@ -55,18 +73,25 @@ public class StorePage implements ActionListener {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        button.setBorderPainted(false);
         button.addActionListener(this);
         panel.add(button, constraints);
-        constraints.weighty = 1;
         jframe.add(panel);
+        addEmptySpace();
         return button;
+    }
+
+    private void addScrollBar() {
+        JScrollPane scrollPane = new JScrollPane(panel, VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jframe.add(scrollPane);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        jframe.setVisible(false);
         if (e.getActionCommand().equals("Back")) {
             new HomePage(gardenApp);
         }
+
+
     }
 }

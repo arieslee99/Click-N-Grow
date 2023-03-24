@@ -50,6 +50,7 @@ public class SaveProgressPage implements ActionListener {
     private void addBackButton() {
         JButton quitButton = makeButton("src/main/ui/Images/BackButton.png");
         quitButton.setActionCommand("Back");
+        quitButton.setBorderPainted(false);
     }
 
     //EFFECTS: makes a button and places it on the frame
@@ -57,7 +58,7 @@ public class SaveProgressPage implements ActionListener {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        button.setBorderPainted(false);
+        //button.setBorderPainted(false);
         button.addActionListener(this);
         constraints.weightx = 1;
         constraints.weighty = 1;

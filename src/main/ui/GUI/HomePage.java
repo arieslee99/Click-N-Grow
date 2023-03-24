@@ -43,7 +43,7 @@ public class HomePage implements ActionListener {
     }
 
     private void addHomeImage() {
-        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/HomeImage.png")));
+        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/home1.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
         constraints.weighty = 1;
         constraints.weightx = 1;
@@ -79,7 +79,7 @@ public class HomePage implements ActionListener {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        button.setBorderPainted(false);
+        //button.setBorderPainted(false);
         button.addActionListener(this);
         panel.add(button, constraints);
         constraints.weighty = 1;
