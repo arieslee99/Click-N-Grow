@@ -1,6 +1,4 @@
-package ui.GUI;
-
-import ui.GUI.LoginPage;
+package ui.gui;
 
 public class VisualGardenApp {
 

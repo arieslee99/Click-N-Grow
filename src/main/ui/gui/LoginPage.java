@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 
 import ui.GardenApp;
@@ -32,6 +32,7 @@ public class LoginPage implements ActionListener {
         addTitleCard();
         addLoginButton();
         addCreateAccountButton();
+        addQuitButton();
 
         jframe.setVisible(true);
         jframe.setSize(500, 800);
@@ -64,6 +65,12 @@ public class LoginPage implements ActionListener {
         createAccountButton.setActionCommand("New garden");
     }
 
+    //EFFECTS: adds create quit button to let users exit application
+    private void addQuitButton() {
+        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
+        quitButton.setActionCommand("Quit");
+    }
+
     //EFFECTS: makes a button and places it on the frame
     private JButton makeButton(String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
@@ -82,10 +89,15 @@ public class LoginPage implements ActionListener {
         if (e.getActionCommand().equals("Login")) {
             loadAccount();
             new HomePage(gardenApp);
-        } else {
-            new CreateAccountPage();
+            jframe.setVisible(false);
         }
-        jframe.setVisible(false);
+        if (e.getActionCommand().equals("New garden")){
+            new CreateAccountPage();
+            jframe.setVisible(false);
+        }
+        if (e.getActionCommand().equals("Quit")) {
+            System.exit(0);
+        }
     }
 
     //EFFECTS: loads previously saved garden, wallet and inventory

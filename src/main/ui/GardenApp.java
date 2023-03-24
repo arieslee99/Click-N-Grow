@@ -166,6 +166,7 @@ public class GardenApp {
         System.out.println("Come back soon!");
         System.exit(0);
     }
+
     //EFFECTS: saves user's garden, inventory and wallet to file
     public void saveProgress() {
         try {
@@ -173,10 +174,6 @@ public class GardenApp {
             jsonWriter.openFile();
             jsonWriter.write(savedItems);
             jsonWriter.close();
-
-//            System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
-//            System.out.println("Come back soon!");
-//            System.exit(0);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: ");
         }
@@ -450,7 +447,7 @@ public class GardenApp {
 
     //MODIFIES: this
     //EFFECTS: adds plant to user's garden, deducts plant's amount from wallet
-    private void buySeed(String response, ArrayList<Plant> plants) {
+    public void buySeed(String response, ArrayList<Plant> plants) {
         for (Plant plant : plants) {
             if (plant.getPlantName().equalsIgnoreCase(response)) {
                 if (wallet.getBalance() >= plant.getPrice()) {

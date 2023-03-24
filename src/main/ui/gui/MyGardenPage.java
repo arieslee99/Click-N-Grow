@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import model.Garden;
 import model.Plant;
@@ -6,8 +6,6 @@ import ui.GardenApp;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.List;
 

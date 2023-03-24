@@ -38,3 +38,8 @@
 - Implementation of JsonReader and JsonWriter is based on JsonSerializationDemo
   - methods were adjusted based on my own project's parameters, specifications, etc. 
 - Override of equals method in Plant based on https://dzone.com/articles/java-cloning-even-copy-constructors-are-not-suffic
+- Pixel art is an adaptation (and inspired by) the following sources:
+  - Stardew Valley
+  - https://www.pinterest.ca/pin/pixel-retro-font-videogame-type-8bit-alphabet-letters-and-numbers-download-a-free-preview-or-high-quality-adobe-ill--616078424011848245/
+  - https://www.shutterstock.com/search/pixel-fence?image_type=vector
+  - https://www.freepik.com/premium-vector/simple-home-with-pixel-art-style_18262961.htm

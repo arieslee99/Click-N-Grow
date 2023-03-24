@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import ui.GardenApp;
 
@@ -43,7 +43,7 @@ public class HomePage implements ActionListener {
     }
 
     private void addHomeImage() {
-        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/home1.png")));
+        ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/HomeImage.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
         constraints.weighty = 1;
         constraints.weightx = 1;

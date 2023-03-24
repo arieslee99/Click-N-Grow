@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import ui.GardenApp;
 
