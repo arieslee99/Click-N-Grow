@@ -423,19 +423,13 @@ public class GardenApp {
         processSellingSeedsCommand(plants);
     }
 
-    //MODIFIES: this
-    //EFFECTS: processing user's decision to buy or not buy seeds
+    //EFFECTS: asks which plant user wants to buy
     private void processSellingSeedsCommand(ArrayList<Plant> plants) {
         switch (input.nextLine().toUpperCase()) {
             case ("Y"):
                 System.out.println("Which seed would you like to buy? (Enter plant's name)");
                 String response = input.nextLine();
-                if (store.searchForPlant(response)) {
-                    buySeed(response, plants);
-                    break;
-                }
-                System.out.println("Not in stock :(");
-                visitStore();
+                checkEligibility(response, plants);
                 break;
             case ("N"):
                 displayMenu();
@@ -445,26 +439,35 @@ public class GardenApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds plant to user's garden, deducts plant's amount from wallet
-    public void buySeed(String response, ArrayList<Plant> plants) {
-        for (Plant plant : plants) {
-            if (plant.getPlantName().equalsIgnoreCase(response)) {
-                if (wallet.getBalance() >= plant.getPrice()) {
-
-                    Plant newPlant = plant.cloneObject();
-                    garden.addPlant(newPlant);
-
-                    wallet.decreaseBalance(plant.getPrice());
-                    System.out.println("You added a(n) " + plant.getPlantName() + " to your garden!");
-                    System.out.println("Your current balance is: " + wallet.getBalance());
-                    displayMenu();
-                } else {
-                    System.out.println("You don't have enough money!");
-                    displayMenu();
-                }
+    //EFFECTS:checks if store has plant
+    public void checkEligibility(String response, ArrayList<Plant> plants) {
+        if (store.searchForPlant(response)) {
+            Plant plant = store.getPlant(response);
+            if (checkForMoney(plant)) {
+                buySeed(plant);
+                System.out.println("You added a(n) " + plant.getPlantName() + " to your garden!");
+                System.out.println("Your current balance is: " + wallet.getBalance());
+                displayMenu();
+            } else {
+                System.out.println("You don't have enough money!");
+                displayMenu();
             }
         }
+        System.out.println("Not in stock :(");
+        visitStore();
+    }
+
+    //EFFECTS: returns true if wallet balance has enough to buy plant; else, false
+    public boolean checkForMoney(Plant plant) {
+        return plant.getPrice() <= wallet.getBalance();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds plant to garden and decreases wallet balance by plant's price
+    public void buySeed(Plant plant) {
+        Plant newPlant = plant.cloneObject();
+        garden.addPlant(newPlant);
+        wallet.decreaseBalance(plant.getPrice());
     }
 
     //EFFECTS: shows user's collection of ripe plants that are ready for sale
@@ -559,4 +562,10 @@ public class GardenApp {
     public Wallet getWallet() {
         return wallet;
     }
+
+    public Store getStoreFront() {
+        return store;
+    }
+
+
 }

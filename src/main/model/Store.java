@@ -74,5 +74,14 @@ public class Store {
     public ArrayList<Plant> getStore() {
         return store;
     }
+
+    public Plant getPlant(String plantName) {
+        for (Plant plant: store) {
+            if (plant.getPlantName().equalsIgnoreCase(plantName)) {
+                return plant;
+            }
+        }
+        return null;
+    }
 }
 

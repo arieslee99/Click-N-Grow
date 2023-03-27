@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.Plant;
+import model.Store;
 import ui.GardenApp;
 
 import javax.swing.*;
@@ -7,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import static java.awt.GridBagConstraints.*;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
@@ -19,8 +22,8 @@ public class StorePage extends JFrame implements ActionListener {
     private GardenApp gardenApp;
 
     public StorePage(GardenApp gardenApp) {
-        makeWindow();
         this.gardenApp = gardenApp;
+        makeWindow();
     }
 
     public void makeWindow() {
@@ -29,17 +32,18 @@ public class StorePage extends JFrame implements ActionListener {
         jframe.getContentPane().setBackground(BACKGROUND);
 
         addStoreImage();
-        makeButton("src/main/ui/Images/BackButton.png");
-        makeButton("src/main/ui/Images/CactusSeeds.png");
-        makeButton("src/main/ui/Images/RoseSeeds.png");
-        makeButton("src/main/ui/Images/LavenderSeeds.png");
-        makeButton("src/main/ui/Images/ForgetMeNotSeeds.png");
-        makeButton("src/main/ui/Images/SunflowerSeeds.png");
-        makeButton("src/main/ui/Images/GarlicSeeds.png");
-        makeButton("src/main/ui/Images/PotatoSeeds.png");
-        makeButton("src/main/ui/Images/CarrotSeeds.png");
-        makeButton("src/main/ui/Images/LettuceSeeds.png");
-        makeButton("src/main/ui/Images/EggplantSeeds.png");
+        addBalance();
+        makeButton("Back", "src/main/ui/Images/BackButton.png");
+        makeButton("Cactus", "src/main/ui/Images/CactusSeeds.png");
+        makeButton("Rose", "src/main/ui/Images/RoseSeeds.png");
+        makeButton("Lavender", "src/main/ui/Images/LavenderSeeds.png");
+        makeButton("Forget Me Not", "src/main/ui/Images/ForgetMeNotSeeds.png");
+        makeButton("Sunflower", "src/main/ui/Images/SunflowerSeeds.png");
+        makeButton("Garlic", "src/main/ui/Images/GarlicSeeds.png");
+        makeButton("Potato", "src/main/ui/Images/PotatoSeeds.png");
+        makeButton("Carrot", "src/main/ui/Images/CarrotSeeds.png");
+        makeButton("Lettuce", "src/main/ui/Images/LettuceSeeds.png");
+        makeButton("Eggplant", "src/main/ui/Images/EggplantSeeds.png");
         addScrollBar();
 
         jframe.setVisible(true);
@@ -50,6 +54,14 @@ public class StorePage extends JFrame implements ActionListener {
 
     private void addEmptySpace() {
         jframe.add(Box.createVerticalGlue());
+    }
+
+    public void addBalance() {
+        JLabel currentBalance = new JLabel("Balance: " + gardenApp.getWallet().getBalance());
+        currentBalance.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+        panel.add(currentBalance, constraints);
+        jframe.add(panel);
+        addEmptySpace();
     }
 
     public void addStoreImage() {
@@ -64,13 +76,14 @@ public class StorePage extends JFrame implements ActionListener {
     }
 
     //EFFECTS: makes a button and places it on the frame
-    private void makeButton(String fileName) {
+    private void makeButton(String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setBorderPainted(false);
         button.setOpaque(true);
+
         button.addActionListener(this);
-        button.setActionCommand(fileName);
+        button.setActionCommand(objectName);
 
         panel.add(button, constraints);
         jframe.add(panel);
@@ -86,10 +99,21 @@ public class StorePage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         jframe.setVisible(false);
-        if (e.getActionCommand().equals("src/main/ui/Images/BackButton.png")) {
+        if (e.getActionCommand().equals("Back")) {
             new HomePage(gardenApp);
         } else {
-            //stub
+            Store store = gardenApp.getStoreFront();
+            Plant plant = store.getPlant(e.getActionCommand());
+            if (gardenApp.checkForMoney(plant)) {
+                gardenApp.buySeed(plant);
+                JOptionPane.showMessageDialog(jframe, "You just added a " + plant.getPlantName() + " to your garden!");
+                new HomePage(gardenApp);
+            } else {
+                JOptionPane.showMessageDialog
+                        (jframe, "You don't have enough money!");
+                new StorePage(gardenApp);
+            }
+
         }
     }
 }

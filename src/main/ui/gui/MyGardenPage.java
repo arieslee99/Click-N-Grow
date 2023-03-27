@@ -6,15 +6,20 @@ import ui.GardenApp;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 
-import static java.awt.GridBagConstraints.REMAINDER;
-import static javax.swing.SwingConstants.EAST;
+import static java.awt.GridBagConstraints.*;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+import static javax.swing.SwingConstants.*;
+import static javax.swing.SwingConstants.CENTER;
+import static javax.swing.SwingConstants.NORTH;
 
 
-public class MyGardenPage {
-    private static final Color BACKGROUND = new Color(45, 133, 18, 255);
+public class MyGardenPage implements ActionListener {
+    private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
     private JPanel panel;
     private GridBagConstraints constraints = new GridBagConstraints();
@@ -28,7 +33,9 @@ public class MyGardenPage {
     public void makeWindow() {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
+
         jframe.getContentPane().setBackground(BACKGROUND);
+        makeButton("Back", "src/main/ui/Images/BackButton.png");
         seeGarden();
         addScrollBar();
 
@@ -38,42 +45,66 @@ public class MyGardenPage {
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    private void addEmptySpace() {
+        jframe.add(Box.createVerticalGlue());
+    }
+
+    //EFFECTS: makes a button and places it on the frame
+    private void makeButton(String objectName, String fileName) {
+        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
+        button.setBackground(BACKGROUND);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+
+        button.addActionListener(this);
+        button.setActionCommand(objectName);
+
+        constraints.gridwidth = REMAINDER;
+        constraints.weighty = 1;
+        constraints.weightx = 1;
+        panel.add(button, constraints);
+        jframe.add(panel);
+        addEmptySpace();
+    }
+
     public void seeGarden() {
-        List<JLabel> myPlants = new ArrayList<>();
         Garden myGarden = gardenApp.getGarden();
         List<Plant> plants = myGarden.getGarden();
-        for (Plant plant: plants) {
-//            JLabel thisPlant = new JLabel(plant.getPlantName() + ": " + "Water count: " + plant.getWaterCount() +
-//                    "Fertilizer count: " + plant.getFertilizerCount() + "Life status: " + plant.getLifeStatus());
-
-            JLabel plantName = new JLabel("\n" + plant.getPlantName());
-            JLabel waterCount = new JLabel("\t Water Count: " + plant.getWaterCount());
-            JLabel feedCount = new JLabel("\t Fertilizer Count: " + plant.getFertilizerCount());
-            JLabel plantStatus = new JLabel("\t Life Status: " + plant.getLifeStatus());
-
-            plantName.setFont(new Font("Comic Sans", Font.PLAIN, 15));
-            waterCount.setFont(new Font("Comic Sans", Font.PLAIN, 15));
-            feedCount.setFont(new Font("Comic Sans", Font.PLAIN, 15));
-            plantStatus.setFont(new Font("Comic Sans", Font.PLAIN, 15));
-
-            constraints.weighty = 1;
-            constraints.weightx = 1;
-            constraints.gridwidth = REMAINDER;
-
-            panel.add(plantName, constraints);
-            panel.add(waterCount, constraints);
-            panel.add(feedCount, constraints);
-            panel.add(plantStatus, constraints);
-            jframe.add(panel);
+        for (int i =0; i < plants.size(); i++) {
+            makePlantButton(i, plants.get(i).getPlantName(), "src/main/ui/Images/Plant.png");
         }
     }
 
+    private void makePlantButton(int position, String plantName, String fileName) {
+        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
+        button.setText(plantName);
+        button.setVerticalTextPosition(NORTH);
+        button.setHorizontalTextPosition(CENTER);
+        button.setBackground(BACKGROUND);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+
+        button.addActionListener(this);
+        button.setActionCommand(String.valueOf(position));
+
+        constraints.gridwidth = LEADING;
+        panel.add(button,constraints);
+        jframe.add(panel);
+    }
+
     private void addScrollBar() {
-        JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 30, 20, 0, 100);
-        scrollBar.setBlockIncrement(1);
+        JScrollPane scrollPane =
+                new JScrollPane(panel, VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jframe.add(scrollPane);
+    }
 
-        constraints.anchor = EAST;
-        jframe.getContentPane().add(scrollBar, BorderLayout.EAST);
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        jframe.setVisible(false);
+        if (e.getActionCommand().equals("Back")) {
+            new HomePage(gardenApp);
+        } else {
+            new PlantPage(gardenApp, e.getActionCommand());
+        }
     }
 }
