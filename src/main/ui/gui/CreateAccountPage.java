@@ -67,13 +67,13 @@ public class CreateAccountPage implements ActionListener {
 
     //EFFECTS: adds button that proceeds to the next page
     private void addNextButton() {
-        JButton nextButton = makeButton("src/main/ui/Images/NextButton.png");
+        JButton nextButton = makeButton("src/main/ui/Images/Buttons/NextButton.png");
         nextButton.setActionCommand("Next");
     }
 
     //EFFECTS: adds button that goes back to previous page
     private void addBackButton() {
-        JButton backButton = makeButton("src/main/ui/Images/BackButton.png");
+        JButton backButton = makeButton("src/main/ui/Images/Buttons/BackButton.png");
         backButton.setActionCommand("Back");
         backButton.setBorderPainted(false);
     }

@@ -35,7 +35,7 @@ public class MyGardenPage implements ActionListener {
         panel.setBackground(BACKGROUND);
 
         jframe.getContentPane().setBackground(BACKGROUND);
-        makeButton("Back", "src/main/ui/Images/BackButton.png");
+        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png");
         seeGarden();
         addScrollBar();
 
@@ -71,7 +71,7 @@ public class MyGardenPage implements ActionListener {
         Garden myGarden = gardenApp.getGarden();
         List<Plant> plants = myGarden.getGarden();
         for (int i = 0; i < plants.size(); i++) {
-            makePlantButton(i, plants.get(i).getPlantName(), "src/main/ui/Images/Plant.png");
+            makePlantButton(i, plants.get(i).getPlantName(), "src/main/ui/Images/Buttons/Plant.png");
         }
     }
 

@@ -33,17 +33,17 @@ public class StorePage extends JFrame implements ActionListener {
 
         addStoreImage();
         addBalance();
-        makeButton("Back", "src/main/ui/Images/BackButton.png");
-        makeButton("Cactus", "src/main/ui/Images/CactusSeeds.png");
-        makeButton("Rose", "src/main/ui/Images/RoseSeeds.png");
-        makeButton("Lavender", "src/main/ui/Images/LavenderSeeds.png");
-        makeButton("Forget Me Not", "src/main/ui/Images/ForgetMeNotSeeds.png");
-        makeButton("Sunflower", "src/main/ui/Images/SunflowerSeeds.png");
-        makeButton("Garlic", "src/main/ui/Images/GarlicSeeds.png");
-        makeButton("Potato", "src/main/ui/Images/PotatoSeeds.png");
-        makeButton("Carrot", "src/main/ui/Images/CarrotSeeds.png");
-        makeButton("Lettuce", "src/main/ui/Images/LettuceSeeds.png");
-        makeButton("Eggplant", "src/main/ui/Images/EggplantSeeds.png");
+        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png");
+        makeButton("Cactus", "src/main/ui/Images/Seeds/CactusSeeds.png");
+        makeButton("Rose", "src/main/ui/Images/Seeds/RoseSeeds.png");
+        makeButton("Lavender", "src/main/ui/Images/Seeds/LavenderSeeds.png");
+        makeButton("Forget Me Not", "src/main/ui/Images/Seeds/ForgetMeNotSeeds.png");
+        makeButton("Sunflower", "src/main/ui/Images/Seeds/SunflowerSeeds.png");
+        makeButton("Garlic", "src/main/ui/Images/Seeds/GarlicSeeds.png");
+        makeButton("Potato", "src/main/ui/Images/Seeds/PotatoSeeds.png");
+        makeButton("Carrot", "src/main/ui/Images/Seeds/CarrotSeeds.png");
+        makeButton("Lettuce", "src/main/ui/Images/Seeds/LettuceSeeds.png");
+        makeButton("Eggplant", "src/main/ui/Images/Seeds/EggplantSeeds.png");
         addScrollBar();
 
         jframe.setVisible(true);

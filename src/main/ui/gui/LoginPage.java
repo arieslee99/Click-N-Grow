@@ -55,7 +55,7 @@ public class LoginPage implements ActionListener {
 
     //EFFECTS: adds the login button (for users to load their previous game)
     private void addLoginButton() {
-        JButton loginButton = makeButton("src/main/ui/Images/LoginButton.png");
+        JButton loginButton = makeButton("src/main/ui/Images/Buttons/LoginButton.png");
         loginButton.setActionCommand("Login");
     }
 
@@ -67,7 +67,7 @@ public class LoginPage implements ActionListener {
 
     //EFFECTS: adds create quit button to let users exit application
     private void addQuitButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
+        JButton quitButton = makeButton("src/main/ui/Images/Buttons/QuitButton.png");
         quitButton.setActionCommand("Quit");
     }
 

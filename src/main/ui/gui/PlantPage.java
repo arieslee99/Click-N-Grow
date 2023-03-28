@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.Garden;
+import model.Inventory;
 import model.Plant;
 import ui.GardenApp;
 
@@ -10,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
-import static java.awt.GridBagConstraints.RELATIVE;
 import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
@@ -34,10 +35,10 @@ public class PlantPage implements ActionListener {
         jframe.getContentPane().setBackground(BACKGROUND);
         addBackButton();
         printCounts(gardenApp.getGarden().getGarden().get(position));
-        addMaintenanceButtons("Water", "src/main/ui/Images/Water.png");
-        addMaintenanceButtons("Feed", "src/main/ui/Images/Feed.png");
-        addMaintenanceButtons("Harvest", "src/main/ui/Images/Harvest.png");
-        addMaintenanceButtons("Uproot", "src/main/ui/Images/Uproot.png");
+        addMaintenanceButtons("Water", "src/main/ui/Images/Buttons/Water.png");
+        addMaintenanceButtons("Feed", "src/main/ui/Images/Buttons/Feed.png");
+        addMaintenanceButtons("Harvest", "src/main/ui/Images/Buttons/Harvest.png");
+        addMaintenanceButtons("Uproot", "src/main/ui/Images/Buttons/Uproot.png");
         addPlant();
 
         jframe.setVisible(true);
@@ -76,32 +77,12 @@ public class PlantPage implements ActionListener {
     }
 
     private ImageIcon pickPlant(Plant plant) {
-        switch (plant.getPlantName()) {
-            case ("Cactus"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Cactus.png")));
-            case ("Carrot"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Carrot.png")));
-            case ("Eggplant"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Eggplant.png")));
-            case ("Garlic"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Garlic.png")));
-            case ("Lettuce"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Lettuce.png")));
-            case ("Rose"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Rose.png")));
-            case ("Sunflower"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Sunflower.png")));
-            case ("Potato"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Potato.png")));
-            case ("Lavender"):
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Lavender.png")));
-            default:
-                return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Forget Me Not.png")));
-        }
+        String objectName = plant.getPlantName();
+        return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/" + objectName + ".png")));
     }
 
     private void addBackButton() {
-        JButton button = new JButton(new ImageIcon(String.valueOf(new File("src/main/ui/Images/BackButton.png"))));
+        JButton button = new JButton(new ImageIcon(String.valueOf(new File("src/main/ui/Images/Buttons/BackButton.png"))));
         button.setBackground(BACKGROUND);
         button.setBorderPainted(false);
         button.setOpaque(true);
@@ -133,7 +114,9 @@ public class PlantPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         jframe.setVisible(false);
-        ArrayList<Plant> plants = gardenApp.getGarden().getGarden();
+        Inventory inventory = gardenApp.getInventory();
+        Garden garden = gardenApp.getGarden();
+        ArrayList<Plant> plants = garden.getGarden();
         Plant plant = plants.get(position);
 
         if (e.getActionCommand().equals("Back")) {
@@ -148,12 +131,16 @@ public class PlantPage implements ActionListener {
             new PlantPage(gardenApp, String.valueOf(position));
         }
         if (e.getActionCommand().equals("Uproot")) {
-            plants.remove(plant);
             JOptionPane.showMessageDialog(jframe, "You just uprooted a " + plant.getPlantName() + " from your garden!");
+            plants.remove(plant);
             new MyGardenPage(gardenApp);
         }
         if (e.getActionCommand().equals("Harvest")) {
-            //stub
+            inventory.justAddPlant(plant);
+            garden.removePlant(position);
+            JOptionPane.showMessageDialog(jframe, "You just harvested a " + plant.getPlantName()
+                    + " from your garden!");
+            new MyGardenPage(gardenApp);
         }
     }
 }

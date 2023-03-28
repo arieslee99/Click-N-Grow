@@ -32,9 +32,10 @@ public class HomePage implements ActionListener {
         jframe.getContentPane().setBackground(BACKGROUND);
         addHomeImage();
         displayWelcomeNote(gardenApp.getGardenName());
-        addMyGardenButton();
-        addStoreButton();
-        addQuitButton();
+        makeButton("My garden", "src/main/ui/Images/Buttons/MyGardenButton.png");
+        makeButton("Inventory", "src/main/ui/Images/Buttons/InventoryButton.png");
+        makeButton("Store", "src/main/ui/Images/Buttons/StoreButton.png");
+        makeButton("Quit", "src/main/ui/Images/Buttons/QuitButton.png");
 
         jframe.setVisible(true);
         jframe.setSize(500, 800);
@@ -59,32 +60,17 @@ public class HomePage implements ActionListener {
         jframe.add(panel);
     }
 
-    private void addMyGardenButton() {
-        JButton gardenButton = makeButton("src/main/ui/Images/MyGardenButton.png");
-        gardenButton.setActionCommand("My garden");
-    }
-
-    private void addStoreButton() {
-        JButton storeButton = makeButton("src/main/ui/Images/StoreButton.png");
-        storeButton.setActionCommand("Store");
-    }
-
-    private void addQuitButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
-        quitButton.setActionCommand("Quit");
-    }
-
     //EFFECTS: makes a button and places it on the frame
-    private JButton makeButton(String fileName) {
+    private void makeButton(String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        //button.setBorderPainted(false);
         button.addActionListener(this);
+        button.setActionCommand(objectName);
+
         panel.add(button, constraints);
         constraints.weighty = 1;
         jframe.add(panel);
-        return button;
     }
 
     @Override
@@ -92,12 +78,12 @@ public class HomePage implements ActionListener {
         jframe.setVisible(false);
         if (e.getActionCommand().equals("My garden")) {
             new MyGardenPage(gardenApp);
-        }
-        if (e.getActionCommand().equals("Store")) {
+        } else if (e.getActionCommand().equals("Store")) {
             new StorePage(gardenApp);
-        }
-        if (e.getActionCommand().equals("Quit")) {
+        } else if (e.getActionCommand().equals("Quit")) {
             new SaveProgressPage(gardenApp);
+        } else {
+            new InventoryPage(gardenApp);
         }
 
     }

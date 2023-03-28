@@ -37,17 +37,17 @@ public class SaveProgressPage implements ActionListener {
     }
 
     private void addSaveButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/SaveButton.png");
+        JButton quitButton = makeButton("src/main/ui/Images/Buttons/SaveButton.png");
         quitButton.setActionCommand("Save");
     }
 
     private void addQuitButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/QuitButton.png");
+        JButton quitButton = makeButton("src/main/ui/Images/Buttons/QuitButton.png");
         quitButton.setActionCommand("Quit");
     }
 
     private void addBackButton() {
-        JButton quitButton = makeButton("src/main/ui/Images/BackButton.png");
+        JButton quitButton = makeButton("src/main/ui/Images/Buttons/BackButton.png");
         quitButton.setActionCommand("Back");
         quitButton.setBorderPainted(false);
     }
@@ -57,7 +57,6 @@ public class SaveProgressPage implements ActionListener {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        //button.setBorderPainted(false);
         button.addActionListener(this);
         constraints.weightx = 1;
         constraints.weighty = 1;
@@ -77,6 +76,8 @@ public class SaveProgressPage implements ActionListener {
 
         if (e.getActionCommand().equals("Save")) {
             gardenApp.saveProgress();
+            JOptionPane.showMessageDialog(jframe, "Your progress is saved!");
+            System.exit(0);
         } else if (e.getActionCommand().equals("Quit")) {
             jframe.setVisible(false);
             System.exit(0);
