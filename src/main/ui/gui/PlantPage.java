@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import static java.awt.GridBagConstraints.RELATIVE;
 import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
@@ -33,9 +34,11 @@ public class PlantPage implements ActionListener {
         jframe.getContentPane().setBackground(BACKGROUND);
         addBackButton();
         printCounts(gardenApp.getGarden().getGarden().get(position));
-        addPlant();
         addMaintenanceButtons("Water", "src/main/ui/Images/Water.png");
         addMaintenanceButtons("Feed", "src/main/ui/Images/Feed.png");
+        addMaintenanceButtons("Harvest", "src/main/ui/Images/Harvest.png");
+        addMaintenanceButtons("Uproot", "src/main/ui/Images/Uproot.png");
+        addPlant();
 
         jframe.setVisible(true);
         jframe.setSize(500, 800);
@@ -121,29 +124,11 @@ public class PlantPage implements ActionListener {
         button.addActionListener(this);
         button.setActionCommand(objectName);
 
-        constraints.weighty = 0;
-        constraints.weightx = 0;
+        constraints.gridwidth = REMAINDER;
         panel.add(button, constraints);
         jframe.add(panel);
 
     }
-
-    //EFFECTS: makes a button and places it on the frame
-//    private void makeButton(String objectName, String fileName) {
-//        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
-//        button.setBackground(BACKGROUND);
-//        button.setBorderPainted(false);
-//        button.setOpaque(true);
-//
-//        button.addActionListener(this);
-//        button.setActionCommand(objectName);
-//
-//        constraints.gridwidth = REMAINDER;
-//        constraints.weighty = 1;
-//        constraints.weightx = 1;
-//        panel.add(button, constraints);
-//        jframe.add(panel);
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -161,6 +146,14 @@ public class PlantPage implements ActionListener {
         if (e.getActionCommand().equals("Feed")) {
             plant.feedPlant();
             new PlantPage(gardenApp, String.valueOf(position));
+        }
+        if (e.getActionCommand().equals("Uproot")) {
+            plants.remove(plant);
+            JOptionPane.showMessageDialog(jframe, "You just uprooted a " + plant.getPlantName() + " from your garden!");
+            new MyGardenPage(gardenApp);
+        }
+        if (e.getActionCommand().equals("Harvest")) {
+            //stub
         }
     }
 }
