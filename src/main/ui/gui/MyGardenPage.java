@@ -70,7 +70,7 @@ public class MyGardenPage implements ActionListener {
     public void seeGarden() {
         Garden myGarden = gardenApp.getGarden();
         List<Plant> plants = myGarden.getGarden();
-        for (int i =0; i < plants.size(); i++) {
+        for (int i = 0; i < plants.size(); i++) {
             makePlantButton(i, plants.get(i).getPlantName(), "src/main/ui/Images/Plant.png");
         }
     }

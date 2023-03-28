@@ -91,7 +91,7 @@ public class LoginPage implements ActionListener {
             new HomePage(gardenApp);
             jframe.setVisible(false);
         }
-        if (e.getActionCommand().equals("New garden")){
+        if (e.getActionCommand().equals("New garden")) {
             new CreateAccountPage();
             jframe.setVisible(false);
         }

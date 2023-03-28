@@ -109,8 +109,7 @@ public class StorePage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(jframe, "You just added a " + plant.getPlantName() + " to your garden!");
                 new HomePage(gardenApp);
             } else {
-                JOptionPane.showMessageDialog
-                        (jframe, "You don't have enough money!");
+                JOptionPane.showMessageDialog(jframe, "You don't have enough money!");
                 new StorePage(gardenApp);
             }
 
