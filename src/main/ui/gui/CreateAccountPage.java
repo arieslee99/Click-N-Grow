@@ -20,13 +20,13 @@ public class CreateAccountPage implements ActionListener {
     private String gardenName;
     private GardenApp gardenApp;
 
-    //EFFECTS: constructs a create your own acconut page
+    //EFFECTS: constructs a create your own account page
     public CreateAccountPage() {
         makeWindow();
         addFenceImg();
         promptGardenName();
-        addNextButton();
-        addBackButton();
+        makeButton("Next","src/main/ui/Images/Buttons/NextButton.png", true);
+        makeButton("Back","src/main/ui/Images/Buttons/BackButton.png", false);
     }
 
     //EFFECTS: sets up the window of the current screen
@@ -41,6 +41,7 @@ public class CreateAccountPage implements ActionListener {
 
     }
 
+    //MODIFIES: this
     //EFFECTS: adds image of fences to frame
     private void addFenceImg() {
         ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/FencesImage.png")));
@@ -52,43 +53,34 @@ public class CreateAccountPage implements ActionListener {
         jframe.add(panel);
     }
 
+    //MODIFIES: this
     //EFFECTS: asks and let users decide what garden name they want
     private void promptGardenName() {
         JLabel question = new JLabel("What is your garden's name?");
-        question.setFont(new Font("Haettenschweiler", Font.PLAIN, 20));
+        question.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         panel.add(question, constraints);
 
         textArea = new JTextArea();
-        textArea.setFont(new Font("Haettenschweiler", Font.PLAIN, 20));
+        textArea.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         textArea.setBackground(BACKGROUND);
         panel.add(textArea, constraints);
         jframe.add(panel);
     }
 
-    //EFFECTS: adds button that proceeds to the next page
-    private void addNextButton() {
-        JButton nextButton = makeButton("src/main/ui/Images/Buttons/NextButton.png");
-        nextButton.setActionCommand("Next");
-    }
-
-    //EFFECTS: adds button that goes back to previous page
-    private void addBackButton() {
-        JButton backButton = makeButton("src/main/ui/Images/Buttons/BackButton.png");
-        backButton.setActionCommand("Back");
-        backButton.setBorderPainted(false);
-    }
-
+    //MODIFIES: this
     //EFFECTS: makes a button and places it on the frame
-    private JButton makeButton(String fileName) {
+    private void makeButton(String objectName, String fileName, boolean border) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
         button.setOpaque(true);
-        //button.setBorderPainted(false);
+        button.setBorderPainted(border);
+
         button.addActionListener(this);
+        button.setActionCommand(objectName);
+
         panel.add(button, constraints);
         constraints.weighty = 1;
         jframe.add(panel);
-        return button;
     }
 
     //EFFECTS: processes command when a button is clicked
@@ -112,6 +104,7 @@ public class CreateAccountPage implements ActionListener {
         }
     }
 
+    //EFFECTS: initializes a new garden, wallet and inventory
     public void initializeNewAccount() {
         gardenApp = new GardenApp();
         gardenApp.instantiateGarden(gardenName);

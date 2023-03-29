@@ -18,12 +18,12 @@ public class Inventory {
     public Integer addPlant(Garden g) {
         int ripeCount = 0;
         for (Plant plant: g.getGarden()) {
-            if (plant.getLifeStatus().equals("Ripe!")) {
+            if (plant.getUpdatedLifeStatus().equals("Ripe!")) {
                 inventory.add(plant);
                 ripeCount++;
             }
         }
-        g.getGarden().removeIf(plant -> plant.getLifeStatus().equals("Ripe!"));
+        g.getGarden().removeIf(plant -> plant.getUpdatedLifeStatus().equals("Ripe!"));
 
         return ripeCount;
     }

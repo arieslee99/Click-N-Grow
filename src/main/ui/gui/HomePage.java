@@ -8,12 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-
 import static java.awt.GridBagConstraints.REMAINDER;
 
 //Represents the homepage
 public class HomePage implements ActionListener {
-    private static final Color BACKGROUND = new Color(229, 180, 45);
+    public static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
     private JPanel panel;
     private GridBagConstraints constraints = new GridBagConstraints();
@@ -23,6 +22,12 @@ public class HomePage implements ActionListener {
     public HomePage(GardenApp gardenApp) {
         this.gardenApp = gardenApp;
         makeWindow();
+        addHomeImage();
+        displayWelcomeNote(gardenApp.getGardenName());
+        makeButton("My garden", "src/main/ui/Images/Buttons/MyGardenButton.png");
+        makeButton("Inventory", "src/main/ui/Images/Buttons/InventoryButton.png");
+        makeButton("Store", "src/main/ui/Images/Buttons/StoreButton.png");
+        makeButton("Quit", "src/main/ui/Images/Buttons/QuitButton.png");
     }
 
     //EFFECTS: sets up the window of the current screen
@@ -30,19 +35,14 @@ public class HomePage implements ActionListener {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
-        addHomeImage();
-        displayWelcomeNote(gardenApp.getGardenName());
-        makeButton("My garden", "src/main/ui/Images/Buttons/MyGardenButton.png");
-        makeButton("Inventory", "src/main/ui/Images/Buttons/InventoryButton.png");
-        makeButton("Store", "src/main/ui/Images/Buttons/StoreButton.png");
-        makeButton("Quit", "src/main/ui/Images/Buttons/QuitButton.png");
-
         jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: add home image to window
     private void addHomeImage() {
         ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/HomeImage.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
@@ -53,13 +53,16 @@ public class HomePage implements ActionListener {
         jframe.add(panel);
     }
 
-    public void displayWelcomeNote(String name) {
+    //MODIFIES: this
+    //EFFECTS: welcomes the user to the home page
+    private void displayWelcomeNote(String name) {
         JLabel welcome = new JLabel("Welcome to " + name + "'s" + " garden!");
         welcome.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         panel.add(welcome, constraints);
         jframe.add(panel);
     }
 
+    //MODIFIES: this
     //EFFECTS: makes a button and places it on the frame
     private void makeButton(String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
@@ -73,6 +76,7 @@ public class HomePage implements ActionListener {
         jframe.add(panel);
     }
 
+    //EFFECTS: based on the action event, carry out corresponding action
     @Override
     public void actionPerformed(ActionEvent e) {
         jframe.setVisible(false);

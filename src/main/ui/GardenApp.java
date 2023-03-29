@@ -188,7 +188,7 @@ public class GardenApp {
             System.out.println("** Your Garden **");
             for (Plant plant : garden.getGarden()) {
                 System.out.println(position + ". " + plant.getPlantName() + ", WaterCount: " + plant.getWaterCount()
-                        + ", FeedCount: " + plant.getFertilizerCount() + ", Status: " + plant.getLifeStatus());
+                        + ", FeedCount: " + plant.getFertilizerCount() + ", Status: " + plant.getUpdatedLifeStatus());
                 position++;
             }
         }
@@ -514,8 +514,7 @@ public class GardenApp {
             sellPlants();
         } else if (position < inventory.getSize()) {
             Plant plant = inventory.getPlant(position);
-            inventory.removePlant(position);
-            wallet.increaseBalance(plant.getProfitValue());
+            processSale(position, plant);
             System.out.println("You just sold a " + plant.getPlantName() + "!");
             System.out.println("You've earned: " + plant.getProfitValue());
             System.out.println("Total balance: " + wallet.getBalance());
@@ -524,6 +523,11 @@ public class GardenApp {
         }
         System.out.println();
         displayMenu();
+    }
+
+    public void processSale(int position, Plant plant) {
+        inventory.removePlant(position);
+        wallet.increaseBalance(plant.getProfitValue());
     }
 
     //EFFECTS: shows user's current wallet balance

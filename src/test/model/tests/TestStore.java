@@ -98,8 +98,13 @@ public class TestStore {
 
         assertFalse(flowers.contains(garlic));
         assertFalse(flowers.contains(carrot));
+    }
 
-
+    @Test
+    public void testGetPlant() {
+        assertNull(store.getPlant("Corn"));
+        assertEquals(lavender, store.getPlant("Lavender"));
+        assertEquals(carrot, store.getPlant("Carrot"));
     }
 
 }

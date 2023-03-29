@@ -3,6 +3,7 @@ package model.tests;
 import model.Garden;
 import model.Plant;
 import model.seeds.*;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,16 +36,16 @@ public class TestPlant {
         assertEquals("Garlic", garlic.getPlantName());
         assertEquals(3, garlic.getWaterCount());
         assertEquals(4, garlic.getFertilizerCount());
-        assertEquals("Growing!", garlic.getLifeStatus());
+        assertEquals("Growing!", garlic.getUpdatedLifeStatus());
         assertEquals(100, garlic.getPrice());
 
         assertEquals(0, lettuce.getWaterCount());
         assertEquals(0, lettuce.getFertilizerCount());
-        assertEquals("Ripe!", lettuce.getLifeStatus());
+        assertEquals("Ripe!", lettuce.getUpdatedLifeStatus());
 
         assertEquals(-1, lettuce2.getFertilizerCount());
         assertEquals(0, lettuce2.getWaterCount());
-        assertEquals("Dead!", lettuce2.getLifeStatus());
+        assertEquals("Dead!", lettuce2.getUpdatedLifeStatus());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class TestPlant {
         garlic.waterPlant();
         assertEquals(1, garlic.getWaterCount());
         garlic.updateLifeStatus();
-        assertEquals("Growing!", garlic.getLifeStatus());
+        assertEquals("Growing!", garlic.getUpdatedLifeStatus());
     }
 
     @Test
@@ -64,7 +65,7 @@ public class TestPlant {
         garlic.waterPlant();
         assertEquals(-1, garlic.getWaterCount());
         garlic.updateLifeStatus();
-        assertEquals("Dead!", garlic.getLifeStatus());
+        assertEquals("Dead!", garlic.getUpdatedLifeStatus());
 
     }
 
@@ -74,7 +75,7 @@ public class TestPlant {
         garlic.feedPlant();
         assertEquals(2, garlic.getFertilizerCount());
         garlic.updateLifeStatus();
-        assertEquals("Growing!", garlic.getLifeStatus());
+        assertEquals("Growing!", garlic.getUpdatedLifeStatus());
     }
 
     @Test
@@ -83,7 +84,7 @@ public class TestPlant {
         carrot.feedPlant();
         assertEquals(-1, carrot.getFertilizerCount());
         carrot.updateLifeStatus();
-        assertEquals("Dead!", carrot.getLifeStatus());
+        assertEquals("Dead!", carrot.getUpdatedLifeStatus());
     }
 
     @Test
@@ -93,7 +94,7 @@ public class TestPlant {
         assertEquals(0, carrot.getWaterCount());
         assertEquals(0, carrot.getFertilizerCount());
         carrot.updateLifeStatus();
-        assertEquals("Ripe!", carrot.getLifeStatus());
+        assertEquals("Ripe!", carrot.getUpdatedLifeStatus());
 
     }
 
@@ -102,7 +103,7 @@ public class TestPlant {
         potato.waterPlant();
         assertEquals(1, potato.getWaterCount());
         potato.updateLifeStatus();
-        assertEquals("Growing!", potato.getLifeStatus());
+        assertEquals("Growing!", potato.getUpdatedLifeStatus());
     }
 
     @Test
@@ -110,12 +111,12 @@ public class TestPlant {
         carrot.feedPlant();
         assertEquals(0, carrot.getFertilizerCount());
         carrot.updateLifeStatus();
-        assertEquals("Growing!", carrot.getLifeStatus());
+        assertEquals("Growing!", carrot.getUpdatedLifeStatus());
 
         assertEquals(4, garlic.getFertilizerCount());
         assertEquals(3, garlic.getWaterCount());
         garlic.updateLifeStatus();
-        assertEquals("Growing!", garlic.getLifeStatus());
+        assertEquals("Growing!", garlic.getUpdatedLifeStatus());
     }
 
     @Test
@@ -155,6 +156,23 @@ public class TestPlant {
         assertNotEquals(garlic3, garlic); //dead vs. growing
         assertNotEquals(garlic3, cactus5); //dead vs. dead but diff names
 
+    }
+
+    @Test
+    public void testTranslateToJson() {
+        JSONObject jsonObject = garlic.translateToJson();
+        assertEquals(jsonObject.getString("name"), "Garlic");
+        assertEquals(jsonObject.getInt("water count"), 3);
+        assertEquals(jsonObject.getInt("fertilizer count"), 4);
+        assertEquals(jsonObject.getInt("price"), 100);
+        assertEquals(jsonObject.getString("life status"), "Growing!");
+        assertEquals(jsonObject.getString("plant type"), "VEGETABLE");
+    }
+
+    @Test
+    public void testSetLifeStatus() {
+        garlic.setLifeStatus("Dead!");
+        assertEquals("Dead!", garlic.getLifeStatus());
     }
 
 }

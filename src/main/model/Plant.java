@@ -16,7 +16,7 @@ public abstract class Plant {
         this.plantName = name;
         this.waterCount = waterCount;
         this.fertilizerCount = fertilizerCount;
-        this.lifeStatus = getLifeStatus();
+        this.lifeStatus = getUpdatedLifeStatus();
         this.price = price;
         this.type = type;
     }
@@ -63,8 +63,12 @@ public abstract class Plant {
         return plantName;
     }
 
-    public String getLifeStatus() {
+    public String getUpdatedLifeStatus() {
         updateLifeStatus();
+        return lifeStatus;
+    }
+
+    public String getLifeStatus() {
         return lifeStatus;
     }
 

@@ -39,7 +39,7 @@ public class Garden {
     //MODIFIES: this
     //EFFECTS: removes all the "Dead!" plants from garden
     public void removeDeadPlants() {
-        garden.removeIf(plant -> plant.getLifeStatus().equals("Dead!"));
+        garden.removeIf(plant -> plant.getUpdatedLifeStatus().equals("Dead!"));
     }
 
     //getters
@@ -97,7 +97,7 @@ public class Garden {
     public Integer getNumOfDeadPlants() {
         int count = 0;
         for (Plant plant: garden) {
-            if (plant.getLifeStatus().equals("Dead!")) {
+            if (plant.getUpdatedLifeStatus().equals("Dead!")) {
                 count++;
             }
         }

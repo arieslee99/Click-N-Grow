@@ -1,7 +1,6 @@
 package ui.gui;
 
 import model.Garden;
-import model.Inventory;
 import model.Plant;
 import ui.GardenApp;
 
@@ -10,8 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-
 import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
@@ -22,42 +19,47 @@ public class PlantPage implements ActionListener {
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
     private int position;
+    private Garden garden;
+    private Plant plant;
 
+    //EFFECTS: constructs a plant page
     public PlantPage(GardenApp gardenApp,String position) {
         this.gardenApp = gardenApp;
+        this.garden = gardenApp.getGarden();
         this.position = Integer.parseInt(position);
+        this.plant = garden.getPlant(this.position);
         makeWindow();
-    }
-
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
         addBackButton();
-        printCounts(gardenApp.getGarden().getGarden().get(position));
+        printCounts(gardenApp.getGarden().getGarden().get(this.position));
         addMaintenanceButtons("Water", "src/main/ui/Images/Buttons/Water.png");
         addMaintenanceButtons("Feed", "src/main/ui/Images/Buttons/Feed.png");
         addMaintenanceButtons("Harvest", "src/main/ui/Images/Buttons/Harvest.png");
         addMaintenanceButtons("Uproot", "src/main/ui/Images/Buttons/Uproot.png");
         addPlant();
+    }
 
+    //EFFECTS: makes the window
+    public void makeWindow() {
+        panel = new JPanel(new GridBagLayout());
+        panel.setBackground(BACKGROUND);
+        jframe.getContentPane().setBackground(BACKGROUND);
         jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds plant to page
     private void addPlant() {
-        ArrayList<Plant> garden = gardenApp.getGarden().getGarden();
-        Plant plant = garden.get(position);
         ImageIcon icon;
         JLabel label;
-        if (plant.getLifeStatus().equalsIgnoreCase("Growing!")) {
+        if (plant.getUpdatedLifeStatus().equalsIgnoreCase("Growing!")) {
             icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Growing.png")));
-        } else if (plant.getLifeStatus().equalsIgnoreCase("Dead!")) {
+        } else if (plant.getUpdatedLifeStatus().equalsIgnoreCase("Dead!")) {
             icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/Dead.png")));
         } else {
-            icon = pickPlant(plant);
+            icon = pickPlant();
         }
         label = new JLabel(icon);
         constraints.gridwidth = 1;
@@ -65,6 +67,8 @@ public class PlantPage implements ActionListener {
         jframe.add(panel);
     }
 
+    //MODIFIES: this
+    //EFFECTS: prints out the fertilizer and water counts on screen
     private void printCounts(Plant plant) {
         JLabel waterCount = new JLabel("Water Count: " + plant.getWaterCount());
         waterCount.setFont(new Font("Comic Sans", Font.PLAIN, 20));
@@ -76,13 +80,17 @@ public class PlantPage implements ActionListener {
         jframe.add(panel);
     }
 
-    private ImageIcon pickPlant(Plant plant) {
+    //EFFECTS: returns the image of the plant
+    private ImageIcon pickPlant() {
         String objectName = plant.getPlantName();
         return new ImageIcon(String.valueOf(new File("src/main/ui/Images/Plants/" + objectName + ".png")));
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds back button on the window
     private void addBackButton() {
-        JButton button = new JButton(new ImageIcon(String.valueOf(new File("src/main/ui/Images/Buttons/BackButton.png"))));
+        JButton button = new JButton(new ImageIcon(String.valueOf(
+                new File("src/main/ui/Images/Buttons/BackButton.png"))));
         button.setBackground(BACKGROUND);
         button.setBorderPainted(false);
         button.setOpaque(true);
@@ -97,6 +105,8 @@ public class PlantPage implements ActionListener {
         jframe.add(panel);
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds feed, water, harvest and uproot buttons to the screen
     private void addMaintenanceButtons(String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
         button.setBackground(BACKGROUND);
@@ -111,36 +121,32 @@ public class PlantPage implements ActionListener {
 
     }
 
+    //EFFECTS: based on the action event, carry out corresponding action
     @Override
     public void actionPerformed(ActionEvent e) {
         jframe.setVisible(false);
-        Inventory inventory = gardenApp.getInventory();
-        Garden garden = gardenApp.getGarden();
-        ArrayList<Plant> plants = garden.getGarden();
-        Plant plant = plants.get(position);
-
-        if (e.getActionCommand().equals("Back")) {
+        String action = e.getActionCommand();
+        if (action.equals("Back")) {
             new MyGardenPage(gardenApp);
         }
-        if (e.getActionCommand().equals("Water")) {
-            plant.waterPlant();
-            new PlantPage(gardenApp, String.valueOf(position));
-        }
-        if (e.getActionCommand().equals("Feed")) {
-            plant.feedPlant();
-            new PlantPage(gardenApp, String.valueOf(position));
-        }
-        if (e.getActionCommand().equals("Uproot")) {
-            JOptionPane.showMessageDialog(jframe, "You just uprooted a " + plant.getPlantName() + " from your garden!");
-            plants.remove(plant);
-            new MyGardenPage(gardenApp);
-        }
-        if (e.getActionCommand().equals("Harvest")) {
-            inventory.justAddPlant(plant);
+        if (action.equals("Uproot") || action.equals("Harvest")) {
+            if ("Uproot".equals(action)) {
+                JOptionPane.showMessageDialog(jframe, "You uprooted a " + plant.getPlantName() + " from your garden!");
+            } else {
+                gardenApp.getInventory().justAddPlant(plant);
+                JOptionPane.showMessageDialog(jframe, "You harvested a " + plant.getPlantName() + " from your garden!");
+            }
             garden.removePlant(position);
-            JOptionPane.showMessageDialog(jframe, "You just harvested a " + plant.getPlantName()
-                    + " from your garden!");
             new MyGardenPage(gardenApp);
+        }
+
+        if (action.equals("Feed") || action.equals("Water")) {
+            if ("Feed".equals(action)) {
+                plant.feedPlant();
+            } else {
+                plant.waterPlant();
+            }
+            new PlantPage(gardenApp, String.valueOf(position));
         }
     }
 }

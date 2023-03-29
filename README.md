@@ -44,3 +44,4 @@
   - https://www.shutterstock.com/search/pixel-fence?image_type=vector
   - https://www.freepik.com/premium-vector/simple-home-with-pixel-art-style_18262961.htm
   - https://www.shutterstock.com/image-vector/seamless-pattern-8-bit-pixel-art-1536471818
+  - https://www.vecteezy.com/vector-art/10807136-treasure-chest-pixel-art
