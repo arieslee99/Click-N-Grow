@@ -92,7 +92,7 @@ public class CreateAccountPage implements ActionListener {
         jframe.setVisible(false);
 
         if (e.getActionCommand().equals("Next")) {
-            if (! gardenName.isBlank()) {
+            if (!gardenName.isBlank()) {
                 initializeNewAccount();
                 new HomePage(gardenApp);
             } else {

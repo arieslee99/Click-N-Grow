@@ -12,6 +12,7 @@ import java.io.File;
 import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
+//Represents a plant page
 public class PlantPage implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
@@ -126,27 +127,43 @@ public class PlantPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         jframe.setVisible(false);
         String action = e.getActionCommand();
-        if (action.equals("Back")) {
-            new MyGardenPage(gardenApp);
-        }
         if (action.equals("Uproot") || action.equals("Harvest")) {
-            if ("Uproot".equals(action)) {
-                JOptionPane.showMessageDialog(jframe, "You uprooted a " + plant.getPlantName() + " from your garden!");
-            } else {
-                gardenApp.getInventory().justAddPlant(plant);
-                JOptionPane.showMessageDialog(jframe, "You harvested a " + plant.getPlantName() + " from your garden!");
-            }
-            garden.removePlant(position);
+            uprootAndHarvest(action);
+        } else if (action.equals("Feed") || action.equals("Water")) {
+            feedAndWater(action);
+        } else {
             new MyGardenPage(gardenApp);
-        }
-
-        if (action.equals("Feed") || action.equals("Water")) {
-            if ("Feed".equals(action)) {
-                plant.feedPlant();
-            } else {
-                plant.waterPlant();
-            }
-            new PlantPage(gardenApp, String.valueOf(position));
         }
     }
+
+    //MODIFIES: this
+    //EFFECTS: remove from garden or harvest plant into inventory
+    public void uprootAndHarvest(String action) {
+        if (action.equals("Uproot")) {
+            JOptionPane.showMessageDialog(jframe, "You uprooted a " + plant.getPlantName() + "!");
+            garden.removePlant(position);
+            new MyGardenPage(gardenApp);
+        } else {
+            if (plant.getFertilizerCount() == 0 && plant.getWaterCount() == 0) {
+                gardenApp.getInventory().justAddPlant(plant);
+                garden.removePlant(position);
+                JOptionPane.showMessageDialog(jframe, "You harvested a " + plant.getPlantName() + "!");
+                new MyGardenPage(gardenApp);
+            } else {
+                JOptionPane.showMessageDialog(jframe, "Your plant is not ripe enough to be harvest!");
+                new PlantPage(gardenApp, String.valueOf(position));
+            }
+        }
+    }
+
+    //EFFECTS: feeds or waters plant
+    public void feedAndWater(String action) {
+        if (action.equals("Water")) {
+            plant.waterPlant();
+        } else {
+            plant.feedPlant();
+        }
+        new PlantPage(gardenApp, String.valueOf(position));
+    }
 }
+

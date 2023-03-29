@@ -96,6 +96,8 @@ public class StorePage extends JFrame implements ActionListener {
         addEmptySpace();
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds scroll bar to screen
     private void addScrollBar() {
         JScrollPane scrollPane =
                 new JScrollPane(panel, VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

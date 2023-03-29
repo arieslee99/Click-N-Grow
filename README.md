@@ -6,18 +6,12 @@
 - This application is a virtual garden simulation that aims to provide a simplistic rendition of real-life gardening 
   and/or farming. Users are able to start their own garden, and plant seeds. To maintain plants, users can water and 
   fertilize then (according to each plant's specifications). Ripe plants can be harvested, and sold to earn more money
-  to purchase more plants for the garden. Aside from performing these actions to maintain a garden, the success of this 
-  game relies on two users taking turns executing these actions. For example, user A waters and adds
-  fertilizer to the garden. In order to perform same actions again, only user B has the ability to do so,
-  vice versa. While this may be seen as a limitation, the goal is to encourage users to collaborate on a 
-  common goal. 
+  to purchase more plants for the garden. 
 
 
 **Who are the users?**
-
-- This application is targeted towards people who would like to engage in a collaborative game with friends and/or
-  loved ones. The goal of the application is to provide an opportunity for collaboration and time for people to 
-  develop/cultivate a common interest. Thus, this application is suitable for anyone who wishes to accomplish thereof.
+- This application is targeted towards people who enjoy playing traditional RPG games. Furthermore, it is catered towards people who
+enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
   
 
 **Why does this project of interest to you?**
@@ -45,3 +39,17 @@
   - https://www.freepik.com/premium-vector/simple-home-with-pixel-art-style_18262961.htm
   - https://www.shutterstock.com/image-vector/seamless-pattern-8-bit-pixel-art-1536471818
   - https://www.vecteezy.com/vector-art/10807136-treasure-chest-pixel-art
+
+# Instructions for Grader
+- You can generate the first required action related to adding Xs to a Y by going to "Store", and purchasing a Cactus, Potato and Garlic
+  - By clicking onto a seed, you will purchase it
+  - Go to "my garden", and you will see the Cactus, Potato and Garlic
+- You can generate the second required action related to adding Xs to a Y by: 
+  - Going to "my garden", clicking into "Cactus"
+  - Fertilizer and water the cactus until both counts are 0 (you will not be able to harvest unripe plants)
+  - Click the "basket" button, which will harvest the cactus
+  - Go to "inventory" and you will see the harvested Cactus there 
+- You can locate my visual component by going to the "Store"
+- You can save the state of my application by going to the home page, click "quit", and click "save"
+- you can reload the state of my application by clicking "login" when you first open the application
+

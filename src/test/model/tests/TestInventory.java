@@ -41,7 +41,7 @@ public class TestInventory {
 
     @Test
     public void testAddPlant() {
-        int ripeCount = inventory.addPlant(garden2);
+        int ripeCount = inventory.addAllPlant(garden2);
         assertEquals(1, ripeCount);
         assertEquals(eggplant, inventory.searchInventory("Eggplant"));
         assertNull(inventory.searchInventory("rose"));
@@ -53,7 +53,7 @@ public class TestInventory {
 
     @Test
     public void testAddMultiplePlants() {
-        int ripeCount = inventory.addPlant(garden);
+        int ripeCount = inventory.addAllPlant(garden);
         assertEquals(2, ripeCount);
 
         assertEquals(lavender, inventory.searchInventory("lavender"));
@@ -68,7 +68,7 @@ public class TestInventory {
     @Test
     public void testAddPlantButFailed() {
         garden.addPlant(sunflower);
-        int ripeCount = inventory.addPlant(garden);
+        int ripeCount = inventory.addAllPlant(garden);
         assertEquals(2, ripeCount);
         assertEquals(lavender, inventory.searchInventory("lavender"));
         assertEquals(rose, inventory.searchInventory("rose"));
@@ -82,7 +82,7 @@ public class TestInventory {
 
     @Test
     public void testAddRipePlantButFailed() {
-        int ripeCount = inventory.addPlant(garden);
+        int ripeCount = inventory.addAllPlant(garden);
         assertEquals(2, ripeCount);
         assertEquals(2, inventory.getSize());
         assertEquals(lavender, inventory.searchInventory("lavender"));
@@ -92,7 +92,7 @@ public class TestInventory {
 
     @Test
     public void testRemoveOnePlant() {
-        inventory.addPlant(garden);
+        inventory.addAllPlant(garden);
         assertEquals(2, inventory.getSize());
         inventory.removePlant(0);
         assertEquals(1, inventory.getSize());
@@ -101,7 +101,7 @@ public class TestInventory {
 
     @Test
     public void testRemoveMultiplePlants() {
-        inventory.addPlant(garden);
+        inventory.addAllPlant(garden);
         assertEquals(2, inventory.getSize());
         inventory.removePlant(0);
         assertEquals(1, inventory.getSize());
@@ -114,7 +114,7 @@ public class TestInventory {
     @Test
     public void testSearchInventory() {
         garden.addPlant(sunflower);
-        inventory.addPlant(garden);
+        inventory.addAllPlant(garden);
         assertEquals(lavender, inventory.searchInventory("lavender"));
         assertEquals(rose, inventory.searchInventory("rose"));
         assertNull(inventory.searchInventory("sunflower"));
@@ -128,7 +128,7 @@ public class TestInventory {
 
     @Test
     public void testGetPlant() {
-        inventory.addPlant(garden);
+        inventory.addAllPlant(garden);
         assertEquals(lavender, inventory.getPlant(0));
         assertEquals(rose, inventory.getPlant(1));
     }
@@ -143,8 +143,8 @@ public class TestInventory {
 
     @Test
     public void testTranslateToJsonArray() {
-        inventory.addPlant(garden);
-        inventory.addPlant(garden2);
+        inventory.addAllPlant(garden);
+        inventory.addAllPlant(garden2);
         assertEquals(3, inventory.getSize());
         JSONArray jsonArray = inventory.translateToJsonArray();
         JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);

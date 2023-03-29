@@ -25,7 +25,7 @@ public class GardenApp {
     private JsonReader jsonReader;
 
 
-    //EFFECTS: constructs savedItems and runs the virtual garden application
+    //EFFECTS: constructs savedItems
     public GardenApp() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -38,6 +38,7 @@ public class GardenApp {
         loginPage();
     }
 
+    //EFFECTS: displays the menu options when user is in home page
     private void loginPage() {
         System.out.println("\n How would you like to login?");
         System.out.println("\t L -> Login (load saved game)");
@@ -160,6 +161,7 @@ public class GardenApp {
         }
     }
 
+    //EFFECTS: saves progress and confirms with user; exits program
     private void saveProgressConfirmation() {
         saveProgress();
         System.out.println("Your progress at " + garden.getGardenName() + "'s" + " is saved!");
@@ -293,7 +295,7 @@ public class GardenApp {
     //EFFECTS: adds ripe plants to inventory, removes the same plants from garden
     protected void harvest() {
         if (garden.getSize() != 0) {
-            System.out.println("You just harvested " + inventory.addPlant(garden) + " plant(s)!");
+            System.out.println("You just harvested " + inventory.addAllPlant(garden) + " plant(s)!");
             System.out.println("Your inventory count: " + inventory.getSize());
             System.out.println("Your garden size: " + garden.getSize());
             displayMenu();
@@ -525,6 +527,8 @@ public class GardenApp {
         displayMenu();
     }
 
+    //MODIFIES: this
+    //EFFECTS: removes plant from inventory, and increases wallet balance by plant's profit value
     public void processSale(int position, Plant plant) {
         inventory.removePlant(position);
         wallet.increaseBalance(plant.getProfitValue());

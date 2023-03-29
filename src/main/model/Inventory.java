@@ -15,7 +15,7 @@ public class Inventory {
 
     //MODIFIES: this
     //EFFECTS: adds plant to inventory; removes plant from garden
-    public Integer addPlant(Garden g) {
+    public Integer addAllPlant(Garden g) {
         int ripeCount = 0;
         for (Plant plant: g.getGarden()) {
             if (plant.getUpdatedLifeStatus().equals("Ripe!")) {
