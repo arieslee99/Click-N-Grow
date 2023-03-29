@@ -45,9 +45,9 @@ public class StorePage extends JFrame implements ActionListener {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
+        jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

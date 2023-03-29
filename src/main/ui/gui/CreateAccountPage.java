@@ -34,9 +34,9 @@ public class CreateAccountPage implements ActionListener {
         panel = new JPanel(new GridBagLayout());
         panel.setBackground(BACKGROUND);
         jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setVisible(true);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
+        jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
@@ -92,7 +92,7 @@ public class CreateAccountPage implements ActionListener {
         jframe.setVisible(false);
 
         if (e.getActionCommand().equals("Next")) {
-            if (!gardenName.isBlank()) {
+            if (!gardenName.isEmpty()) {
                 initializeNewAccount();
                 new HomePage(gardenApp);
             } else {
@@ -106,7 +106,7 @@ public class CreateAccountPage implements ActionListener {
 
     //EFFECTS: initializes a new garden, wallet and inventory
     public void initializeNewAccount() {
-        gardenApp = new GardenApp();
-        gardenApp.instantiateGarden(gardenName);
+        this.gardenApp = new GardenApp();
+        this.gardenApp.instantiateGarden(gardenName);
     }
 }
