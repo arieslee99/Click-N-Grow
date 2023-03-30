@@ -11,34 +11,23 @@ import java.io.File;
 import static java.awt.GridBagConstraints.REMAINDER;
 
 //Represents the homepage
-public class HomePage implements ActionListener {
+public class HomePage extends WindowBasics implements ActionListener {
     public static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
 
     //EFFECTS: constructs a homepage
     public HomePage(GardenApp gardenApp) {
         this.gardenApp = gardenApp;
-        makeWindow();
+        makeWindow(jframe, panel, constraints);
         addHomeImage();
         displayWelcomeNote(gardenApp.getGardenName());
         makeButton("My garden", "src/main/ui/Images/Buttons/MyGardenButton.png");
         makeButton("Inventory", "src/main/ui/Images/Buttons/InventoryButton.png");
         makeButton("Store", "src/main/ui/Images/Buttons/StoreButton.png");
         makeButton("Quit", "src/main/ui/Images/Buttons/QuitButton.png");
-    }
-
-    //EFFECTS: sets up the window of the current screen
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     //MODIFIES: this

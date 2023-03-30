@@ -10,14 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import static java.awt.GridBagConstraints.REMAINDER;
-import static javax.swing.SwingConstants.NORTH;
-
 //Represents the sell plant page
-public class SellPlantPage implements ActionListener {
+public class SellPlantPage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
     private int position;
@@ -29,41 +26,11 @@ public class SellPlantPage implements ActionListener {
         Inventory inventory = this.gardenApp.getInventory();
         this.position = Integer.parseInt(position);
         this.plant = inventory.getPlant(this.position);
-        makeWindow();
-        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png");
-        makeButton("Sell", "src/main/ui/Images/Buttons/SellButton.png");
+        makeWindow(jframe, panel, constraints);
+        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png", false);
+        makeButton("Sell", "src/main/ui/Images/Buttons/SellButton.png", false);
         printSalePrice();
         addPlant();
-    }
-
-    //EFFECTS: makes the window
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: makes button and places it on the window
-    private void makeButton(String objectName, String fileName) {
-        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
-        button.setBackground(BACKGROUND);
-        button.setBorderPainted(false);
-        button.setOpaque(true);
-        button.addActionListener(this);
-        button.setActionCommand(objectName);
-
-        constraints.gridwidth = REMAINDER;
-        constraints.gridheight = NORTH;
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        panel.add(button, constraints);
-        jframe.add(panel);
     }
 
     //MODIFIES: this
@@ -93,7 +60,9 @@ public class SellPlantPage implements ActionListener {
             new InventoryPage(gardenApp);
         }
         if (e.getActionCommand().equals("Sell")) {
-            gardenApp.processSale(position, plant);
+            int totalBalance = gardenApp.getWallet().getBalance() + plant.getProfitValue();
+            gardenApp.getWallet().setBalance(totalBalance);
+            gardenApp.getInventory().removePlant(position);
             JOptionPane.showMessageDialog(jframe, "You just sold a " + plant.getPlantName() + " and earned "
                     + plant.getProfitValue() + "!");
             new InventoryPage(gardenApp);

@@ -13,53 +13,36 @@ import static java.awt.GridBagConstraints.*;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 //Represents the store page
-public class StorePage extends JFrame implements ActionListener {
+public class StorePage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
 
     //EFFECTS: constructs a store page
     public StorePage(GardenApp gardenApp) {
         this.gardenApp = gardenApp;
-        makeWindow();
+        makeWindow(jframe, panel, constraints);
         addStoreImage();
         addBalance();
-        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png");
-        makeButton("Cactus", "src/main/ui/Images/Seeds/CactusSeeds.png");
-        makeButton("Rose", "src/main/ui/Images/Seeds/RoseSeeds.png");
-        makeButton("Lavender", "src/main/ui/Images/Seeds/LavenderSeeds.png");
-        makeButton("Forget Me Not", "src/main/ui/Images/Seeds/ForgetMeNotSeeds.png");
-        makeButton("Sunflower", "src/main/ui/Images/Seeds/SunflowerSeeds.png");
-        makeButton("Garlic", "src/main/ui/Images/Seeds/GarlicSeeds.png");
-        makeButton("Potato", "src/main/ui/Images/Seeds/PotatoSeeds.png");
-        makeButton("Carrot", "src/main/ui/Images/Seeds/CarrotSeeds.png");
-        makeButton("Lettuce", "src/main/ui/Images/Seeds/LettuceSeeds.png");
-        makeButton("Eggplant", "src/main/ui/Images/Seeds/EggplantSeeds.png");
+        makeButton("Back", "src/main/ui/Images/Buttons/BackButton.png", false);
+        makeButton("Cactus", "src/main/ui/Images/Seeds/CactusSeeds.png", false);
+        makeButton("Rose", "src/main/ui/Images/Seeds/RoseSeeds.png", false);
+        makeButton("Lavender", "src/main/ui/Images/Seeds/LavenderSeeds.png", false);
+        makeButton("Forget Me Not", "src/main/ui/Images/Seeds/ForgetMeNotSeeds.png", false);
+        makeButton("Sunflower", "src/main/ui/Images/Seeds/SunflowerSeeds.png", false);
+        makeButton("Garlic", "src/main/ui/Images/Seeds/GarlicSeeds.png", false);
+        makeButton("Potato", "src/main/ui/Images/Seeds/PotatoSeeds.png", false);
+        makeButton("Carrot", "src/main/ui/Images/Seeds/CarrotSeeds.png", false);
+        makeButton("Lettuce", "src/main/ui/Images/Seeds/LettuceSeeds.png", false);
+        makeButton("Eggplant", "src/main/ui/Images/Seeds/EggplantSeeds.png", false);
         addScrollBar();
-    }
-
-    //EFFECTS: makes the window
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: adds vertical empty space on window
-    private void addEmptySpace() {
-        jframe.add(Box.createVerticalGlue());
     }
 
     //MODIFIES: this
     //EFFECTS: prints out current balance
-    public void addBalance() {
+    private void addBalance() {
         JLabel currentBalance = new JLabel("Balance: " + gardenApp.getWallet().getBalance());
         currentBalance.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         panel.add(currentBalance, constraints);
@@ -69,29 +52,13 @@ public class StorePage extends JFrame implements ActionListener {
 
     //MODIFIES: this
     //EFFECTS: adds image of store on screen
-    public void addStoreImage() {
+    private void addStoreImage() {
         ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/StoreImage.png")));
         JLabel label = new JLabel(icon, JLabel.CENTER);
         constraints.weighty = 1;
         constraints.weightx = 1;
         constraints.gridwidth = REMAINDER;
         panel.add(label, constraints);
-        jframe.add(panel);
-        addEmptySpace();
-    }
-
-    //MODIFIES: this
-    //EFFECTS: makes a button and places it on the frame
-    private void makeButton(String objectName, String fileName) {
-        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
-        button.setBackground(BACKGROUND);
-        button.setBorderPainted(false);
-        button.setOpaque(true);
-
-        button.addActionListener(this);
-        button.setActionCommand(objectName);
-
-        panel.add(button, constraints);
         jframe.add(panel);
         addEmptySpace();
     }

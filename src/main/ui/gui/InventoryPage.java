@@ -10,36 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-
-import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
 //Represents the inventory page
-public class InventoryPage implements ActionListener {
+public class InventoryPage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
 
     //EFFECTS: constructs the inventory page
     public InventoryPage(GardenApp gardenApp) {
         this.gardenApp = gardenApp;
-        makeWindow();
-        addBackButton();
+        makeWindow(jframe, panel, constraints);
+        makeBackButton();
         addInventoryImage();
         showInventory();
-    }
-
-    //EFFECTS: makes the window
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     //MODIFIES: this
@@ -54,24 +41,6 @@ public class InventoryPage implements ActionListener {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds back button to window
-    private void addBackButton() {
-        JButton button = new JButton(new ImageIcon(String.valueOf(
-                new File("src/main/ui/Images/Buttons/BackButton.png"))));
-        button.setBackground(BACKGROUND);
-        button.setOpaque(true);
-        button.setBorderPainted(false);
-        button.addActionListener(this);
-        button.setActionCommand("Back");
-
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        constraints.gridwidth = REMAINDER;
-        panel.add(button, constraints);
-        constraints.weighty = 1;
-        jframe.add(panel);
-    }
-
     //EFFECTS: makes a button and places it on the frame
     private void makeButton(int position, String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));

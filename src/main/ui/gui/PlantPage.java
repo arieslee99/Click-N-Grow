@@ -13,10 +13,10 @@ import static java.awt.GridBagConstraints.REMAINDER;
 import static javax.swing.SwingConstants.*;
 
 //Represents a plant page
-public class PlantPage implements ActionListener {
+public class PlantPage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
     private int position;
@@ -29,25 +29,14 @@ public class PlantPage implements ActionListener {
         this.garden = gardenApp.getGarden();
         this.position = Integer.parseInt(position);
         this.plant = garden.getPlant(this.position);
-        makeWindow();
-        addBackButton();
+        makeWindow(jframe, panel, constraints);
+        makeBackButton();
         printCounts(gardenApp.getGarden().getGarden().get(this.position));
         addMaintenanceButtons("Water", "src/main/ui/Images/Buttons/Water.png");
         addMaintenanceButtons("Feed", "src/main/ui/Images/Buttons/Feed.png");
         addMaintenanceButtons("Harvest", "src/main/ui/Images/Buttons/Harvest.png");
         addMaintenanceButtons("Uproot", "src/main/ui/Images/Buttons/Uproot.png");
         addPlant();
-    }
-
-    //EFFECTS: makes the window
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     //MODIFIES: this
@@ -88,25 +77,6 @@ public class PlantPage implements ActionListener {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds back button on the window
-    private void addBackButton() {
-        JButton button = new JButton(new ImageIcon(String.valueOf(
-                new File("src/main/ui/Images/Buttons/BackButton.png"))));
-        button.setBackground(BACKGROUND);
-        button.setBorderPainted(false);
-        button.setOpaque(true);
-        button.addActionListener(this);
-        button.setActionCommand("Back");
-
-        constraints.gridwidth = REMAINDER;
-        constraints.gridheight = NORTH;
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        panel.add(button, constraints);
-        jframe.add(panel);
-    }
-
-    //MODIFIES: this
     //EFFECTS: adds feed, water, harvest and uproot buttons to the screen
     private void addMaintenanceButtons(String objectName, String fileName) {
         JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
@@ -138,7 +108,7 @@ public class PlantPage implements ActionListener {
 
     //MODIFIES: this
     //EFFECTS: remove from garden or harvest plant into inventory
-    public void uprootAndHarvest(String action) {
+    private void uprootAndHarvest(String action) {
         if (action.equals("Uproot")) {
             JOptionPane.showMessageDialog(jframe, "You uprooted a " + plant.getPlantName() + "!");
             garden.removePlant(position);
@@ -157,7 +127,7 @@ public class PlantPage implements ActionListener {
     }
 
     //EFFECTS: feeds or waters plant
-    public void feedAndWater(String action) {
+    private void feedAndWater(String action) {
         if (action.equals("Water")) {
             plant.waterPlant();
         } else {

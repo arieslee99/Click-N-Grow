@@ -11,10 +11,10 @@ import java.io.File;
 import static java.awt.GridBagConstraints.*;
 
 //Represents the create your own account page
-public class CreateAccountPage implements ActionListener {
+public class CreateAccountPage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private JTextArea textArea;
     private String gardenName;
@@ -22,23 +22,11 @@ public class CreateAccountPage implements ActionListener {
 
     //EFFECTS: constructs a create your own account page
     public CreateAccountPage() {
-        makeWindow();
+        makeWindow(jframe, panel, constraints);
         addFenceImg();
         promptGardenName();
         makeButton("Next","src/main/ui/Images/Buttons/NextButton.png", true);
         makeButton("Back","src/main/ui/Images/Buttons/BackButton.png", false);
-    }
-
-    //EFFECTS: sets up the window of the current screen
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
     //MODIFIES: this
@@ -64,22 +52,6 @@ public class CreateAccountPage implements ActionListener {
         textArea.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         textArea.setBackground(BACKGROUND);
         panel.add(textArea, constraints);
-        jframe.add(panel);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: makes a button and places it on the frame
-    private void makeButton(String objectName, String fileName, boolean border) {
-        JButton button = new JButton(new ImageIcon(String.valueOf(new File(fileName))));
-        button.setBackground(BACKGROUND);
-        button.setOpaque(true);
-        button.setBorderPainted(border);
-
-        button.addActionListener(this);
-        button.setActionCommand(objectName);
-
-        panel.add(button, constraints);
-        constraints.weighty = 1;
         jframe.add(panel);
     }
 

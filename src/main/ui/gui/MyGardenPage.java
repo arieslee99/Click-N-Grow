@@ -11,43 +11,25 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
-import static java.awt.GridBagConstraints.*;
 import static javax.swing.SwingConstants.*;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.NORTH;
 
 //Represents the garden page
-public class MyGardenPage implements ActionListener {
+public class MyGardenPage extends WindowBasics implements ActionListener {
     private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
-    private JPanel panel;
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private GardenApp gardenApp;
 
     //EFFECTS: constructs a garden page
     public MyGardenPage(GardenApp gardenApp) {
         this.gardenApp = gardenApp;
-        makeWindow();
+        makeWindow(jframe, panel, constraints);
         makeBackButton();
         addGardenImage();
         seeGarden();
-    }
-
-    //EFFECTS: makes the window
-    public void makeWindow() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND);
-        jframe.getContentPane().setBackground(BACKGROUND);
-        jframe.setSize(500, 800);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: adds an empty vertical space to window
-    private void addEmptySpace() {
-        jframe.add(Box.createVerticalGlue());
     }
 
     //MODIFIES: this
@@ -57,25 +39,6 @@ public class MyGardenPage implements ActionListener {
         JLabel label = new JLabel(icon);
         constraints.gridheight = NORTH;
         panel.add(label, constraints);
-        jframe.add(panel);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: makes and adds back button on window
-    private void makeBackButton() {
-        File file = new File("src/main/ui/Images/Buttons/BackButton.png");
-        JButton button = new JButton(new ImageIcon(String.valueOf(file)));
-        button.setBackground(BACKGROUND);
-        button.setBorderPainted(false);
-        button.setOpaque(true);
-
-        button.addActionListener(this);
-        button.setActionCommand("Back");
-        constraints.gridwidth = REMAINDER;
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        panel.add(button, constraints);
-        constraints.weighty = 1;
         jframe.add(panel);
     }
 
