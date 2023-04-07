@@ -1,5 +1,8 @@
 package ui.gui;
 
+import model.Event;
+import model.EventLog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +29,12 @@ public abstract class WindowBasics implements ActionListener {
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    protected void printLog(EventLog el) {
+        for (Event next: el) {
+            System.out.println(next.toString());
+        }
     }
 
     //MODIFIES: this

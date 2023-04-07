@@ -32,6 +32,7 @@ public class Inventory {
     //EFFECTS: just adds the plant to inventory without removing anything from garden
     public void justAddPlant(Plant plant) {
         inventory.add(plant);
+        EventLog.getInstance().logEvent(new Event("Ripe plant added to inventory: " + plant.getPlantName()));
     }
 
     //REQUIRES: position < inventory size
@@ -43,6 +44,7 @@ public class Inventory {
     //MODIFIES: this
     //EFFECTS: removes plant at number position in inventory list
     public void removePlant(int position) {
+        EventLog.getInstance().logEvent(new Event("Plant removed from inventory: " + inventory.get(position).getPlantName()));
         inventory.remove(position);
     }
 

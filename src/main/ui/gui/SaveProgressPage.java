@@ -1,5 +1,6 @@
 package ui.gui;
 
+import model.EventLog;
 import ui.GardenApp;
 
 import javax.swing.*;

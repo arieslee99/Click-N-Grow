@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
+import static java.awt.GridBagConstraints.REMAINDER;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 import static javax.swing.SwingConstants.*;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.NORTH;
@@ -30,6 +32,7 @@ public class MyGardenPage extends WindowBasics implements ActionListener {
         makeBackButton();
         addGardenImage();
         seeGarden();
+        addScrollBar();
     }
 
     //MODIFIES: this
@@ -38,6 +41,9 @@ public class MyGardenPage extends WindowBasics implements ActionListener {
         ImageIcon icon = new ImageIcon(String.valueOf(new File("src/main/ui/Images/Garden.png")));
         JLabel label = new JLabel(icon);
         constraints.gridheight = NORTH;
+        constraints.gridwidth = REMAINDER;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
         panel.add(label, constraints);
         jframe.add(panel);
     }
@@ -61,10 +67,17 @@ public class MyGardenPage extends WindowBasics implements ActionListener {
             button.setActionCommand(String.valueOf(i));
 
             constraints.gridwidth = LEADING;
-            panel.add(button,constraints);
+            panel.add(button, constraints);
             jframe.add(panel);
         }
     }
+
+    private void addScrollBar() {
+        JScrollPane scrollPane =
+                new JScrollPane(panel, VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jframe.add(scrollPane);
+    }
+
 
     //EFFECTS: based on the action event, carry out corresponding action
     @Override

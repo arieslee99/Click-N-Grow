@@ -28,12 +28,14 @@ public abstract class Plant {
     //EFFECTS: remove one water unit from plant's water count (wc)
     public void waterPlant() {
         waterCount--;
+        EventLog.getInstance().logEvent(new Event("You watered this plant: " + plantName));
     }
 
     //MODIFIES: this
     //EFFECTS: remove one fertilizer unit from the plant's fertilizer count (fc)
     public void feedPlant() {
         fertilizerCount--;
+        EventLog.getInstance().logEvent(new Event("You fed this plant: " + plantName));
     }
 
     //MODIFIES: this

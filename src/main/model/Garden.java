@@ -20,11 +20,13 @@ public class Garden {
     //EFFECTS: adds a plant to garden
     public void addPlant(Plant p) {
         garden.add(p);
+        EventLog.getInstance().logEvent(new Event("New plant added to garden: " + p.getPlantName()));
     }
 
     //REQUIRES: position < size of garden
     //EFFECTS: removes plant in that position of the list
     public void removePlant(int position) {
+        EventLog.getInstance().logEvent(new Event("Dead plant removed from garden: " + garden.get(position)));
         garden.remove(position);
     }
 
@@ -32,6 +34,7 @@ public class Garden {
     //EFFECTS: removes all plants in garden
     public void emptyGarden() {
         garden.clear();
+        EventLog.getInstance().logEvent(new Event("All plants removed from garden."));
     }
 
 
@@ -40,6 +43,7 @@ public class Garden {
     //EFFECTS: removes all the "Dead!" plants from garden
     public void removeDeadPlants() {
         garden.removeIf(plant -> plant.getUpdatedLifeStatus().equals("Dead!"));
+        EventLog.getInstance().logEvent(new Event("All dead plants removed from garden."));
     }
 
     //getters

@@ -20,6 +20,7 @@ public class Wallet {
     public void decreaseBalance(int price) {
         if (balance >= price) {
             balance -= price;
+            EventLog.getInstance().logEvent(new Event("You decreased your balance by: " + price));
         }
     }
 
@@ -27,6 +28,7 @@ public class Wallet {
     //EFFECTS: increases balance by price
     public void increaseBalance(int price) {
         balance += price;
+        EventLog.getInstance().logEvent(new Event("You increased your balance by: " + price));
     }
 
     //MODIFIES: this
