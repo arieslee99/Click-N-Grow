@@ -44,7 +44,8 @@ public class Inventory {
     //MODIFIES: this
     //EFFECTS: removes plant at number position in inventory list
     public void removePlant(int position) {
-        EventLog.getInstance().logEvent(new Event("Plant removed from inventory: " + inventory.get(position).getPlantName()));
+        EventLog.getInstance().logEvent(
+                new Event("Plant removed from inventory: " + inventory.get(position).getPlantName()));
         inventory.remove(position);
     }
 

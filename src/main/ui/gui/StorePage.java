@@ -14,7 +14,6 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 //Represents the store page
 public class StorePage extends WindowBasics implements ActionListener {
-    private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();

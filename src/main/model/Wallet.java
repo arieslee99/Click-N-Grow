@@ -18,7 +18,7 @@ public class Wallet {
     //EFFECTS: decreases balance by price; balance stays the same if decrease will result in the balance
     //         being in the negatives
     public void decreaseBalance(int price) {
-        if (balance >= price) {
+        if (balance > price) {
             balance -= price;
             EventLog.getInstance().logEvent(new Event("You decreased your balance by: " + price));
         }

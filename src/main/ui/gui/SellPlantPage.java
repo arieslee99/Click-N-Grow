@@ -12,7 +12,6 @@ import java.io.File;
 
 //Represents the sell plant page
 public class SellPlantPage extends WindowBasics implements ActionListener {
-    private static final Color BACKGROUND = new Color(229, 180, 45, 255);
     private JFrame jframe = new JFrame();
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
@@ -60,8 +59,8 @@ public class SellPlantPage extends WindowBasics implements ActionListener {
             new InventoryPage(gardenApp);
         }
         if (e.getActionCommand().equals("Sell")) {
-            int totalBalance = gardenApp.getWallet().getBalance() + plant.getProfitValue();
-            gardenApp.getWallet().setBalance(totalBalance);
+            int increase = plant.getProfitValue();
+            gardenApp.getWallet().increaseBalance(increase);
             gardenApp.getInventory().removePlant(position);
             JOptionPane.showMessageDialog(jframe, "You just sold a " + plant.getPlantName() + " and earned "
                     + plant.getProfitValue() + "!");

@@ -14,6 +14,7 @@ public class Garden {
     public Garden(String name) {
         garden = new ArrayList<>();
         gardenName = name;
+        EventLog.getInstance().logEvent(new Event("You started a new garden called: " + name));
     }
 
     //MODIFIES: this
@@ -26,7 +27,8 @@ public class Garden {
     //REQUIRES: position < size of garden
     //EFFECTS: removes plant in that position of the list
     public void removePlant(int position) {
-        EventLog.getInstance().logEvent(new Event("Dead plant removed from garden: " + garden.get(position)));
+        EventLog.getInstance().logEvent(
+                new Event("Plant removed from garden: " + garden.get(position).getPlantName()));
         garden.remove(position);
     }
 

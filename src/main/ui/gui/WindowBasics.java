@@ -5,13 +5,12 @@ import model.EventLog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 
 import static java.awt.GridBagConstraints.REMAINDER;
 
-public abstract class WindowBasics implements ActionListener {
+public abstract class WindowBasics implements ActionListener, WindowListener {
     private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe;
     private JPanel panel;
@@ -27,10 +26,11 @@ public abstract class WindowBasics implements ActionListener {
         jframe.getContentPane().setBackground(BACKGROUND);
         jframe.setSize(500, 800);
         jframe.setLocationRelativeTo(null);
+        jframe.addWindowListener(this);
         jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //EFFECTS: prints event log from current session
     protected void printLog(EventLog el) {
         for (Event next: el) {
             System.out.println(next.toString());
@@ -61,6 +61,8 @@ public abstract class WindowBasics implements ActionListener {
         jframe.add(panel);
     }
 
+    //MODIFIES: this
+    //EFFECTS: makes the back button and places it on the screen
     protected void makeBackButton() {
         JButton button = new JButton(new ImageIcon(String.valueOf(
                 new File("src/main/ui/Images/Buttons/BackButton.png"))));
@@ -78,5 +80,37 @@ public abstract class WindowBasics implements ActionListener {
         jframe.add(panel);
     }
 
+    //EFFECTS: based on the action event, carry out corresponding action
     public abstract void actionPerformed(ActionEvent e);
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowOpened(WindowEvent e) {}
+
+    //EFFECTS: prints out the event log when window is closing
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printLog(EventLog.getInstance());
+        System.exit(0);
+    }
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowClosed(WindowEvent e) {}
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowIconified(WindowEvent e) {}
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowActivated(WindowEvent e) {}
+
+    //EFFECTS: does nothing
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
 }

@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.EventLog;
+
 //Represents the GUI of the application
 public class VisualGardenApp {
 

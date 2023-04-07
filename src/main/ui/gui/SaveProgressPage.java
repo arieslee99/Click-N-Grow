@@ -7,10 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 
 //Represent the quit page
 public class SaveProgressPage extends WindowBasics implements ActionListener {
-    private static final Color BACKGROUND = new Color(229, 180, 45);
     private JFrame jframe = new JFrame();
     private GardenApp gardenApp;
 
@@ -20,6 +21,7 @@ public class SaveProgressPage extends WindowBasics implements ActionListener {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         makeWindow(jframe, panel, constraints);
+        //jframe.addWindowListener(this);
         makeButton("Save", "src/main/ui/Images/Buttons/SaveButton.png", true);
         makeButton("Quit","src/main/ui/Images/Buttons/QuitButton.png", true);
         makeButton("Back","src/main/ui/Images/Buttons/BackButton.png", false);
@@ -35,10 +37,9 @@ public class SaveProgressPage extends WindowBasics implements ActionListener {
         if (e.getActionCommand().equals("Save")) {
             gardenApp.saveProgress();
             JOptionPane.showMessageDialog(jframe, "Your progress is saved!");
-            System.exit(0);
+            windowClosing(new WindowEvent(jframe, WindowEvent.WINDOW_CLOSING));
         } else if (e.getActionCommand().equals("Quit")) {
-            jframe.setVisible(false);
-            System.exit(0);
+            windowClosing(new WindowEvent(jframe, WindowEvent.WINDOW_CLOSING));
         }
     }
 }

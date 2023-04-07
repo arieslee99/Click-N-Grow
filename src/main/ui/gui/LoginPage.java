@@ -1,6 +1,7 @@
 package ui.gui;
 
 
+import model.EventLog;
 import ui.GardenApp;
 
 import javax.swing.*;
@@ -86,5 +87,6 @@ public class LoginPage implements ActionListener {
     public void loadAccount() {
         gardenApp = new GardenApp();
         gardenApp.loadProgress();
+        EventLog.getInstance().clear();
     }
 }
