@@ -58,7 +58,7 @@ enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
  log doesn't log the first purchase (cactus) decreasing the user's balance. The log only logs the balance when there is
 a noticeable change in the balance after a purchase (potato).
 
-![Logging.png](/Users/arieslee/IdeaProjects/project_v6l7y/Logging.png)
+![Logging.png](https://github.students.cs.ubc.ca/CPSC210-2022W-T2/project_v6l7y/blob/135f9706d99e7ae92a5e76de089c2dadd9202b2d/Logging.png)
 
 # Phase 4: Task 3
 In order to reduce the duplication and the number of subclasses, I would first make the abstract Plant class to be a concrete
