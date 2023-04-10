@@ -56,8 +56,9 @@ enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
 # Phase 4: Task 2
 - Users always have 100 coins when they first start a new account, and no matter how much they spend. This is why the
  log doesn't log the first purchase (cactus) decreasing the user's balance. The log only logs the balance when there is
-a noticeable change in the balance after a purchase (the potato).  
-![](../../Desktop/Logging.png)
+a noticeable change in the balance after a purchase (the potato).
+
+<img height="600" src="/Users/arieslee/IdeaProjects/project_v6l7y/Logging.png" width="300"/>
 
 # Phase 4: Task 3
 In order to reduce the duplication and the number of subclasses, I would first make the abstract Plant class to be a concrete
