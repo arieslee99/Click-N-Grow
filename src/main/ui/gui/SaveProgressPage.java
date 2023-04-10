@@ -21,7 +21,6 @@ public class SaveProgressPage extends WindowBasics implements ActionListener {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         makeWindow(jframe, panel, constraints);
-        //jframe.addWindowListener(this);
         makeButton("Save", "src/main/ui/Images/Buttons/SaveButton.png", true);
         makeButton("Quit","src/main/ui/Images/Buttons/QuitButton.png", true);
         makeButton("Back","src/main/ui/Images/Buttons/BackButton.png", false);

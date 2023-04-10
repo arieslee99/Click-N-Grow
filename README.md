@@ -53,3 +53,10 @@ enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
 - You can save the state of my application by going to the home page, click "quit", and click "save"
 - you can reload the state of my application by clicking "login" when you first open the application
 
+# Phase 4: Task 2
+- Users always have 100 coins when they first start a new account, and no matter how much they spend. This is why the
+ log doesn't log the first purchase (cactus) decreasing the user's balance. The log only logs the balance when there is
+a noticeable change in the balance after a purchase (the potato).  
+![](../../Desktop/Logging.png)
+
+# Phase 4: Task 3

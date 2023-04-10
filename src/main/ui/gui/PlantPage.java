@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import static java.awt.GridBagConstraints.REMAINDER;
-import static javax.swing.SwingConstants.*;
 
 //Represents a plant page
 public class PlantPage extends WindowBasics implements ActionListener {
