@@ -60,3 +60,16 @@ a noticeable change in the balance after a purchase (the potato).
 ![](../../Desktop/Logging.png)
 
 # Phase 4: Task 3
+In order to reduce the duplication and the number of subclasses, I would first make the abstract Plant class to be a concrete
+class. Then, within the Plant class I would create a static hashmap that contains all 11 plant names with their associated 
+unique prices. To retrieve a certain plant, there would be a method (e.g. getPlant()) that passes in a String plantName (e.g., getPlant(String PlantName))
+which would serve as the key to retrieve the associated price. With this approach, I would be able to remove all the individual 
+plant subclasses (and extends). 
+
+I would also refactor my GardenApp to adhere to the Single Responsibility Design heuristic. Currently, GardenApp contains all 
+the methods that run my TUI and GUI. These methods can be refactored into the following classes to increase cohesion and
+readability: "GardenKeeping", "Shopping", "InventoryCheck", "Banking". "GardenKeeping" would be responsible for functionalities relating
+to watering, feeding, harvesting and uprooting plants. "Shopping" would solely contain methods relating to buying plants from 
+the store. "InventoryCheck" would contain methods allowing users to sell their current harvested plants. Lastly,
+"Banking" would have methods related to showing the current balance and increasing/decreasing the balance. By refactoring these methods
+into their own classes, my application's design is more cohesive. 
