@@ -28,9 +28,7 @@ enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
 - As a user, I want to be able to select a ripe plant in my inventory and sell it. 
 - As a user, I want to be able to keep track of how much a plant is watered or fertilized.
 
-## References
-- Implementation of JsonReader and JsonWriter is based on JsonSerializationDemo
-  - methods were adjusted based on my own project's parameters, specifications, etc. 
+## References 
 - Override of equals method in Plant based on https://dzone.com/articles/java-cloning-even-copy-constructors-are-not-suffic
 - Pixel art is an adaptation (and inspired by) the following sources:
   - Stardew Valley
