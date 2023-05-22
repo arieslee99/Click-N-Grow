@@ -38,27 +38,14 @@ enjoy the pixel aesthetic, and a simple, non-strenuous game to pass time.
   - https://www.shutterstock.com/image-vector/seamless-pattern-8-bit-pixel-art-1536471818
   - https://www.vecteezy.com/vector-art/10807136-treasure-chest-pixel-art
 
-# Instructions for Grader
-- You can generate the first required action related to adding Xs to a Y by going to "Store", and purchasing a Cactus, Potato and Garlic
-  - By clicking onto a seed, you will purchase it
-  - Go to "my garden", and you will see the Cactus, Potato and Garlic
-- You can generate the second required action related to adding Xs to a Y by: 
-  - Going to "my garden", clicking into "Cactus"
-  - Fertilizer and water the cactus until both counts are 0 (you will not be able to harvest unripe plants)
-  - Click the "basket" button, which will harvest the cactus
-  - Go to "inventory" and you will see the harvested Cactus there 
-- You can locate my visual component by going to the "Store"
-- You can save the state of my application by going to the home page, click "quit", and click "save"
-- you can reload the state of my application by clicking "login" when you first open the application
-
-# Phase 4: Task 2
+# Logging Notes:
 - Users always have 100 coins when they first start a new account, and no matter how much they spend. This is why the
  log doesn't log the first purchase (cactus) decreasing the user's balance. The log only logs the balance when there is
 a noticeable change in the balance after a purchase (potato).
 
 ![Logging.png](https://github.students.cs.ubc.ca/CPSC210-2022W-T2/project_v6l7y/blob/135f9706d99e7ae92a5e76de089c2dadd9202b2d/Logging.png)
 
-# Phase 4: Task 3
+# Future Improvements
 In order to reduce the duplication and the number of subclasses, I would first make the abstract Plant class to be a concrete
 class. Then, within the Plant class I would create a static hashmap that contains all 11 plant names with their associated 
 unique prices. To retrieve a certain plant, there would be a method (e.g. getPlant()) that passes in a String plantName (e.g., getPlant(String PlantName))
